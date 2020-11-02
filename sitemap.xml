@@ -305,27 +305,6 @@
   </url>
   
   <url>
-    <loc>http://www.zanple.top/tags/C/</loc>
-    <lastmod>2020-11-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.zanple.top/tags/%E6%B8%B8%E6%88%8F/</loc>
-    <lastmod>2020-11-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.zanple.top/tags/works/</loc>
-    <lastmod>2020-11-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://www.zanple.top/tags/C4D/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
@@ -341,6 +320,27 @@
   
   <url>
     <loc>http://www.zanple.top/tags/%E5%8A%A8%E7%94%BB/</loc>
+    <lastmod>2020-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.zanple.top/tags/works/</loc>
+    <lastmod>2020-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.zanple.top/tags/C/</loc>
+    <lastmod>2020-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.zanple.top/tags/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -571,7 +571,7 @@
   </url>
   
   <url>
-    <loc>http://www.zanple.top/tags/C/</loc>
+    <loc>http://www.zanple.top/tags/%E7%B4%A0%E6%8F%8F/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -585,7 +585,7 @@
   </url>
   
   <url>
-    <loc>http://www.zanple.top/tags/%E7%B4%A0%E6%8F%8F/</loc>
+    <loc>http://www.zanple.top/tags/C/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -601,14 +601,14 @@
   </url>
   
   <url>
-    <loc>http://www.zanple.top/categories/C/</loc>
+    <loc>http://www.zanple.top/categories/C4D/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.zanple.top/categories/C4D/</loc>
+    <loc>http://www.zanple.top/categories/C/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -706,7 +706,7 @@
   </url>
   
   <url>
-    <loc>http://www.zanple.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/</loc>
+    <loc>http://www.zanple.top/categories/%E7%BE%8E%E6%9C%AF/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -720,7 +720,7 @@
   </url>
   
   <url>
-    <loc>http://www.zanple.top/categories/%E7%BE%8E%E6%9C%AF/</loc>
+    <loc>http://www.zanple.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/</loc>
     <lastmod>2020-11-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
