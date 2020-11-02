@@ -155,9 +155,9 @@
     <category term="Unity" scheme="http://www.zanple.top/categories/Unity/"/>
     
     
-    <category term="works" scheme="http://www.zanple.top/tags/works/"/>
-    
     <category term="游戏" scheme="http://www.zanple.top/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+    <category term="works" scheme="http://www.zanple.top/tags/works/"/>
     
     <category term="Unity" scheme="http://www.zanple.top/tags/Unity/"/>
     
@@ -289,9 +289,9 @@
     
     <category term="3ds Max" scheme="http://www.zanple.top/tags/3ds-Max/"/>
     
-    <category term="C4D" scheme="http://www.zanple.top/tags/C4D/"/>
-    
     <category term="works" scheme="http://www.zanple.top/tags/works/"/>
+    
+    <category term="C4D" scheme="http://www.zanple.top/tags/C4D/"/>
     
     <category term="短片" scheme="http://www.zanple.top/tags/%E7%9F%AD%E7%89%87/"/>
     
@@ -541,13 +541,13 @@
     
     <category term="3ds Max" scheme="http://www.zanple.top/tags/3ds-Max/"/>
     
+    <category term="works" scheme="http://www.zanple.top/tags/works/"/>
+    
     <category term="C4D" scheme="http://www.zanple.top/tags/C4D/"/>
     
     <category term="ZBrush" scheme="http://www.zanple.top/tags/ZBrush/"/>
     
     <category term="动画" scheme="http://www.zanple.top/tags/%E5%8A%A8%E7%94%BB/"/>
-    
-    <category term="works" scheme="http://www.zanple.top/tags/works/"/>
     
   </entry>
   
