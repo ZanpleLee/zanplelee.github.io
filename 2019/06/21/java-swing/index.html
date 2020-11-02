@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Java Swing图形用户界面 - Addendum</title>
+
+
+    <meta name="description" content="通过图形用户界面（Graphics User Interface，GUI），用户和程序之间可以方便地进行交互。Java包含了许多来支持GUI设计的类，如：按钮、菜单、列表、文本框等组件类，同时它还包含窗口、面板等容器类。学习组件除了了解组件的属性和功能外，一个更重要的方面是学习怎样处理组件上发生的界面事件。在学习处理事件时，必须很好地掌握事件源、监视器、处理事件的接口这三个概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Swing图形用户界面">
+<meta property="og:url" content="http://www.zanple.top/2019/06/21/java-swing/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="通过图形用户界面（Graphics User Interface，GUI），用户和程序之间可以方便地进行交互。Java包含了许多来支持GUI设计的类，如：按钮、菜单、列表、文本框等组件类，同时它还包含窗口、面板等容器类。学习组件除了了解组件的属性和功能外，一个更重要的方面是学习怎样处理组件上发生的界面事件。在学习处理事件时，必须很好地掌握事件源、监视器、处理事件的接口这三个概念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/images/og_image.png">
+<meta property="article:published_time" content="2019-06-21T03:46:01.000Z">
+<meta property="article:modified_time" content="2019-06-21T03:46:01.000Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="游戏">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Java Swing图形用户界面" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>Java Swing图形用户界面
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2019-06-21T03:46:01.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2019-06-21</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    11 分钟 读完 (大约 1620 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <blockquote>
+<p>通过图形用户界面（Graphics User Interface，GUI），用户和程序之间可以方便地进行交互。Java包含了许多来支持GUI设计的类，如：按钮、菜单、列表、文本框等组件类，同时它还包含窗口、面板等容器类。学习组件除了了解组件的属性和功能外，一个更重要的方面是学习怎样处理组件上发生的界面事件。在学习处理事件时，必须很好地掌握事件源、监视器、处理事件的接口这三个概念。<a id="more"></a></p>
+<p>（1）事件源</p>
+<p>能够产生事件的对象都可以成为事件源，如文本框、按钮、下拉式列表等。也就是说，事件源必须是一个对象，而且这个对象必须是Java认为能够发生事件的对象。</p>
+<p>（2）监视器。</p>
+<p>我们需要一个对象对事件源进行监视，以便对发生的事件作出处理。事件源通过调用相应的方法将某个对象作为自己的监视器。</p>
+<p>（3）处理事件的接口。</p>
+<p>监视器负责处理事件源发生的事件。Java语言使用了接口回调技术设计了它的处理事件模式。事件源增加监视的方法</p>
+<p>addXXXListener(XXXListener listener)</p>
+<p>中的参数是一个接口，listener可以引用任何实现了该接口的类所创建的对象，当事件源发生事件时，接口listener立刻回调被类实现的接口中的某个方法。</p>
+</blockquote>
+<h1 id="1-算术测试"><a href="#1-算术测试" class="headerlink" title="1. 算术测试"></a>1. 算术测试</h1><p>编写一个算术测试小软件，用来训练小学生的算术能力。程序有3个类组成，其中Teacher对象充当监视器，负责给出算术题目，并判断回答者的答案是否正确。ComputerFrame对象负责为算术题目提供视图，比如用户可以通过ComputerFrame对象提供的GUI界面看到题目，并通过该GUI界面给出题目的答案；MailClass是软件的主类。</p>
+<div align=center>
+
+<p><img src="image-20200327164941342.png" alt="算术测试"></p>
+</div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MainClass.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">      ComputerFrame frame;</span><br><span class="line">      frame=<span class="keyword">new</span> ComputerFrame(); </span><br><span class="line">      frame.setTitle(<span class="string">"算术测试"</span>);  </span><br><span class="line">      frame.setBounds(<span class="number">100</span>,<span class="number">100</span>,<span class="number">650</span>,<span class="number">180</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">ComputerFrame.java</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ComputerFrame</span> <span class="keyword">extends</span> <span class="title">JFrame</span> </span>&#123;</span><br><span class="line">   JMenuBar menubar;</span><br><span class="line">   JMenu choiceGrade; <span class="comment">//选择级别的菜单</span></span><br><span class="line">   JMenuItem  grade1,grade2;</span><br><span class="line">   JTextField textOne,textTwo,textResult;</span><br><span class="line">   JButton getProblem,giveAnwser;</span><br><span class="line">   JLabel operatorLabel,message;</span><br><span class="line">   Teacher teacherZhang;</span><br><span class="line">   ComputerFrame() &#123; </span><br><span class="line">      teacherZhang=<span class="keyword">new</span> Teacher();</span><br><span class="line">      teacherZhang.setMaxInteger(<span class="number">20</span>);</span><br><span class="line">      setLayout(<span class="keyword">new</span> FlowLayout());</span><br><span class="line">      menubar = <span class="keyword">new</span> JMenuBar(); </span><br><span class="line">      choiceGrade = <span class="keyword">new</span> JMenu(<span class="string">"选择级别"</span>); </span><br><span class="line">      grade1 = <span class="keyword">new</span> JMenuItem(<span class="string">"幼儿级别"</span>);</span><br><span class="line">      grade2 = <span class="keyword">new</span> JMenuItem(<span class="string">"儿童级别"</span>);</span><br><span class="line">      grade1.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">                                   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">                                      teacherZhang.setMaxInteger(<span class="number">10</span>);</span><br><span class="line">                                   &#125;</span><br><span class="line">                              &#125;);</span><br><span class="line">      grade2.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">                                   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">                                      teacherZhang.setMaxInteger(<span class="number">50</span>);</span><br><span class="line">                                   &#125;</span><br><span class="line">                              &#125;); </span><br><span class="line">      choiceGrade.add(grade1);</span><br><span class="line">      choiceGrade.add(grade2);</span><br><span class="line">      menubar.add(choiceGrade);</span><br><span class="line">      setJMenuBar(menubar); </span><br><span class="line">      textOne = <span class="keyword">new</span> JTextField(<span class="number">5</span>); <span class="comment">//创建textOne,其可见字符长是5</span></span><br><span class="line">      textTwo=<span class="keyword">new</span> JTextField(<span class="number">5</span>);</span><br><span class="line">      textResult=<span class="keyword">new</span> JTextField(<span class="number">5</span>);  </span><br><span class="line">      operatorLabel=<span class="keyword">new</span> JLabel(<span class="string">"+"</span>);</span><br><span class="line">      operatorLabel.setFont(<span class="keyword">new</span> Font(<span class="string">"Arial"</span>,Font.BOLD,<span class="number">20</span>)); </span><br><span class="line">      message=<span class="keyword">new</span> JLabel(<span class="string">"你还没有回答呢"</span>);</span><br><span class="line">      getProblem=<span class="keyword">new</span> JButton(<span class="string">"获取题目"</span>);</span><br><span class="line">      giveAnwser=<span class="keyword">new</span> JButton(<span class="string">"确认答案"</span>);</span><br><span class="line">      add(getProblem); </span><br><span class="line">      add(textOne);</span><br><span class="line">      add(operatorLabel);</span><br><span class="line">      add(textTwo);</span><br><span class="line">      add(<span class="keyword">new</span> JLabel(<span class="string">"="</span>));</span><br><span class="line">      add(textResult);</span><br><span class="line">      add(giveAnwser); </span><br><span class="line">      add(message);</span><br><span class="line">      textResult.requestFocus();</span><br><span class="line">      textOne.setEditable(<span class="keyword">false</span>);</span><br><span class="line">      textTwo.setEditable(<span class="keyword">false</span>);</span><br><span class="line">      getProblem.setActionCommand(<span class="string">"getProblem"</span>);</span><br><span class="line">      textResult.setActionCommand(<span class="string">"answer"</span>);</span><br><span class="line">      giveAnwser.setActionCommand(<span class="string">"answer"</span>);</span><br><span class="line">      teacherZhang.setJTextField(textOne,textTwo,textResult);</span><br><span class="line">      teacherZhang.setJLabel(operatorLabel,message); </span><br><span class="line">getProblem.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			teacherZhang.actionPerformed(e);</span><br><span class="line">		   &#125;</span><br><span class="line">&#125;);</span><br><span class="line">      giveAnwser.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			teacherZhang.actionPerformed(e);</span><br><span class="line">		   &#125;</span><br><span class="line">	 &#125;);</span><br><span class="line">	 textResult.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			teacherZhang.actionPerformed(e);</span><br><span class="line">		   &#125;</span><br><span class="line">	 &#125;);      </span><br><span class="line">setVisible(<span class="keyword">true</span>);</span><br><span class="line">     validate();</span><br><span class="line">     setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">Teacher.java</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> numberOne,numberTwo;</span><br><span class="line">   String operator=<span class="string">""</span>;</span><br><span class="line">   <span class="keyword">boolean</span> isRight;</span><br><span class="line">   Random random;  <span class="comment">//用于给出随机数</span></span><br><span class="line">   <span class="keyword">int</span> maxInteger;  <span class="comment">//题目中最大的整数</span></span><br><span class="line">   JTextField textOne,textTwo,textResult;</span><br><span class="line">   JLabel operatorLabel,message;</span><br><span class="line">   Teacher() &#123;</span><br><span class="line">      random = <span class="keyword">new</span> Random(); </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaxInteger</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">      maxInteger=n;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">      String str = e.getActionCommand();</span><br><span class="line">      <span class="keyword">if</span>(str.equals(<span class="string">"getProblem"</span>)) &#123;</span><br><span class="line">          numberOne = random.nextInt(maxInteger)+<span class="number">1</span>;<span class="comment">//1至maxInteger之间的随机数;</span></span><br><span class="line">          numberTwo=random.nextInt(maxInteger)+<span class="number">1</span>;</span><br><span class="line">          <span class="keyword">double</span> d=Math.random(); <span class="comment">// 获取(0,1)之间的随机数</span></span><br><span class="line">          <span class="keyword">if</span>(d&gt;=<span class="number">0.5</span>)</span><br><span class="line">             operator=<span class="string">"+"</span>;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">            operator=<span class="string">"-"</span>;  </span><br><span class="line">          textOne.setText(<span class="string">""</span>+numberOne);</span><br><span class="line">          textTwo.setText(<span class="string">""</span>+numberTwo); </span><br><span class="line">          operatorLabel.setText(operator); </span><br><span class="line">          message.setText(<span class="string">"请回答"</span>);</span><br><span class="line">          textResult.setText(<span class="keyword">null</span>); </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(str.equals(<span class="string">"answer"</span>)) &#123;</span><br><span class="line">          String answer=textResult.getText();</span><br><span class="line">          <span class="keyword">try</span>&#123;  <span class="keyword">int</span> result=Integer.parseInt(answer); </span><br><span class="line">                <span class="keyword">if</span>(operator.equals(<span class="string">"+"</span>))&#123;</span><br><span class="line">                  <span class="keyword">if</span>(result==numberOne+numberTwo)</span><br><span class="line">                     message.setText(<span class="string">"你回答正确"</span>);</span><br><span class="line">                  <span class="keyword">else</span></span><br><span class="line">                    message.setText(<span class="string">"你回答错误"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(operator.equals(<span class="string">"-"</span>))&#123;</span><br><span class="line">                  <span class="keyword">if</span>(result==numberOne-numberTwo)</span><br><span class="line">                     message.setText(<span class="string">"你回答正确"</span>);</span><br><span class="line">                  <span class="keyword">else</span></span><br><span class="line">                    message.setText(<span class="string">"你回答错误"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">catch</span>(NumberFormatException ex) &#123;</span><br><span class="line">                message.setText(<span class="string">"请输入数字字符"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setJTextField</span><span class="params">(JTextField ... t)</span> </span>&#123;</span><br><span class="line">      textOne=t[<span class="number">0</span>];</span><br><span class="line">      textTwo=t[<span class="number">1</span>];</span><br><span class="line">      textResult=t[<span class="number">2</span>]; </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setJLabel</span><span class="params">(JLabel ...label)</span> </span>&#123;</span><br><span class="line">      operatorLabel=label[<span class="number">0</span>];</span><br><span class="line">      message=label[<span class="number">1</span>];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-华容道"><a href="#2-华容道" class="headerlink" title="2. 华容道"></a>2. 华容道</h1><p>华容道是大家很熟悉的一个传统智力游戏。编写GUI程序，用户通过键盘和鼠标事件来实现曹操、关羽等人物的移动。</p>
+<div align=center>
+
+<p><img src="image-20200327165218787.png" alt="华容道"></p>
+</div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MainClass.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">      <span class="keyword">new</span> Hua_Rong_Road();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line">Hua_Rong_Road.java </span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hua_Rong_Road</span> <span class="keyword">extends</span> <span class="title">JFrame</span> <span class="keyword">implements</span> <span class="title">MouseListener</span>,<span class="title">KeyListener</span>,<span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">   Person person[]=<span class="keyword">new</span> Person[<span class="number">10</span>];</span><br><span class="line">   JButton left,right,above,below;  </span><br><span class="line">   JButton restart=<span class="keyword">new</span> JButton(<span class="string">"重新开始"</span>);</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Hua_Rong_Road</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      init();</span><br><span class="line">      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); </span><br><span class="line">      setBounds(<span class="number">100</span>,<span class="number">100</span>,<span class="number">320</span>,<span class="number">500</span>);</span><br><span class="line">      setVisible(<span class="keyword">true</span>);</span><br><span class="line">      validate();</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      setLayout(<span class="keyword">null</span>); </span><br><span class="line">      add(restart);</span><br><span class="line">      restart.setBounds(<span class="number">100</span>,<span class="number">320</span>,<span class="number">120</span>,<span class="number">35</span>);</span><br><span class="line">      restart.addActionListener(<span class="keyword">this</span>);</span><br><span class="line">      String name[]=&#123;<span class="string">"曹操"</span>,<span class="string">"关羽"</span>,<span class="string">"张"</span>,<span class="string">"刘"</span>,<span class="string">"周"</span>,<span class="string">"黄"</span>,<span class="string">"兵"</span>,<span class="string">"兵"</span>,<span class="string">"兵"</span>,<span class="string">"兵"</span>&#125;;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;name.length;k++) &#123;</span><br><span class="line">         person[k]=<span class="keyword">new</span> Person(k,name[k]);</span><br><span class="line">         person[k].addMouseListener(<span class="keyword">this</span>);</span><br><span class="line">         person[k].addKeyListener(<span class="keyword">this</span>);</span><br><span class="line">         add(person[k]);</span><br><span class="line">      &#125;</span><br><span class="line">      person[<span class="number">0</span>].setBounds(<span class="number">104</span>,<span class="number">54</span>,<span class="number">100</span>,<span class="number">100</span>); </span><br><span class="line">      person[<span class="number">1</span>].setBounds(<span class="number">104</span>,<span class="number">154</span>,<span class="number">100</span>,<span class="number">50</span>); </span><br><span class="line">      person[<span class="number">2</span>].setBounds(<span class="number">54</span>, <span class="number">154</span>,<span class="number">50</span>,<span class="number">100</span>); </span><br><span class="line">      person[<span class="number">3</span>].setBounds(<span class="number">204</span>,<span class="number">154</span>,<span class="number">50</span>,<span class="number">100</span>); </span><br><span class="line">      person[<span class="number">4</span>].setBounds(<span class="number">54</span>, <span class="number">54</span>, <span class="number">50</span>,<span class="number">100</span>); </span><br><span class="line">      person[<span class="number">5</span>].setBounds(<span class="number">204</span>, <span class="number">54</span>, <span class="number">50</span>,<span class="number">100</span>);  </span><br><span class="line">      person[<span class="number">6</span>].setBounds(<span class="number">54</span>,<span class="number">254</span>,<span class="number">50</span>,<span class="number">50</span>);  </span><br><span class="line">      person[<span class="number">7</span>].setBounds(<span class="number">204</span>,<span class="number">254</span>,<span class="number">50</span>,<span class="number">50</span>); </span><br><span class="line">      person[<span class="number">8</span>].setBounds(<span class="number">104</span>,<span class="number">204</span>,<span class="number">50</span>,<span class="number">50</span>); </span><br><span class="line">      person[<span class="number">9</span>].setBounds(<span class="number">154</span>,<span class="number">204</span>,<span class="number">50</span>,<span class="number">50</span>); </span><br><span class="line">      person[<span class="number">9</span>].requestFocus();</span><br><span class="line">      left=<span class="keyword">new</span> JButton();  </span><br><span class="line">      right=<span class="keyword">new</span> JButton();</span><br><span class="line">      above=<span class="keyword">new</span> JButton(); </span><br><span class="line">      below=<span class="keyword">new</span> JButton();</span><br><span class="line">      add(left); </span><br><span class="line">      add(right);</span><br><span class="line">      add(above); </span><br><span class="line">      add(below);</span><br><span class="line">      left.setBounds(<span class="number">49</span>,<span class="number">49</span>,<span class="number">5</span>,<span class="number">260</span>);</span><br><span class="line">      right.setBounds(<span class="number">254</span>,<span class="number">49</span>,<span class="number">5</span>,<span class="number">260</span>);</span><br><span class="line">      above.setBounds(<span class="number">49</span>,<span class="number">49</span>,<span class="number">210</span>,<span class="number">5</span>);</span><br><span class="line">      below.setBounds(<span class="number">49</span>,<span class="number">304</span>,<span class="number">210</span>,<span class="number">5</span>);</span><br><span class="line">      validate();</span><br><span class="line">   &#125; </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyTyped</span><span class="params">(KeyEvent e)</span></span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyReleased</span><span class="params">(KeyEvent e)</span></span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span> </span>&#123;</span><br><span class="line">     Person man=(Person)e.getSource();</span><br><span class="line">     <span class="keyword">if</span>(e.getKeyCode()==KeyEvent.VK_DOWN)</span><br><span class="line">         go(man,below);</span><br><span class="line">     <span class="keyword">if</span>(e.getKeyCode()==KeyEvent.VK_UP)</span><br><span class="line">         go(man,above);</span><br><span class="line">     <span class="keyword">if</span>(e.getKeyCode()==KeyEvent.VK_LEFT)</span><br><span class="line">         go(man,left);</span><br><span class="line">     <span class="keyword">if</span>(e.getKeyCode()==KeyEvent.VK_RIGHT)</span><br><span class="line">        go(man,right);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mousePressed</span><span class="params">(MouseEvent e)</span> </span>&#123;</span><br><span class="line">     Person man=(Person)e.getSource();</span><br><span class="line">     <span class="keyword">int</span> x=-<span class="number">1</span>,y=-<span class="number">1</span>;</span><br><span class="line">     x=e.getX();</span><br><span class="line">     y=e.getY();</span><br><span class="line">     <span class="keyword">int</span> w=man.getBounds().width;</span><br><span class="line">     <span class="keyword">int</span> h=man.getBounds().height;</span><br><span class="line">     <span class="keyword">if</span>(y&gt;h/<span class="number">2</span>)</span><br><span class="line">        go(man,below); </span><br><span class="line">     <span class="keyword">if</span>(y&lt;h/<span class="number">2</span>)</span><br><span class="line">        go(man,above);</span><br><span class="line">     <span class="keyword">if</span>(x&lt;w/<span class="number">2</span>)</span><br><span class="line">        go(man,left);</span><br><span class="line">     <span class="keyword">if</span>(x&gt;w/<span class="number">2</span>)</span><br><span class="line">        go(man,right);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseReleased</span><span class="params">(MouseEvent e)</span> </span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseEntered</span><span class="params">(MouseEvent e)</span>  </span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseExited</span><span class="params">(MouseEvent e)</span>   </span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseClicked</span><span class="params">(MouseEvent e)</span>  </span>&#123;&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">(Person man,JButton direction)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">boolean</span> move=<span class="keyword">true</span>;</span><br><span class="line">      Rectangle manRect=man.getBounds();</span><br><span class="line">      <span class="keyword">int</span> x=man.getBounds().x;</span><br><span class="line">      <span class="keyword">int</span> y=man.getBounds().y;</span><br><span class="line">      <span class="keyword">if</span>(direction==below)</span><br><span class="line">         y=y+<span class="number">50</span>;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(direction==above)</span><br><span class="line">         y=y-<span class="number">50</span>;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(direction==left)</span><br><span class="line">         x=x-<span class="number">50</span>;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(direction==right)</span><br><span class="line">         x=x+<span class="number">50</span>;</span><br><span class="line">      manRect.setLocation(x,y);</span><br><span class="line">      Rectangle directionRect=direction.getBounds();</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">10</span>;k++) &#123;</span><br><span class="line">          Rectangle personRect=person[k].getBounds();</span><br><span class="line">         <span class="keyword">if</span>((manRect.intersects(personRect))&amp;&amp;(man.number!=k))</span><br><span class="line">            move=<span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(manRect.intersects(directionRect))</span><br><span class="line">            move=<span class="keyword">false</span>;</span><br><span class="line">      <span class="keyword">if</span>(move==<span class="keyword">true</span>)</span><br><span class="line">            man.setLocation(x,y);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">      dispose(); </span><br><span class="line">      <span class="keyword">new</span> Hua_Rong_Road();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Person.java </span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">JButton</span> <span class="keyword">implements</span> <span class="title">FocusListener</span> </span>&#123; </span><br><span class="line">   <span class="keyword">int</span> number;</span><br><span class="line">   Color c=<span class="keyword">new</span> Color(<span class="number">255</span>,<span class="number">245</span>,<span class="number">170</span>);</span><br><span class="line">   Font font=<span class="keyword">new</span> Font(<span class="string">"宋体"</span>,Font.BOLD,<span class="number">12</span>);</span><br><span class="line">   Person(<span class="keyword">int</span> number,String s) &#123;</span><br><span class="line">       <span class="keyword">super</span>(s);</span><br><span class="line">       setBackground(c);</span><br><span class="line">       setFont(font);</span><br><span class="line">       <span class="keyword">this</span>.number=number;</span><br><span class="line">       c=getBackground();</span><br><span class="line">       addFocusListener(<span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">focusGained</span><span class="params">(FocusEvent e)</span> </span>&#123;</span><br><span class="line">      setBackground(Color.red);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">focusLost</span><span class="params">(FocusEvent e)</span> </span>&#123;</span><br><span class="line">      setBackground(c);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>任何组件上都可以发生鼠标事件，如：鼠标进入组件、退出组件、在组件上方单击鼠标、拖动鼠标等都触发鼠标事件，即导致MouseEvent类自动创建一个事件对象。事件源注册监视器的方法是addMouseListener(MouseListener listener)。当某个组件处于激活状态时，如果用户敲击键盘上一个键就导致这个组件触发KeyEvent事件。使用KeyListener接口处理键盘事件。组件可以触发焦点事件。当组件具有焦点监视器后，如果组件从无输入焦点变成有输入焦点或从有输入焦点变成无输入焦点都会触发FocusEvent事件。使用FocusListener接口处理焦点事件。</p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2019/06/21/java-swing/">Java Swing图形用户界面</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2019/06/21/java-swing/">http://www.zanple.top/2019/06/21/java-swing/</a></li>
+                    <li><strong>发布时间：</strong>2019-06-21</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/08/23/unity-new-museum/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Unity-新式数字博物馆</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/18/cg-polygon-scan/">
+                <span class="level-item">计算机图形学-多边形扫描转换</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-算术测试">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 算术测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-华容道">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 华容道</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Java Swing图形用户界面" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

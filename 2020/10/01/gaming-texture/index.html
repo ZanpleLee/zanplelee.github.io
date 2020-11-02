@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>游戏资源常见贴图类型 - Addendum</title>
+
+
+    <meta name="description" content="游戏模型制作中用到了很多贴图类型，通过不同类型贴图的组合使用以达到最终需要得到的模型效果。最常见的类型有Diffuse、Emissive、Normal、Opacity、Specular、Roughness。游戏制作中根据项目资产的需要使用不同的贴图类型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏资源常见贴图类型">
+<meta property="og:url" content="http://www.zanple.top/2020/10/01/gaming-texture/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="游戏模型制作中用到了很多贴图类型，通过不同类型贴图的组合使用以达到最终需要得到的模型效果。最常见的类型有Diffuse、Emissive、Normal、Opacity、Specular、Roughness。游戏制作中根据项目资产的需要使用不同的贴图类型。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/gaming-texture.jpg">
+<meta property="article:published_time" content="2020-10-01T08:10:37.000Z">
+<meta property="article:modified_time" content="2020-10-01T08:45:26.451Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="游戏">
+<meta property="article:tag" content="美术">
+<meta property="article:tag" content="计算机图形学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/gaming-texture.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="游戏资源常见贴图类型" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/gaming-texture.jpg" alt="游戏资源常见贴图类型">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>游戏资源常见贴图类型
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2020-10-01T08:10:37.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-10-01</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-10-01T08:45:26.451Z"><i class="far fa-calendar-check">&nbsp;</i>2020-10-01</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/%E6%B8%B8%E6%88%8F%E7%BE%8E%E6%9C%AF/">游戏美术</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    41 分钟 读完 (大约 6077 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>游戏模型制作中用到了很多贴图类型，通过不同类型贴图的组合使用以达到最终需要得到的模型效果。最常见的类型有<strong>Diffuse</strong>、<strong>Emissive</strong>、<strong>Normal</strong>、<strong>Opacity</strong>、<strong>Specular</strong>、<strong>Roughness</strong>。游戏制作中根据项目资产的需要使用不同的贴图类型。<a id="more"></a></p>
+<p><img src="2workflow.jpg" alt="金属/粗糙度和高光反射/光泽度工作流程"></p>
+<p>在基于物理纹理的渲染（PBR）中，有两种最常见的工作流程，即<em>金属/粗糙度</em>和<em>高光反射/光泽度</em>。在使用过程中，两种工作流程各有利弊（详见<a href="https://academy.substance3d.com/courses/the-pbr-guide-part2-zh">PBR-Guide</a>）。</p>
+<hr>
+<h1 id="1-颜色贴图"><a href="#1-颜色贴图" class="headerlink" title="1. 颜色贴图"></a>1. 颜色贴图</h1><p>颜色贴图主要为Diffuse、Albedo、Base Color三种。一般认为这三者是等同的。</p>
+<h2 id="1-1-Diffuse"><a href="#1-1-Diffuse" class="headerlink" title="1.1 Diffuse"></a>1.1 Diffuse</h2><p>光照模型在Lambertian（兰伯特材质球）着色器中会把颜色贴图叫做<strong>Diffuse Map</strong>（也叫颜色贴图），通常在绘制这张Diffuse Map的时候会把物体的结构阴影信息也绘制进去。在传统工作流中，Diffuse Map是带着光影信息的。</p>
+<p><img src="Diffuse.jpg" alt="不同工作流中的Diffuse"></p>
+<p><strong>Diffuse Map</strong>（漫反射颜色）应该表示物体表面的颜色，在Unity中叫做Albedo。在Specular/Glossiness工作流程中，对于金属材质而言它没有漫反射(或者说比较少)，所以使用黑色来填充。而非金属材质反射光少于金属材质，并且它折射的光只有较少的吸收通常重新折射回表面，因此对于非金属材质，使用的是漫反射颜色来填充。<strong>需要特别注意的是，漫反射纹理不应该包含任何光照信息，因为将基于（环境）添加光照到物体的纹理上。</strong></p>
+<h2 id="1-2-Albedo"><a href="#1-2-Albedo" class="headerlink" title="1.2 Albedo"></a>1.2 Albedo</h2><p>主要体现模型的纹理和颜色。Unity的Shader（着色器）中，把颜色贴图叫做<strong>Albedo</strong>。</p>
+<h2 id="1-3-Base-Color"><a href="#1-3-Base-Color" class="headerlink" title="1.3 Base Color"></a>1.3 Base Color</h2><p><strong>Base Color</strong>是把颜色贴图剔除光影变化后，我们看到的最基础的颜色。在PBR工作流中颜色贴图叫做Base Color， 其中包含了<em>电介质的反射颜色</em>和金属的反射率值这两种类型的数据。因为Base Color Map中带了金属的反射率值，所以需要配合上Metallic Map一起使用的。</p>
+<blockquote>
+<p><img src="BaseColorandDiffuse.jpg" alt="BaseColor和Diffuse"></p>
+<p>比较容易造成混淆的是<strong>金属/粗糙度</strong>工作流中的Base Color和<strong>高光反射/光泽度</strong>工作流中的Diffuse(Albedo)的区别，两种工作流使用了不同的贴图方法来处理颜色。实际上，<strong>金属/粗糙度工作流中的Base Color本质上是高光反射/光泽度工作流中的Diffuse和Specular的结合</strong>，这也是有时候通过先创建金属/粗糙度材质再将其转化为高光反射/光泽度的原因之一。</p>
+<div align=center>
+
+<p><img src="TextureMapComparison.gif" alt="BaseColor包含了Diffuse中的介电材质值和Specular中的金属材质值"></p>
+</div>
+
+<p>在高光反射/光泽度工作流中，Diffuse贴图严格影响着材质的基本颜色而对材质的其他特征（如发射率）没有影响。对于介电材质而言，其材质颜色来自Diffuse贴图；对于金属材质而言，大部分颜色来自Specular高光贴图。</p>
+<p>在金属/粗糙度工作流中，BaseColor贴图实则包含了漫反射和高光贴图的信息。而Metallic贴图这决定了有多少BaseColor被解释为漫反射或者高光。</p>
+</blockquote>
+<h2 id="1-4-Gradient-amp-ColorLUT"><a href="#1-4-Gradient-amp-ColorLUT" class="headerlink" title="*1.4 Gradient&amp;ColorLUT"></a>*1.4 Gradient&amp;ColorLUT</h2><p><strong>Gradient Map</strong>（渐变图）和ColorLUT（颜色查找表）也可以认为是颜色贴图的一种，这类贴图通过在一维或二维的方式将一种颜色映射到另一种颜色。且通常作为全局资源使用（不是特定于某一模型）。</p>
+<div align=center>
+
+<p><img src="TeamFortress2.jpg" alt="使用渐变纹理来控制漫反射光照"></p>
+</div>
+
+<p>Valve在<a href="https://cdn.cloudflare.steamstatic.com/apps/valve/2007/NPAR07_IllustrativeRenderingInTeamFortress2.pdf">Team Fortress 2</a>中使用渐变纹理来控制漫反射光照，渲染游戏中具有插画风格的角色。</p>
+<p><img src="ColorLUT.jpg" alt="ColorLUT"></p>
+<p>ColorLUT是预先生成的一张结果纹理，可用于优化复杂光照的渲染，如皮肤、毛发等。</p>
+<h1 id="2-凹凸贴图"><a href="#2-凹凸贴图" class="headerlink" title="2. 凹凸贴图"></a>2. 凹凸贴图</h1><p>凹凸贴图主要为<strong>Bump</strong>、<strong>Normal</strong>和<strong>Displacement</strong>三种，三种贴图都是为模型提供更多的细节。其中Displacement有时用于改变模型的顶点位置（作为Parallax视差贴图使用），而Bump和Normal则<strong>不会</strong>改变模型的顶点位置。</p>
+<p><img src="bumpnordis.jpg" alt="凹凸贴图对比"></p>
+<p><em>就实现复杂度/质量与性能开销而言，Dispalcement&gt;Normal&gt;Bump(&gt;Reflection)。</em></p>
+<h2 id="2-1-Bump"><a href="#2-1-Bump" class="headerlink" title="2.1 Bump"></a>2.1 Bump</h2><p><strong>Bump Map</strong>（凹凸贴图 ）是一个类似于法线贴图的概念，有时也称为<strong>Height</strong>（高度图）。但是凹凸贴图只包含高度信息而不包含角度信息。凹凸贴图的优点是可以很直观地看出模型表面的凹凸情况（颜色越浅表明该位置的表面越像外凸起，反之亦然），但是计算更复杂，因此更性能开销更大。高度图通常与法线贴图结合使用，用于给出表面凹凸的额外信息。</p>
+<blockquote>
+<p>Substance Painter、Substance Designer导出的Height高度图等同于Bump凹凸贴图，而不是Displacement置换贴图的信息。</p>
+</blockquote>
+<h2 id="2-2-Normal"><a href="#2-2-Normal" class="headerlink" title="2.2 Normal"></a>2.2 Normal</h2><p><strong>Normal Map</strong>（法线贴图）是凹凸映射技术的另一种应用。法线贴图包含角度信息而不包含任何高度信息，其R、G、B三个通道储存的信息表示了斜面的方向和陡峭程度。</p>
+<p><img src="softedge.jpg" alt="法线贴图与凹凸贴图对比"></p>
+<p>这一特征使得我们可以使用法线贴图储存的角度信息来柔化尖锐的边缘（仅使用Bump高度信息无法做到这一点，因为只有高度信息无法知道边缘应该沿着哪个方向弯曲）。柔化边缘不仅可以让物体看起来更真实，还能进一步突出物体的形状（尤其是在游戏对象在屏幕上占比较小的时候）。</p>
+<p><img src="3normal.jpg" alt="不同空间下的法线贴图"></p>
+<p>由于法线贴图存储的是表面的法线方向，而方向是相对于坐标空间而言的。因此存在三种不同的空间法线贴图：<em>Tangent切线空间</em>、<em>Object对象空间</em>、<em>World世界空间</em>，三种法线贴图都有各自的优缺点且能达到相同的效果，只是计算方式有所不同。</p>
+<h3 id="2-2-1-Tangent-Space"><a href="#2-2-1-Tangent-Space" class="headerlink" title="2.2.1 Tangent Space"></a>2.2.1 Tangent Space</h3><p><img src="TanNormal.jpg" alt="切线空间下的法线贴图"></p>
+<p><strong>Tangent Space</strong>（切线空间），顾名思义，切线空间法线是基于每个面的切线方向。切线空间下的法线贴图是最常见的法线贴图形式，大部分看起来都是浅蓝紫色的。其中，<strong>B通道</strong>表示法线方向的斜率；<strong>R通道</strong>表示左右切线方向的斜率；<strong>G通道</strong>表示切线方向向上或向下的斜率（<strong>OpenGl向上，DirectX向下</strong>）。</p>
+<h3 id="2-2-2-Object-Space"><a href="#2-2-2-Object-Space" class="headerlink" title="2.2.2 Object Space"></a>2.2.2 Object Space</h3><p><img src="ObjNormal.jpg" alt="模型空间下的法线贴图"></p>
+<p><strong>Object Space</strong>（对象空间或模型空间）法线贴图基于整个对象而不是每个面，大部分看起来都是五颜六色的。对象空间法线贴图在渲染上较快，但由于其无法镜像任何UV，在对称模型上会浪费大量纹理空间，且无法进行UV动画。因此在很多情况下切线空间较优于对象空间。</p>
+<h3 id="2-2-3-World-Space"><a href="#2-2-3-World-Space" class="headerlink" title="2.2.3 World Space"></a>2.2.3 World Space</h3><div align=center>
+
+<p><img src="WldNormal.png" alt="世界空间下的法线贴图"></p>
+</div>
+
+<p><strong>World Space</strong>（世界空间）是基于全局坐标的法线贴图，也是三种法线贴图中最不灵活的一种。 这种类型的法线贴图一般仅用于环境这类大型，静态和非对称的物体，或者临时用于诸如Substance Painter、Substance Designer之类软件中作为计算特殊效果（如风化效果）的一种方法。</p>
+<h2 id="2-3-Displacement"><a href="#2-3-Displacement" class="headerlink" title="2.3 Displacement"></a>2.3 Displacement</h2><p><strong>Displacement Map</strong>（置换贴图，也叫移位贴图）可以改变模型对象的几何形状，因此在提供最真实的效果的同时也会大幅增加渲染性能的开销。</p>
+<p><img src="rocksdisp.jpg" alt="置换贴图效果"></p>
+<p>置换贴图能实现很多仅仅通过Bump和Normal无法实现的效果（尤其是模型对象的轮廓表现）。</p>
+<div align=center>
+
+<p><img src="image05.jpg" alt="结合凹凸贴图使用"></p>
+</div>
+
+<p>置换贴图也常作为高度图来生成地形，并结合凹凸贴图实现丰富的地形效果。</p>
+<h3 id="2-3-1-Parallax-Map"><a href="#2-3-1-Parallax-Map" class="headerlink" title="2.3.1 Parallax Map"></a>2.3.1 Parallax Map</h3><p>置换贴图的另一个用途是作为<strong>Parallax Map</strong>（视差贴图，也称为Virtual Displacement Map虚拟置换贴图）使用。</p>
+<p>![视差贴图效果](Comparison Parallax.png)</p>
+<p>视差贴图是一种更高级的技术，能够提供比凹凸贴图更多的深度。视差贴图通过偏移每个像素的纹理坐标以达到更好的视觉表现，但仍不如性能开销更大的<strong>Relief Map</strong>（浮雕贴图）。</p>
+<h3 id="2-3-2-Relief-Map"><a href="#2-3-2-Relief-Map" class="headerlink" title="2.3.2 Relief Map"></a>2.3.2 Relief Map</h3><p><strong>Relief Map</strong>（浮雕贴图，也称为Parallax Occlusion Map视差遮挡贴图）能够实现比视差贴图更深的凹凸深度，并能实现自阴影和遮挡效果。</p>
+<div align=center>
+
+<p><img src="CrysisParallax.jpg" alt="孤岛危机中的浮雕映射效果"></p>
+</div>
+
+<h3 id="2-3-3-Vector-Displacement"><a href="#2-3-3-Vector-Displacement" class="headerlink" title="2.3.3 Vector Displacement"></a>2.3.3 Vector Displacement</h3><p><strong>Vector Displacement Map</strong>（矢量置换贴图）是高度贴图的扩展，与传统Displacement（置换贴图）不同的是矢量置换贴图记录了模型上各点的高度和方向信息，并储存为16/32位浮点颜色信息。</p>
+<p><img src="VectorDisp02.jpg" alt="矢量置换贴图与传统置换贴图"></p>
+<p>传统的置换贴图使用的是低模的UV坐标，贴图记录了高模和低模之间的差异。而矢量置换贴图在使用类似映射方法的同时，而另一个模型最近的顶点之间的距离，还能在空间中移动顶点。因此也能记录复杂的凹面下（如蘑菇、耳朵等）的顶点信息，将雕刻细节从一个模型转移到另一个模型。</p>
+<h1 id="3-反射贴图"><a href="#3-反射贴图" class="headerlink" title="3. 反射贴图"></a>3. 反射贴图</h1><p>与颜色贴图中的Diffuse和Base Color一样，反射贴图中根据工作流的不同也有不一样的贴图类型。</p>
+<h2 id="3-1-Metal-Roughness"><a href="#3-1-Metal-Roughness" class="headerlink" title="3.1 Metal - Roughness"></a>3.1 Metal - Roughness</h2><p><img src="MetRoug.jpg" alt="金属/粗糙度工作流"></p>
+<p>在<em>金属/粗糙度</em>工作流中，使用的反射贴图为<strong>Metallic</strong>和<strong>Roughness</strong>。</p>
+<h3 id="3-1-1-Metallic"><a href="#3-1-1-Metallic" class="headerlink" title="3.1.1 Metallic"></a>3.1.1 Metallic</h3><p><strong>Metallic</strong>（金属贴图）起到类似于蒙版的作用，区分固有色贴图中的金属和绝缘体数据。在金属性贴图中，0（黑色-0 sRGB）表示绝缘体，而1（白-255 sRGB）表示金属。</p>
+<div align=center>
+
+<p><img src="Metallic.jpg" alt="金属贴图"></p>
+</div>
+
+<p><strong>金属贴图的运行方式类似于掩码的运作方式，因为该贴图向着色器阐释如何分析基础色中的数据。</strong>金属感对象的光泽度由粗糙度控制。 材质越粗糙，其光泽度就会越低， 而缺少粗糙度将使金属显得非常有光泽。</p>
+<h3 id="3-1-2-Roughness"><a href="#3-1-2-Roughness" class="headerlink" title="3.1.2 Roughness"></a>3.1.2 Roughness</h3><p><strong>Roughness</strong>（粗糙度贴图）定义材质得粗糙度信息，0（黑色-0 sRGB）表示光滑，1（白-255 sRGB）表示粗糙。粗粗糙度是指造成光漫射的表面不规则状况，反射方向根据表面粗糙度自由变化。这改变了光的方向，但是光强度保持恒定不变。表面越粗糙，高光越散越暗。表面越光滑，高光反射集中，尽管反射的光的总量是一点的，表面也会更亮，光会更强。</p>
+<div align=center>
+
+<p><img src="Roughness.jpg" alt="粗糙度贴图"></p>
+</div>
+
+<p>Roughness粗糙度贴图 与Glossiness Map光泽度贴图是<strong>相反的</strong>。Roughness 反向就变成Glossiness Map 。</p>
+<h2 id="3-2-Specular-Glossiness"><a href="#3-2-Specular-Glossiness" class="headerlink" title="3.2 Specular - Glossiness"></a>3.2 Specular - Glossiness</h2><p><img src="SpeGlos.jpg" alt="高光反射/光泽度工作流"></p>
+<p>在<em>高光反射/光泽度</em>工作流中，使用的反射贴图为<strong>Specular</strong>和<strong>Glossiness</strong>。</p>
+<h3 id="3-2-1-Specular"><a href="#3-2-1-Specular" class="headerlink" title="3.2.1 Specular"></a>3.2.1 Specular</h3><p><strong>Specular</strong>（高光贴图）表示高光得范围、强度、颜色，在<strong>Specular工作流中，</strong>颜色越亮高光越强，黑色表示没有高光。</p>
+<div align=center>
+
+<p><img src="Specular.jpg" alt="高光贴图"></p>
+</div>
+
+<p>高光反射规定了金属的反射率值和非金属的F0。使用RGB贴图可以在贴图中创建不同反射率的电介质材质。</p>
+<p><strong>高光度也可影响材质的光泽度。</strong> 将“高光度（Specular）”值调整到接近1时，将使材质的反射和反射高光显得特别强特别显眼， 而将该值减小到接近0会弱化反射及反射高光，直到它们几乎不存在为止。</p>
+<p><strong>高光度（Specular）也深受粗糙度影响。</strong> 即使“高光度（Specular）”输入设置为1，通过将“粗糙度（Roughness）”的值设置为1，也可以取消高光度效果。 另外，如果启用了金属感，那么调整高光度不会影响材质。</p>
+<h3 id="3-2-2-Glossiness"><a href="#3-2-2-Glossiness" class="headerlink" title="3.2.2 Glossiness"></a>3.2.2 Glossiness</h3><p><strong>Glossiness</strong>（缩写Gloss，光泽度贴图），定义材质得粗糙度信息，跟Roughness相反，0（黑色-0 sRGB）表示粗糙，1（白-255 sRGB）表示光滑。</p>
+<div align=center>
+
+<p><img src="Glossiness.jpg" alt="光泽度贴图"></p>
+</div>
+
+<p>光泽度无非是指表面反射光线的能力。 表面能够反射的光线越多，光泽度越高。 表面能够反射的光线越少，光泽度越低。 表面反射光线的能力受环境中各种因素的影响，例如落在对象上的那些非常小颗粒的灰尘，以及接触对象时从手上沾染到对象上的油污， 所有这一切都会影响表面反射光线的能力。</p>
+<h2 id="3-3-Anisotropic-Map"><a href="#3-3-Anisotropic-Map" class="headerlink" title="*3.3 Anisotropic Map"></a>*3.3 Anisotropic Map</h2><div align=center>
+
+<p><img src="brushmore.jpg" alt="各向异性贴图"></p>
+</div>
+
+<p><strong>Anisotropic Map</strong>（各向异性贴图）是一种特殊的反射贴图。拉丝金属通常具有各向异性的高光，这是由表面的微划痕引起的。有时使用各项异性贴图去制作拉丝金属的效果。</p>
+<h1 id="4-结构贴图"><a href="#4-结构贴图" class="headerlink" title="4. 结构贴图"></a>4. 结构贴图</h1><h2 id="4-1-Ambient-Occlusion"><a href="#4-1-Ambient-Occlusion" class="headerlink" title="4.1 Ambient Occlusion"></a>4.1 Ambient Occlusion</h2><p><strong>Ambient Occlusion</strong>（AO，环境光遮蔽贴图）描述了较大尺度的光线遮蔽信息，通常由高模烘培得到。指表面某点能获得多少环境中的光，用来模拟物体之间所产生的阴影，在不打光的时候增加体积感。</p>
+<p><img src="AO.jpg" alt="AO图"></p>
+<p>环境光遮蔽贴图基于物体与其他物体越接近的区域，受到反射光线的照明越弱这一现象来模拟现实照明的一部分效果。<strong>该贴图只影响漫反射分配，不影响高光反射分配。</strong></p>
+<h2 id="4-2-Cavity"><a href="#4-2-Cavity" class="headerlink" title="4.2 Cavity"></a>4.2 Cavity</h2><p><strong>Cavity Map</strong>（缝隙图）描述了比AO图更小尺度的光线遮蔽信息，通常由高模或者法线贴图烘培得到。</p>
+<p><img src="Cav.jpg" alt="缝隙图"></p>
+<p>缝隙图只包含模型对象表面的凹面区域而不包括凸面区域，因此缝隙图通常大部分都是白色的，只有凹陷区域是深色的。<strong>与AO图不同的是，缝隙图影响不仅会影响漫反射，还会影响高光反射部分。</strong></p>
+<h2 id="4-3-Bent-Normal"><a href="#4-3-Bent-Normal" class="headerlink" title="4.3 Bent Normal"></a>4.3 Bent Normal</h2><p><strong>Bent Normal Map</strong>（环境法线贴图）有助于减少照明构建之后发生的漏光现象。</p>
+<p><img src="BentNormal.jpg" alt="环境法线贴图"></p>
+<p>环境法线贴图能够和AO图结合使用以改善漫反射间接照明，通过将环境发现代替法线用于间接照明来使漫反射间接照明更接近于全局光照。</p>
+<h2 id="4-4-Curvature"><a href="#4-4-Curvature" class="headerlink" title="4.4 Curvature"></a>4.4 Curvature</h2><p><strong>Curvature</strong>（曲率贴图）是存储网格的凸度/凹度的纹理，可用于遮盖表面会出现更多磨损的地方或可能发生次表面散射的地方（凸面），可能积累更多污垢（凹面）的地方，以检查表面的连续性等。</p>
+<p><img src="Cur.jpg" alt="曲率贴图"></p>
+<p>曲率贴图允许提取和存储凹凸信息。黑色的值代表了凹区域，白色的值代表了凸区域，灰色值表示中性/平坦区域。。</p>
+<h2 id="4-5-Thickness"><a href="#4-5-Thickness" class="headerlink" title="4.5 Thickness"></a>4.5 Thickness</h2><p><strong>Thickness</strong>（厚度贴图）记录了表面厚度信息，可以用于辅助制作表面散射(SSS，简称3S材质)材质，或直接扩散/反照率假装SSS的效果。 </p>
+<p><img src="Thi.jpg" alt="厚度贴图"></p>
+<p>其黑色代表薄的地方、白色代表厚的地方。</p>
+<h1 id="5-光照与环境贴图"><a href="#5-光照与环境贴图" class="headerlink" title="5. 光照与环境贴图"></a>5. 光照与环境贴图</h1><h2 id="5-1-Light-Map"><a href="#5-1-Light-Map" class="headerlink" title="5.1 Light Map"></a>5.1 Light Map</h2><p><strong>Light Map</strong>（光照贴图）用来存储预渲染的光照信息，用于静态模型上的间接光照，解决实时动态光源效果不好且消耗性能的问题。</p>
+<div align=center>
+
+<p><img src="Lightmapping.jpg" alt="光照贴图"></p>
+</div>
+
+<p>光照贴图通常存储了静态烘培光源的颜色和亮度，由于光照贴图是预渲染的，因此可以使用如光能传递等非实时方法来得到更真实的效果。</p>
+<h2 id="5-2-Spherical-Environment-Map"><a href="#5-2-Spherical-Environment-Map" class="headerlink" title="5.2 Spherical Environment Map"></a>5.2 Spherical Environment Map</h2><p><strong>Spherical Environment Map</strong>（球面环境贴图）是最简单的反射映射技术之一。球面环境贴图将环境光存储在球面上，然后用环境光去渲染整个的物体。</p>
+<p><img src="Snipaste_2020-09-30_23-50-35.jpg" alt="球面环境贴图"></p>
+<p><img src="Snipaste_2020-09-30_23-50-53.jpg" alt="球面环境贴图的缺陷"></p>
+<p>由于是通过球体来存储环境信息，这就导致了描述的不是均匀的信息，<strong>会在靠近极点的地方出现扭曲</strong>（墨卡托投影：将地球进行投影到平面，维度高的地方在平面地图上看起来会更大）</p>
+<h2 id="5-2-Cube-Map"><a href="#5-2-Cube-Map" class="headerlink" title="5.2 Cube Map"></a>5.2 Cube Map</h2><p><strong>Cube Map</strong>（立方体贴图）是环境映射的一种实现方法。环境映射可以模拟物体周围的环境，而使用了环境映射的物体可以看起来像镀了层金属一样反射出周围的环境。</p>
+<p><img src="Snipaste_2020-09-30_23-51-12.jpg" alt="立方体贴图"></p>
+<p>立方体贴图包含了6张图像，对应着立方体的6个面，每个面表示沿着世界空间下的轴向观察所得的图像。</p>
+<p><img src="Snipaste_2020-09-30_23-51-42.jpg" alt="立方体贴图"></p>
+<p>立方体贴图解决了球面环境贴图图像扭曲的问题，<strong>但立方体贴图不能模拟多次反射的结果。</strong></p>
+<h2 id="5-3-Radiosity-Normal-Map"><a href="#5-3-Radiosity-Normal-Map" class="headerlink" title="5.3 Radiosity Normal Map"></a>5.3 Radiosity Normal Map</h2><p><strong>Radiosity Normal Map</strong>（辐射度法线贴图）是光贴图和法线贴图的特殊混合。可以将照明作为一组三个光照贴图进行烘焙，以存储照明矢量，而不仅仅是亮度/颜色。这使表面法线贴图可以接收定向照明，因此，通过烘焙的照明信息可以更准确地照明凹凸。</p>
+<div align=center>
+
+<p><img src="RadiosityNormalMap.jpg" alt="Half-Life®2/ Valve Source™Shading"></p>
+</div>
+
+<p>Valve在Half-Life 2中广泛使用了此方法，他们在GDC 2004论文*<a href="http://www.decew.net/OSS/References/D3DTutorial10_Half-Life2_Shading.pdf">Half-Life®2/ Valve Source™Shading</a>*中将其称为“辐射度法线贴图” 。</p>
+<h1 id="6-其他贴图"><a href="#6-其他贴图" class="headerlink" title="6. 其他贴图"></a>6. 其他贴图</h1><h2 id="6-1-ID-Mask"><a href="#6-1-ID-Mask" class="headerlink" title="6.1 ID/Mask"></a>6.1 ID/Mask</h2><p><strong>ID/Mask Map</strong>（ID、遮罩贴图）用于选择不同的区域，进行分别绘制。</p>
+<p><img src="ID.jpg" alt="ID/遮罩贴图"></p>
+<h2 id="6-2-Emissive"><a href="#6-2-Emissive" class="headerlink" title="6.2 Emissive"></a>6.2 Emissive</h2><p><strong>Emissive Map</strong>（自发光贴图）控制表面发射光的颜色和亮度。当场景中使用了自发光材质时，它看起来像一个可见光。物体将呈现发光效果。</p>
+<p><img src="EmissionOn.jpg" alt="自发光贴图"></p>
+<p>自发光材质通常用于某些部位应该从内部照亮的物体上，例如监视器屏幕、高速制动的汽车盘式制动器、控制面板上的发光按钮，或黑暗中仍然可见的怪物眼睛。简单的自发光材质可以通过一个颜色和亮度来定义。</p>
+<h2 id="6-3-Opacity"><a href="#6-3-Opacity" class="headerlink" title="6.3 Opacity"></a>6.3 Opacity</h2><p><strong>Opacity</strong>（透明贴图）定义贴图的不透明度，用于裁剪表面的一部分。黑色是透明的部分，白色为不透明的部分，灰色为半透明的部分。</p>
+<div align=center>
+
+<p><img src="Opacity.jpg" alt="透明贴图的应用"></p>
+</div>
+
+<p>当材质使用不透明度贴图时，它将充当遮罩，该遮罩将隐藏对象的某些部分。例如可以将“不透明度”贴图用于剪切树叶形状，穿孔表面和网格等。</p>
+<h2 id="6-5-Position"><a href="#6-5-Position" class="headerlink" title="6.5 Position"></a>6.5 Position</h2><p><strong>Position Map</strong>（位置贴图）使用R/G/B三个通道描述X/Y/Z轴上顶点对应的位置。</p>
+<p><img src="PositionMap.jpg" alt="位置贴图"></p>
+<p>通常位置贴图来实现模型底部到顶部的渐变效果等，如墙壁底部的污渍、石块底部的青苔。</p>
+<h2 id="6-6-Detail-Map"><a href="#6-6-Detail-Map" class="headerlink" title="6.6 Detail Map"></a>6.6 Detail Map</h2><p><strong>Detail</strong>（细节贴图）是用于平铺的局部贴图纹理，以相对较低的成本，内存和性能来增加表面细节（微观和宏观）。</p>
+<p><img src="DetailMap.jpg" alt="细节贴图的使用"></p>
+<div align=center>
+
+<p><img src="Detail.jpg" alt="细节贴图的组成"></p>
+</div>
+
+<p>细节贴图通常为四方连续纹理，并由一组贴图组合而成（法线、反射率、光泽度等）。</p>
+<h2 id="6-7-Flow-Map"><a href="#6-7-Flow-Map" class="headerlink" title="6.7 Flow Map"></a>6.7 Flow Map</h2><p><strong>Flow Map</strong>（流动贴图）存储的是向量场数据，可以用来制作流动的水面效果。</p>
+<p><img src="Flowmap.gif" alt="Flowmap"></p>
+<p>Valve在Portal 2和Left 4 Dead 2中广泛使用了此方法，他们在SIGGRAPH 2010论文*<a href="http://advances.realtimerendering.com/s2010/Vlachos-Waterflow(SIGGRAPH%202010%20Advanced%20RealTime%20Rendering%20Course).pdf">Vlachos/Water Flow in Portal 2</a>*中分享了用流动贴图制作流动水面的技术。</p>
+<h2 id="6-8-DuDv-Map"><a href="#6-8-DuDv-Map" class="headerlink" title="6.8 DuDv Map"></a>6.8 DuDv Map</h2><p><strong>DuDv</strong>贴图是使用一种纹理扭曲另一种纹理的像素的一种简单方法。常用于火上的热雾、涟漪折射的水面等。</p>
+<div align=center>
+
+<p><img src="dudvmap.jpg" alt="DuDv贴图"></p>
+</div>
+
+<p>DuDv贴图与法线贴图类似，都是将方向信息存储在纹理中，但DuDv贴图仅用到了R通道和G通道。</p>
+<div align=center>
+
+<p><img src="dudvmap2.jpg" alt="DuDv贴图原理"></p>
+</div>
+
+<p>DuDv的工作方式与视差贴图扭曲曲面的方式类似，只是DuDv不考虑视角（无视差）。从DuDv贴图中获取Du和Dv，对反射贴图中的每个像素，将Du添加到反射贴图的U纹理坐标，并将Dv添加到其V坐标。最后偏移反射贴图像素，从而产生失真。</p>
+<hr>
+<ol>
+<li><p>《Unity Shader入门精要》</p>
+</li>
+<li><p>《Real-Time Rendering 4th Edition》</p>
+</li>
+<li><p>GAMES101:现代计算机图形学入门[<a href="http://games-cn.org/intro-graphics/]">http://games-cn.org/intro-graphics/]</a></p>
+</li>
+<li><p>游戏美术基础：游戏贴图[<a href="https://www.jianshu.com/p/c1ed26cbb6b4]">https://www.jianshu.com/p/c1ed26cbb6b4]</a></p>
+</li>
+<li><p>Polycount - Texture types[<a href="http://wiki.polycount.com/wiki/Texture_types]">http://wiki.polycount.com/wiki/Texture_types]</a></p>
+</li>
+<li><p>《Real-time Shallow Water Simulation and Environment Mapping and Clouds - Rene Truelsen》</p>
+</li>
+<li><p>What are the different texture maps for?[<a href="https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for]">https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for]</a></p>
+</li>
+<li><p>The PBR Guide part 1[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]</a></p>
+</li>
+<li><p>The PBR Guide part 2[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]</a></p>
+</li>
+<li><p>Diffuse/Specular vs BaseColor[<a href="https://resources.turbosquid.com/stemcell/stemcell-3d-modeling-workflow/stemcell-textures-materials/diffuse-specular-vs-basecolor/]">https://resources.turbosquid.com/stemcell/stemcell-3d-modeling-workflow/stemcell-textures-materials/diffuse-specular-vs-basecolor/]</a></p>
+</li>
+<li><p>Normal vs. Displacement Mapping &amp; Why Games Use Normals[<a href="https://cgcookie.com/articles/normal-vs-displacement-mapping-why-games-use-normals]">https://cgcookie.com/articles/normal-vs-displacement-mapping-why-games-use-normals]</a></p>
+</li>
+<li><p>Physically-Based Rendering, And You Can Too![<a href="https://marmoset.co/posts/physically-based-rendering-and-you-can-too/]">https://marmoset.co/posts/physically-based-rendering-and-you-can-too/]</a></p>
+</li>
+<li><p>Level of Detail[<a href="https://resources.turbosquid.com/level-of-detail/]">https://resources.turbosquid.com/level-of-detail/]</a></p>
+</li>
+<li><p>Elliminate Texture Confusion: Bump, Normal and Displacement Maps[<a href="https://www.pluralsight.com/blog/film-games/bump-normal-and-displacement-maps]">https://www.pluralsight.com/blog/film-games/bump-normal-and-displacement-maps]</a></p>
+</li>
+<li><p>VECTOR DISPLACEMENT MAPS[<a href="http://docs.pixologic.com/user-guide/3d-modeling/exporting-your-model/vector-displacement-Maps/]">http://docs.pixologic.com/user-guide/3d-modeling/exporting-your-model/vector-displacement-Maps/]</a></p>
+</li>
+<li><p>Parallax Map with Offset Limiting: A PerPixel Approximation of Uneven Surfaces</p>
+</li>
+<li><p>BRUSHED METAL V-RAY MATERIAL[<a href="https://resources.turbosquid.com/library-tutorials/brushed-metal/]">https://resources.turbosquid.com/library-tutorials/brushed-metal/]</a></p>
+</li>
+<li><p>Half Avocado[<a href="https://quixel.com/megascans/home?category=3D%20asset&amp;category=edible&amp;category=fruit&amp;assetId=ujcxeblva]">https://quixel.com/megascans/home?category=3D%20asset&amp;category=edible&amp;category=fruit&amp;assetId=ujcxeblva]</a></p>
+</li>
+<li><p>Art of Lighting Game Environments in Unity[<a href="https://cgcookie.com/articles/art-of-lighting-game-environments]">https://cgcookie.com/articles/art-of-lighting-game-environments]</a></p>
+</li>
+<li><p>Detail Maps[<a href="https://docs.cryengine.com/display/SDKDOC2/Detail+Maps]">https://docs.cryengine.com/display/SDKDOC2/Detail+Maps]</a></p>
+</li>
+<li><p>180701 UE4 Flowmap Fields Visualizer[<a href="https://www.youtube.com/watch?v=frfcRzuw6OM]">https://www.youtube.com/watch?v=frfcRzuw6OM]</a></p>
+</li>
+</ol>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2020/10/01/gaming-texture/">游戏资源常见贴图类型</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2020/10/01/gaming-texture/">http://www.zanple.top/2020/10/01/gaming-texture/</a></li>
+                    <li><strong>发布时间：</strong>2020-10-01</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E7%BE%8E%E6%9C%AF/" rel="tag">美术</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/09/13/graphic-debugger-intro/">
+                <span class="level-item">Graphic Debugger工具简单入门</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-颜色贴图">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 颜色贴图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-Diffuse">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 Diffuse</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-Albedo">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 Albedo</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-3-Base-Color">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 Base Color</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-4-Gradient-amp-ColorLUT">
+        <!-- span class="has-mr-6">1.4</span-->
+        <span>*1.4 Gradient&ColorLUT</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-凹凸贴图">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 凹凸贴图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-Bump">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 Bump</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-Normal">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 Normal</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-2-1-Tangent-Space">
+        <!-- span class="has-mr-6">2.2.1</span-->
+        <span>2.2.1 Tangent Space</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-2-Object-Space">
+        <!-- span class="has-mr-6">2.2.2</span-->
+        <span>2.2.2 Object Space</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-3-World-Space">
+        <!-- span class="has-mr-6">2.2.3</span-->
+        <span>2.2.3 World Space</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-3-Displacement">
+        <!-- span class="has-mr-6">2.3</span-->
+        <span>2.3 Displacement</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-3-1-Parallax-Map">
+        <!-- span class="has-mr-6">2.3.1</span-->
+        <span>2.3.1 Parallax Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-2-Relief-Map">
+        <!-- span class="has-mr-6">2.3.2</span-->
+        <span>2.3.2 Relief Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-3-Vector-Displacement">
+        <!-- span class="has-mr-6">2.3.3</span-->
+        <span>2.3.3 Vector Displacement</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#3-反射贴图">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 反射贴图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-Metal-Roughness">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 Metal - Roughness</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-1-Metallic">
+        <!-- span class="has-mr-6">3.1.1</span-->
+        <span>3.1.1 Metallic</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-1-2-Roughness">
+        <!-- span class="has-mr-6">3.1.2</span-->
+        <span>3.1.2 Roughness</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-2-Specular-Glossiness">
+        <!-- span class="has-mr-6">3.2</span-->
+        <span>3.2 Specular - Glossiness</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-2-1-Specular">
+        <!-- span class="has-mr-6">3.2.1</span-->
+        <span>3.2.1 Specular</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-2-Glossiness">
+        <!-- span class="has-mr-6">3.2.2</span-->
+        <span>3.2.2 Glossiness</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-3-Anisotropic-Map">
+        <!-- span class="has-mr-6">3.3</span-->
+        <span>*3.3 Anisotropic Map</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#4-结构贴图">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 结构贴图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#4-1-Ambient-Occlusion">
+        <!-- span class="has-mr-6">4.1</span-->
+        <span>4.1 Ambient Occlusion</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-Cavity">
+        <!-- span class="has-mr-6">4.2</span-->
+        <span>4.2 Cavity</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-3-Bent-Normal">
+        <!-- span class="has-mr-6">4.3</span-->
+        <span>4.3 Bent Normal</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-4-Curvature">
+        <!-- span class="has-mr-6">4.4</span-->
+        <span>4.4 Curvature</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-5-Thickness">
+        <!-- span class="has-mr-6">4.5</span-->
+        <span>4.5 Thickness</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#5-光照与环境贴图">
+        <!-- span class="has-mr-6">5</span-->
+        <span>5. 光照与环境贴图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#5-1-Light-Map">
+        <!-- span class="has-mr-6">5.1</span-->
+        <span>5.1 Light Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-Spherical-Environment-Map">
+        <!-- span class="has-mr-6">5.2</span-->
+        <span>5.2 Spherical Environment Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-Cube-Map">
+        <!-- span class="has-mr-6">5.3</span-->
+        <span>5.2 Cube Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-3-Radiosity-Normal-Map">
+        <!-- span class="has-mr-6">5.4</span-->
+        <span>5.3 Radiosity Normal Map</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#6-其他贴图">
+        <!-- span class="has-mr-6">6</span-->
+        <span>6. 其他贴图</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#6-1-ID-Mask">
+        <!-- span class="has-mr-6">6.1</span-->
+        <span>6.1 ID/Mask</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-2-Emissive">
+        <!-- span class="has-mr-6">6.2</span-->
+        <span>6.2 Emissive</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-3-Opacity">
+        <!-- span class="has-mr-6">6.3</span-->
+        <span>6.3 Opacity</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-5-Position">
+        <!-- span class="has-mr-6">6.4</span-->
+        <span>6.5 Position</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-6-Detail-Map">
+        <!-- span class="has-mr-6">6.5</span-->
+        <span>6.6 Detail Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-7-Flow-Map">
+        <!-- span class="has-mr-6">6.6</span-->
+        <span>6.7 Flow Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-8-DuDv-Map">
+        <!-- span class="has-mr-6">6.7</span-->
+        <span>6.8 DuDv Map</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="游戏资源常见贴图类型" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

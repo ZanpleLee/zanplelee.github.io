@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Unity实时渲染-赛博朋克风格场景 - Addendum</title>
+
+
+    <meta name="description" content="一个利用Unity完成的赛博朋克风格场景。  在赛博世界，人类生活每一个细节都是受计算机网络控制的黑暗地带，由于商业巨头的过度膨胀，导致经济高过了政治，成为驱动世界前进的动力，于是我们看到庞大的跨国公司取代政府成为权力的中心。这种高强度的压抑氛围也导致部分的人性的泯灭，其中的许多人物都要靠一些高强度的刺激以激发人们对于一些事物的感知，所以在这个世界的很多角落里通常都会充斥各种暴力、毒品等过分裸露的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity实时渲染-赛博朋克风格场景">
+<meta property="og:url" content="http://www.zanple.top/2020/04/27/unity-realtime-cyberpunk/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="一个利用Unity完成的赛博朋克风格场景。  在赛博世界，人类生活每一个细节都是受计算机网络控制的黑暗地带，由于商业巨头的过度膨胀，导致经济高过了政治，成为驱动世界前进的动力，于是我们看到庞大的跨国公司取代政府成为权力的中心。这种高强度的压抑氛围也导致部分的人性的泯灭，其中的许多人物都要靠一些高强度的刺激以激发人们对于一些事物的感知，所以在这个世界的很多角落里通常都会充斥各种暴力、毒品等过分裸露的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/unity-realtime-cyberpunk.jpg">
+<meta property="article:published_time" content="2020-04-27T15:27:03.000Z">
+<meta property="article:modified_time" content="2020-09-05T15:51:18.194Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="works">
+<meta property="article:tag" content="短片">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/unity-realtime-cyberpunk.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Unity实时渲染-赛博朋克风格场景" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/unity-realtime-cyberpunk.jpg" alt="Unity实时渲染-赛博朋克风格场景">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>Unity实时渲染-赛博朋克风格场景
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2020-04-27T15:27:03.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-04-27</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-05T15:51:18.194Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-05</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Unity/">Unity</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    20 分钟 读完 (大约 2974 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>一个利用Unity完成的赛博朋克风格场景。</p>
+<blockquote>
+<p>在赛博世界，人类生活每一个细节都是受计算机网络控制的黑暗地带，由于商业巨头的过度膨胀，导致经济高过了政治，成为驱动世界前进的动力，于是我们看到庞大的跨国公司取代政府成为权力的中心。这种高强度的压抑氛围也导致部分的人性的泯灭，其中的许多人物都要靠一些高强度的刺激以激发人们对于一些事物的感知，所以在这个世界的很多角落里通常都会充斥各种暴力、毒品等过分裸露的事物，而那些雨夜与霓虹灯搭配起来的强烈视觉表现元素更好地阐述了日益发达的科技与日益淡薄的人性的这对尖锐的矛盾冲突。就如同希腊神话中用蜡烛翅膀奋力高飞的伊卡洛斯一样，在离太阳最近的时候，绽放了最美的瞬间，但翅膀的融化注定了陨落的命运。</p>
+<p>——南宫萧宸，《从蒸汽时代到后启示录：幻想未来世界旅行不完全指南》</p>
+</blockquote>
+<a id="more"></a>
+
+<div class="cusvideo">
+
+<iframe src="CyberPunk.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+</div>
+
+<hr>
+<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><blockquote>
+<p>当提起赛博朋克这个词时，或许每个人在脑海中第一时间闪过的东西都不一样——“街道氤氲湿冷在霓虹灯下熙熙攘攘的场景” 、“‘高科技，低生活’的理念信条”、“沉溺虚拟世界最终幻灭的体验”、“配有《赛博朋克2077》LOGO的土味图’”……每一个都可以被叫做一个模因，它们都能看成赛博文化在进化中的 DNA。</p>
+<p>——暴君，<a href="https://www.gcores.com/articles/112494">《当我们说起赛博朋克的时候，我们喜欢的究竟是什么？》</a></p>
+</blockquote>
+<p>赛博朋克在CDPR的<strong>《Cyberpunk2077》</strong>（2020最期待的游戏！没有之一！）面世后就引来了许多人的关注。因此想到利用Unity来完成一个赛博朋克场景的建立。</p>
+<p>利用Unity实现的赛博朋克短片和场景有很多，比较有名的有<a href="https://assetstore.unity.com/publishers/5229">beffio</a>的《The Hunt》和<a href="https://assetstore.unity.com/publishers/585"><br>Manufactura K4</a>的Dark City2。此外还有UE4大神<a href="https://www.zhihu.com/people/zi-wu-xin">紫无心</a>的《霓虹中国》。</p>
+<p><img src="TheHunt.jpg" alt="The Hunt"></p>
+<p><img src="DarkCity2.jpg" alt="Dark City2"></p>
+<p><img src="ziwuxin.jpg" alt="霓虹中国"></p>
+<p>受《杀出重围》系列游戏（赛博朋克风格比较不错的游戏，值得一玩）的影响，我更倾向于霓虹元素稍微少的Low Life的低生活场景。因此使用了《Dark City2》的部分素材和一些其他模型来完成这个场景。</p>
+<h1 id="2-灯光"><a href="#2-灯光" class="headerlink" title="2. 灯光"></a>2. 灯光</h1><p>灯光基本上都是用的点光源和自发光材质，部分使用了聚光灯（如建筑物的照灯）。</p>
+<p><img src="image-20200428165606621.jpg" alt="灯光"></p>
+<p>点光源主要是作为氛围光使用，平衡自发光的亮度。因此点光源的阴影就没那么重要，直接使用低分辨率的硬阴影并使用实时模式即可。</p>
+<p>场景中还用了比较多的反射探针，反射探针的原理和光照探针类似，它允许我们在场景中的特定位置上对整个场景的环境反射进行采样，并把采样结果存储在每个探针上。当游戏中包含反射效果的物体从这些探针附近经过时，Unity会把从这些邻近探针存储的反射结果传递给物体使用的反射纹理。</p>
+<p><img src="image-20200428172155835.jpg" alt="场景中的反射探针"></p>
+<p>场景中的反射探针基本上放在路面上来确保路面的反射效果，为减少对帧速率的影响，在Time Slicing（时间切片）中设置为All faces at once（每9帧更新一次）或Individual faces（每14帧更新一次）。</p>
+<p>为增强地面的反射效果，再添加与Skybox相符的平行光。</p>
+<div align=center>
+
+<p><img src="image-20200428173321878.png" alt="左图为使用平行光的地面反射，右图为未使用平行光的地面反射"></p>
+</div>
+
+<h1 id="3-粒子效果"><a href="#3-粒子效果" class="headerlink" title="3. 粒子效果"></a>3. 粒子效果</h1><p>场景中运用到粒子效果的有三处：下水道的水汽、雨、电火花。</p>
+<p><img src="image-20200428174846228.jpg" alt="下水道水汽效果"></p>
+<p><img src="image-20200428174755713.jpg" alt="雨滴效果"></p>
+<p><img src="image-20200428174946612.jpg" alt="电火花效果"></p>
+<p>其中，街道地面的水花自然不是粒子器的效果，而是通过shader来实现（下次写一下这个效果的实现）。</p>
+<div align=center>
+
+<p><img src="image-20200428174712473.png" alt="地面的水花效果"></p>
+</div>
+
+<h1 id="4-LOD优化"><a href="#4-LOD优化" class="headerlink" title="4. LOD优化"></a>4. LOD优化</h1><p>一开始场景中直接使用的LOD0的模型，在运行时帧率较低。在进行LOD优化后帧率得到明显提升。</p>
+<p>LOD是Level Of Details的缩写即多层次细节。在计算机图形学中，LOD就是为了支持当物体远离观察者或者物体的重要程度不同，位置不同，速度不同或者视角相关的参数不同需要减少渲染3D模型的复杂度。</p>
+<p><img src="image-20200428180012231.jpg" alt="image-20200428180012231"></p>
+<p>例如，同样的模型处在远处时，所占屏幕像素数会比较小，反正也是看不清楚了，这时候再渲染超多顶点的高精度的模型就会浪费计算性能。这时候如果在远处的能用更低精度的模型渲染，那么在不太影响渲染质量的情况下可以提高效率。上图则为同一物体的不同精细度模型。</p>
+<div align=center>
+
+<p><img src="image-20200428183151689.png" alt="LOD Group"></p>
+</div>
+
+<p>在Unity中为物体添加LOD Group组件并设置相应比例对应的模型即可。不过因为LOD使用了多个模型，所以会造成整个项目体积的增大，算是拿空间换性能的一种优化方法吧。</p>
+<h1 id="5-后处理"><a href="#5-后处理" class="headerlink" title="5. 后处理"></a>5. 后处理</h1><h2 id="5-1-抗锯齿"><a href="#5-1-抗锯齿" class="headerlink" title="5.1 抗锯齿"></a>5.1 抗锯齿</h2><p>接着是使用Post-process进行后处理。首先在Post-process中通过开启SMAA抗锯齿来降低画面走样现象。SMAA是一种在FXAA的基础上改进的更高质量的抗锯齿方案。</p>
+<p><img src="image-20200428184359923.jpg" alt="不同抗锯齿方案"></p>
+<p>既然提到了抗锯齿，这里就简单的介绍一下常见的抗锯齿的方法：</p>
+<ul>
+<li><p><strong>SSAA （Supersample Anti-Aliasing）</strong><br>超采样抗锯齿就是最简单粗暴的也是最有效的抗锯齿方法，缺点就是性能太差。任何类型的走样归根结底都是因为欠采样，那么我们只需要增加采样数，就可以减轻走样现象。以4x为例，4xSSAA对于每个像素（Pixel）计算4个子像素，将4个子像素的颜色求平均值，便能获得抗锯齿后的颜色。</p>
+<div align=center>
+
+<p><img src="v2-940e167efe0b74854cf56082d084fbeb_r.jpg" alt="SSAA的原理"></p>
+</div>
+</li>
+<li><p><strong>MSAA（Multisample Anti-Aliasing）</strong><br>SSAA中每个像素需要多次计算着色，这对实时渲染的开销是巨大的。因此在SSAA的基础上发展出了MSAA。MSAA其实和SSAA一样，也是基于硬件的实现，只是在增加采样点和平均的时候用了一些 Trick，大幅优化了 SSAA 的效率，当然代价就是对特定的锯齿完全没有优化效果。<br>和 SSAA 不同，MSAA 其实是 Per-Pixel Shading。GPU 打开 MSAA 后，会在光栅化阶段根据图元边缘的计算出其覆盖的像素，和对该像素内每一个 Sample 的覆盖关系（coverage mask），在执行 PixelShader 后写入颜色时，会根据覆盖关系把 PS 输出的颜色和 BackBuffer 颜色进行平均后作为最终结果。<br>由于MSAA拥有硬件支持，相对开销比较小，又能很好地解决几何走样问题，在游戏中应用非常广泛。</p>
+<div align=center>
+
+<p><img src="MultisamplingAnti-Aliasing.jpg" alt="MSAA的原理"></p>
+</div>
+
+<p>提到了MSAA，想起前几天知乎上<a href="https://www.zhihu.com/people/carcat">寒霜之爪</a>写的<a href="https://zhuanlan.zhihu.com/p/135444145">《延迟渲染与MSAA的那些事》</a>中提到的在延迟渲染中使用MSAA（这个在很多参考资料上都注明了延迟渲染不支持硬件抗锯齿）。</p>
+</li>
+<li><p><strong>FXAA （Fast Approximate Anti-Aliasing）</strong><br>FXAA 是由 NVDIA 发明的高效后处理抗锯齿方案，也是目前所有后处理抗锯齿方案里面同等设置下效率最高的抗锯齿算法。FXAA 的边缘提取是根据 SceneColor 的 Luma 值进行检测的，所以可以提取到高光、阴影，几何边缘，半透明物体。</p>
+</li>
+<li><p><strong>SMAA（增强型亚像素形态抗锯齿）</strong><br>SMAA 是由 CryEngine 开发的更注重效果的后处理抗锯齿方案，当然其效率在大多数移动平台上也是很难被接受的。它和FXAA的最大区别是会更具边缘的形状选择不同的周围像素进行模糊，尽量还原出合理的SubPixels。</p>
+</li>
+<li><p><strong>Temporal AA（Temporal Anti-Aliasing）</strong></p>
+<p>严格来说TAA并不能算一个具体的算法，而是更像一个统一的算法框架。和SSAA一样，TAA也能够同时减轻几何走样和着色走样的问题。总体来说TAA也分为采样（sampling）和合成（resolve）两个过程，不同的TAA的具体实现也是围绕这两个部分有所变化。</p>
+</li>
+</ul>
+<h2 id="5-2-Bloom"><a href="#5-2-Bloom" class="headerlink" title="5.2 Bloom"></a>5.2 Bloom</h2><p>Bloom特效是游戏中常见的一种屏幕效果。这种特效可以模拟真实摄像机的一种图像效果，它让画面中较亮的区域“扩散”到周围的区域中，造成一种朦胧的效果。</p>
+<p><img src="image-20200428214919470.jpg" alt="左图为原效果 右图为Bloom处理后的效果"></p>
+<p>Bloom的实现原理很简单：我们首先根据一个阈值提取出图像中较亮区域，把它们存储在一张渲染纹理中，再利用高斯模糊对这张渲染纹理进行模糊处理，模拟光线扩散的效果，最后再将其和原图像进行混合，得到最终的结果。</p>
+<p><code>HDR</code>是<code>High Dynamic Range</code>的缩写，即高动态范围，与之对应的是低动态范围（<code>Low Dynamic Range</code>，<code>LDR</code>）。常用HDR图片储存格式有hdr/tif/exr/raw等。我们身边的电子图片，几乎都是LDR。常用LDR图片储存格式有jpg/png等。</p>
+<p>LDR只能算是对现实颜色进行压缩，并呈现出来。看似丰富，但真和现实中的颜色比，还是局限了许多，一旦需要进行调色等后续加工，便会因为颜色不够而难以进行。这便诞生了HDR。单通道位数超过8位，便可称为HDR，常见有12位和16位。</p>
+<p>总的来说，利用HDR渲染<strong>让亮的物体可以真的非常亮，暗的物体可以真的非常暗，同时又可以看到两者之间的细节。</strong>而把HDR用ToneMapping压缩成LDR，再用Bloom表现高光溢出的效果。这是引擎内对画面的处理方式。</p>
+<h1 id="6-渲染结果-4K"><a href="#6-渲染结果-4K" class="headerlink" title="6. 渲染结果(4K)"></a>6. 渲染结果(4K)</h1><p><img src="image_0884.jpg" alt="最终测试1"></p>
+<p><img src="image_2001.jpg" alt="最终测试2"></p>
+<blockquote>
+<p>我们对赛博朋克的爱，并非从2077开始，也不会因此而结束。</p>
+</blockquote>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2020/04/27/unity-realtime-cyberpunk/">Unity实时渲染-赛博朋克风格场景</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2020/04/27/unity-realtime-cyberpunk/">http://www.zanple.top/2020/04/27/unity-realtime-cyberpunk/</a></li>
+                    <li><strong>发布时间：</strong>2020-04-27</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Unity/" rel="tag">Unity</a>,&nbsp;<a class="has-link-grey -link" href="/tags/works/" rel="tag">works</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E7%9F%AD%E7%89%87/" rel="tag">短片</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/05/13/unity-coviddefend/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Unity小游戏-新冠入侵</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/04/27/unity-scaneffect/">
+                <span class="level-item">Unity-扫描及透视效果的实现</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-概述">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 概述</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-灯光">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 灯光</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-粒子效果">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 粒子效果</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-LOD优化">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. LOD优化</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-后处理">
+        <!-- span class="has-mr-6">5</span-->
+        <span>5. 后处理</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#5-1-抗锯齿">
+        <!-- span class="has-mr-6">5.1</span-->
+        <span>5.1 抗锯齿</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-Bloom">
+        <!-- span class="has-mr-6">5.2</span-->
+        <span>5.2 Bloom</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#6-渲染结果-4K">
+        <!-- span class="has-mr-6">6</span-->
+        <span>6. 渲染结果(4K)</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Unity实时渲染-赛博朋克风格场景" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

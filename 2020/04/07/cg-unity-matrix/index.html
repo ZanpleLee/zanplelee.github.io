@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>计算机图形学-Unity中矩阵变换、坐标空间的回顾 - Addendum</title>
+
+
+    <meta name="description" content="这几天重新回顾了一下图形学在Unity中的应用。主要是针对矩阵变换、坐标空间和法线变换的内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机图形学-Unity中矩阵变换、坐标空间的回顾">
+<meta property="og:url" content="http://www.zanple.top/2020/04/07/cg-unity-matrix/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="这几天重新回顾了一下图形学在Unity中的应用。主要是针对矩阵变换、坐标空间和法线变换的内容。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/cg-unity-matrix.png">
+<meta property="article:published_time" content="2020-04-07T13:35:22.000Z">
+<meta property="article:modified_time" content="2020-04-08T15:21:18.474Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="Shader">
+<meta property="article:tag" content="计算机图形学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/cg-unity-matrix.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="计算机图形学-Unity中矩阵变换、坐标空间的回顾" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/cg-unity-matrix.png" alt="计算机图形学-Unity中矩阵变换、坐标空间的回顾">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>计算机图形学-Unity中矩阵变换、坐标空间的回顾
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2020-04-07T13:35:22.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-04-07</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-04-08T15:21:18.474Z"><i class="far fa-calendar-check">&nbsp;</i>2020-04-08</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">计算机图形学</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    31 分钟 读完 (大约 4590 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <blockquote>
+<p>这几天重新回顾了一下图形学在Unity中的应用。主要是针对矩阵变换、坐标空间和法线变换的内容。<a id="more"></a></p>
+</blockquote>
+<h1 id="1-矩阵与矩阵变换"><a href="#1-矩阵与矩阵变换" class="headerlink" title="1. 矩阵与矩阵变换"></a>1. 矩阵与矩阵变换</h1><h2 id="1-1-矩阵"><a href="#1-1-矩阵" class="headerlink" title="1.1 矩阵"></a>1.1 矩阵</h2><p>向量的矩阵表示：设已知向量</p>
+<p>$$<br>\vec{R}=a \vec{\imath}+b \cdot \vec{\jmath}+c \cdot \vec{k}<br>$$</p>
+<p>则可用矩阵表示为</p>
+
+<p>
+$$\vec{R}=\left[\begin{array}{lll}
+a & b & c
+\end{array}\right] \cdot\left[\begin{array}{c}
+\vec{i} \\
+\vec{j} \\
+\vec{k}
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<h2 id="1-2-齐次坐标表示法"><a href="#1-2-齐次坐标表示法" class="headerlink" title="1.2 齐次坐标表示法"></a>1.2 齐次坐标表示法</h2><p>由n+1维向量表示一个n维向量。如n维向量(P1,P2, … ,Pn)表示为(hP1,hP2,…,hPn,h) ，其中h称为哑坐标。其作用为：</p>
+<ol>
+<li>将各种变换用阶数统一的矩阵来表示。提供了用矩阵运算把二维、三维甚至高维空间上的一个点从一个坐标系变换到另一坐标系的有效方法。</li>
+<li>便于表示无穷远点：例如：（x<em>x</em>h, y<em>x</em>h, h) ，令h等于0。</li>
+<li>齐次坐标变换矩阵形式把直线变换成直线段，平面变换成平面，多边形变换成多边形，多面体变换成多面体。（图形拓扑关系保持不变)</li>
+<li>变换具有统一表示形式的优点：便于变换合成，便于硬件实现。</li>
+</ol>
+<h2 id="1-3-行矩阵还是列矩阵"><a href="#1-3-行矩阵还是列矩阵" class="headerlink" title="1.3 行矩阵还是列矩阵"></a>1.3 行矩阵还是列矩阵</h2><p>在Unity中，常规做法是把矢量放在矩阵的<code>右侧</code>，即把矢量转换为列矩阵来进行运算。这意味着，在Unity中的矩阵乘法通常都是<code>右乘</code>，例如：</p>
+<p>$$<br>\mathbf{C B A v}=(\mathbf{C}(\mathbf{B}(\mathbf{A v})))<br>$$</p>
+<p>使用列矩阵意味着我们对上式的阅读顺序为从右到左，即先对<strong><em>v</em></strong>使用<strong><em>A</em></strong>进行变换，再使用<strong><em>B</em></strong>进行变换，最后使用<strong><em>C</em></strong>进行变换。</p>
+<h1 id="2-矩阵变换"><a href="#2-矩阵变换" class="headerlink" title="2. 矩阵变换"></a>2. 矩阵变换</h1><h2 id="2-1-二维变换矩阵"><a href="#2-1-二维变换矩阵" class="headerlink" title="2.1 二维变换矩阵"></a>2.1 二维变换矩阵</h2><p>由于我们在Unity中基本上使用的都是三维矩阵的变换，所以在这里就不过多讨论二维矩阵的变换，只给出二维变换矩阵的统一表达式：</p>
+
+<p>
+$$
+ \begin{bmatrix}
+   a & b & p \\
+   c & d & q \\
+   m & n & s
+  \end{bmatrix}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<div align=center>
+
+<img src="image-20200407231704728.png" alt="二维变换" style="zoom:60%;" />
+
+<img src="image-20200407231725775.png" alt="二维变换中的基本操作" style="zoom:60%;" />
+
+</div>
+
+<h2 id="2-2-三维变换矩阵"><a href="#2-2-三维变换矩阵" class="headerlink" title="2.2 三维变换矩阵"></a>2.2 三维变换矩阵</h2><p>线性变换指哪些可以保留<code>矢量加</code>和<code>标量乘</code>的变换。对于所有线性变换来说，如果我们要对一个三维的矢量进行变换，那么仅仅使用3X3的矩阵就可以表示所有的<code>线性变换</code>。但是3X3矩阵不能表示<code>平移操作</code>，因此将其扩展为4X4矩阵（齐次坐标）。</p>
+<h3 id="2-2-1-基本操作"><a href="#2-2-1-基本操作" class="headerlink" title="2.2.1 基本操作"></a>2.2.1 基本操作</h3><p>平移矩阵：</p>
+
+<p>
+$$
+ \begin{bmatrix}
+   1 & 0 & 0 & t_{x} \\
+   0 & 1 & 0 & t_{y} \\
+   0 & 0 & 1 & t_{z} \\
+   0 & 0 & 0 & 1
+  \end{bmatrix}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>缩放矩阵：</p>
+
+<p>
+$$
+ \begin{bmatrix}
+   k_{x} & 0 & 0 & 0 \\
+   0 & k_{y} & 0 & 0 \\
+   0 & 0 & k_{z} & 0 \\
+   0 & 0 & 0 & 1
+  \end{bmatrix}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>旋转矩阵：</p>
+
+<p>
+$$
+\mathbf{R}_{x}(\theta)=\left[\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos \theta & -\sin \theta & 0 \\
+0 & \sin \theta & \cos \theta & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+
+<p>
+$$
+\mathbf{R}_{y}(\theta)=\left[\begin{array}{cccc}
+\cos \theta & 0 & \sin \theta & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin \theta & 0 & \cos \theta & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+
+<p>
+$$
+\mathbf{R}_{z}(\theta)=\left[\begin{array}{cccc}
+\cos \theta & -\sin \theta & 0 & 0 \\
+\sin \theta & \cos \theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>对矢量的变换则利用该矢量的列矩阵与上述矩阵点乘即可。</p>
+
+<p>
+$$
+ \begin{bmatrix}
+   x \\
+   y \\
+   z \\
+   1
+  \end{bmatrix}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<h3 id="2-2-2-复合变换"><a href="#2-2-2-复合变换" class="headerlink" title="2.2.2 复合变换"></a>2.2.2 复合变换</h3><p>复合变换可通过矩阵的串联来实现，可以使用下面的公式来计算：</p>
+<p>$$<br>\mathbf{p_{new}}=\mathbf{M_{tramslation}}\mathbf{M_{rotation}}\mathbf{M_{scale}}\mathbf{p_{old}}<br>$$<br>由于我们使用的是列矩阵，因此阅读顺序是<code>从右到左</code>，即先进行缩放变换，再进行旋转变换，最后进行平移变换。</p>
+<blockquote>
+<p>在绝大多数情况下，我们约定变换的顺序是先<code>缩放</code>，再<code>旋转</code>，最后<code>平移</code>。</p>
+</blockquote>
+<p>还有个要注意的是旋转的变换顺序。如果要同时绕三个轴进行旋转，在Unity中旋转的顺序是<code>zxy</code>，这意味着组合旋转变换矩阵是：</p>
+
+
+<p>
+$$
+M_{r o t a t a _Z} M_{r o t a t a _X} M_{r o t a t a _Y}=\left[\begin{array}{cccc}
+\cos \theta _{Z} & -\sin \theta _{Z} & 0 & 0 \\
+\sin \theta _{Z} & \cos \theta _{Z} & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]\left[\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos \theta _{X} & -\sin \theta _{X} & 0 \\
+0 & \sin \theta _{X} & \cos \theta _{X} & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]\left[\begin{array}{cccc}
+\cos \theta _{Y} & 0 & \sin \theta _{Y} & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin \theta _{Y} & 0 & \cos \theta _{Y} & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>由于Unity文档中说明的旋转顺序是在旋转过程中<strong>保持坐标轴不变</strong>的（不是那种旋转一个轴后由于自身方向的改变再按新的坐标轴的旋转的顺序），所以在这里按<code>zxy</code>顺序旋转和<strong>带坐标轴旋转</strong>的<code>yxz</code>顺序旋转是一样的。</p>
+<h1 id="3-坐标空间"><a href="#3-坐标空间" class="headerlink" title="3. 坐标空间"></a>3. 坐标空间</h1><h2 id="3-1-坐标空间变换"><a href="#3-1-坐标空间变换" class="headerlink" title="3.1 坐标空间变换"></a>3.1 坐标空间变换</h2>
+<p>
+$$
+\mathbf{M}_{c\rightarrow p}=\left[\begin{array}{cccc}
+| & | & | & | \\
+\mathbf x_{c} & \mathbf y_{c} & \mathbf z_{c} & \mathbf O_{c} \\
+| & | & | & | \\
+0 & 0 & 0 & 1
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>其中，<br>$$<br>\mathbf{M}_{c\rightarrow p}<br>$$<br>表示的是从<strong>子坐标空间变换到父坐标空间</strong>变换的变换矩阵，其逆矩阵这位从<strong>父坐标空间变换到子坐标空间变换</strong>的变换矩阵。</p>
+<p>我们知道，矢量是没有位置的，因此坐标空间的原点变换是可以忽略的。也就是说，我们仅仅平移坐标系的原点是不会对矢量造成任何影响的。那么，对矢量的坐标空间变换就可以使用3X3的矩阵来表示，因为我们不需要表示平移变换。那么变换矩阵就是：</p>
+
+<p>
+$$
+\mathbf{M}_{c\rightarrow p} =\left[\begin{array}{cccc}
+| & | & | \\
+\mathbf x_{c} & \mathbf y_{c} & \mathbf z_{c} \\
+| & | & | 
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>其逆矩阵则为：</p>
+
+<p>
+$$
+\mathbf{M}_{c\rightarrow p} =\left[\begin{array}{cccc}
+- & \mathbf x_{B} & - \\
+- & \mathbf y_{B} & - \\
+- & \mathbf z_{B} & - 
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+
+<p>在Shader中，我们常常会看到截取变换矩阵的<strong>前3行和前3列</strong>来对<code>法线方向</code>、<code>光照方向</code>来进行空间变换，这正是原因所在。</p>
+<hr>
+
+<p>
+例如我们想把一个矢量从坐标空间$ \mathbf A $变换到坐标空间$ \mathbf B $，而且我们已经知道坐标空间$ \mathbf B $的x轴、y轴、z轴在空间$ \mathbf A $下的表示，即$\mathbf x_{B} $、$ \mathbf y_{B} $和$ \mathbf z_{B} $。那么想要得到从$ \mathbf A $到$ \mathbf B $的变换矩阵$ \mathbf{M}_{c\rightarrow p} $，我们可以用$ \mathbf{M}_{c\rightarrow p} $来变换$\mathbf  x_{B} $，那么得到的结果应该是(1,0,0)，那么我们按行来摆放就有：
+$$
+\mathbf{M}_{A\rightarrow B} \mathbf x_{B} =\left[\begin{array}{cccc}
+- & \mathbf x_{B} & - \\
+- & \mathbf y_{B} & - \\
+- & \mathbf z_{B} & - 
+\end{array}\right]
+\mathbf x_{B} =
+\left[\begin{array}{cccc}
+\mathbf x_{B} \cdot \mathbf x_{B} \\
+\mathbf y_{B} \cdot \mathbf y_{B} \\
+\mathbf z_{B} \cdot \mathbf z_{B} 
+\end{array}\right]
+=
+\left[\begin{array}{cccc}
+1 \\
+0 \\
+0 
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<hr>
+<h2 id="3-2-模型空间"><a href="#3-2-模型空间" class="headerlink" title="3.2 模型空间"></a>3.2 模型空间</h2><p>下面我们要说说，在渲染流水线中，顶点在各个空间的变换过程。</p>
+<h3 id="3-2-1-模型空间"><a href="#3-2-1-模型空间" class="headerlink" title="3.2.1 模型空间"></a>3.2.1 模型空间</h3><p><strong>模型空间（model space）</strong>也叫对象空间（object space）或局部空间（local space）。每个模型都有自己独立的坐标空间，当它移动或旋转时，模型空间也会跟着移动和旋转。</p>
+<h3 id="3-2-2-世界空间"><a href="#3-2-2-世界空间" class="headerlink" title="3.2.2 世界空间"></a>3.2.2 世界空间</h3><p><strong>世界空间（world space）</strong>相对于模型空间，世界空间是模型所在的最外层的父空间。Unity中，世界空间同样是左手坐标系，原点是游戏空间的中心，x、y、z轴固定不变。</p>
+<h3 id="3-2-3-观察空间"><a href="#3-2-3-观察空间" class="headerlink" title="3.2.3 观察空间"></a>3.2.3 观察空间</h3><p><strong>观察空间（view space）</strong>观察空间也被称为摄像机空间，在观察空间中，摄像机位于原点，它决定了我们渲染游戏所使用的视角，观察空间采用的是右手坐标系，所以+z轴指的是摄像机后方。</p>
+<p>为了得到顶点在观察空间的位置，我们可以有两种方法。</p>
+<ol>
+<li><p>一是计算观察空间的三个坐标轴在世界空间的表示，然后算出观察空间到世界空间的变换矩阵，再求逆得住世界空间到观察空间的变换矩阵。</p>
+</li>
+<li><p>二是平移整个观察空间，让摄像机原点位于世界空间原点，坐标轴与世界空间坐标轴重合。两种方法得到的变换矩阵是一样的。</p>
+</li>
+</ol>
+<p>这里我们用第二种方法，有一点很重要，我们上面说过世界空间的变换顺序公式是<code>先缩放，再旋转，再平移</code>，而这里我们为了把摄像机移回世界坐标原点，我们需要<strong>逆向变换</strong>，所以是<code>先平移，再旋转，再缩放</code>。<br>$$<br>\mathbf{M_{view}}=\mathbf{M_{scale}}\mathbf{M_{rotation}}\mathbf{M_{tramslation}}<br>$$<br>因为观察空间是右手坐标系，与世界空间的左手坐标系z轴相反，所以<code>z分量</code>要<strong>取反</strong>操作：</p>
+<h3 id="3-2-4-裁剪空间-透视投影"><a href="#3-2-4-裁剪空间-透视投影" class="headerlink" title="3.2.4 裁剪空间-透视投影"></a>3.2.4 裁剪空间-透视投影</h3><p>我们先看看透视投影的6个裁剪平面怎么决定的。在Unity中，它们由Camera组件中的参数和Game视图的<strong>纵横比</strong>共同决定。如图所示：</p>
+<div align=center>
+
+<img src="projection_frustum.png" alt="透视摄像机的参数对透视投影视锥体的影响" style="zoom:80%;" />
+
+</div>
+
+<p>上图中Camera的<code>Field of View(FOV)</code>决定视锥体竖直方向的张开角度，<code>Clipping Planes</code>中的<code>Near</code>和<code>Far</code>决定视锥体的近裁剪平面和远裁剪平面距离摄像机的远近，这样就可以求出近和远裁剪平面的高度：</p>
+
+<p>
+$$
+\begin{aligned}
+&\text {nearClipPlaneHeight}=2 \cdot \text {Near} \cdot \tan \frac{F O V}{2}\\
+&\text {farClipPlaneHeight}=2 \cdot \text {Far} \cdot \tan \frac{F O V}{2}
+\end{aligned}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>而横向信息由摄像机的纵横比决定。这个纵横比由Game视图的纵横比和Viewport Rect中的W和H属性共同决定（Unity中可以通过Camera.aspect获得）。假设纵横比为<strong>Aspect</strong>，则：</p>
+
+<p>
+$$
+\begin{aligned}
+\text {Aspect} &=\frac{\text {nearClipPlaneWidth}}{\text {nearClipPlaneHeight}} \\
+\text {Aspect} &=\frac{\text {farClipPlaneWidth}}{\text {farClipPlaneHeight}}
+\end{aligned}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>这样可以确定透视投影的投影矩阵：</p>
+
+<p>
+$$
+\mathbf{M}_{\text {frustum}}=\left[\begin{array}{cccc}
+\frac{\cot \frac{F O V}{2}}{A s p e c t} & 0 & 0 & 0 \\
+0 & \cot \frac{F O V}{2} & 0 & 0 \\
+0 & 0 & -\frac{F a r+N e a r}{F a r-N e a r} & -\frac{2 \cdot N e a r \cdot F a r}{F a r-N e a r} \\
+0 & 0 & -1 & 0
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>这个投影矩阵是建立在<code>Unity坐标系</code>上，观察空间是<code>右手坐标系</code>，使用列矩阵<strong>右乘</strong>，且变换后z分量在[-w, w]之间。但在<code>DirectX</code>中，z分量在[0, w]之间，上面的透视矩阵就要更改了。</p>
+<p>用上一步观察空间得到的坐标和投影矩阵相乘，就可以变换到裁剪空间中：</p>
+
+<p>
+$$
+\mathbf p_{clip}=\mathbf M_{frustum}\mathbf P_{view}=\left[\begin{array}{cccc}
+\frac{\cot \frac{F O V}{2}}{A s p e c t} & 0 & 0 & 0 \\
+0 & \cot \frac{F O V}{2} & 0 & 0 \\
+0 & 0 & -\frac{F a r+N e a r}{F a r-N e a r} & -\frac{2 \cdot N e a r \cdot F a r}{F a r-N e a r} \\
+0 & 0 & -1 & 0
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+z \\
+1
+\end{array}\right]=\left[\begin{array}{c}
+x\frac{\cot \frac{F O V}{2}}{A s p e c t}  \\
+y \cot \frac{F O V}{2} \\
+-z \frac{F a r+N e a r}{F a r-N e a r}-\frac{2 \cdot N e a r \cdot F a r}{F a r-N e a r} \\
+-z
+\end{array}\right]
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>本质就是对x、y、z做了不同的缩放（z还有个平移）。w也不再是1，而是z取反。最后通过x、y、z是否在[-w, w]中判断是否位于视锥体内。不在其内的会被剔除或裁剪，这样通过投影矩阵后，视锥体变化如下：</p>
+<p><img src="projection_matrix0.png" alt="在透视投影中，投影矩阵对顶点进行了缩放。图中标注了4个关键点经过投影矩阵变换后的结果。从这些结果可以看出x、y、z和w分量的范围发生的变化"></p>
+<h3 id="3-2-5-裁剪空间-正交投影"><a href="#3-2-5-裁剪空间-正交投影" class="headerlink" title="3.2.5 裁剪空间-正交投影"></a>3.2.5 裁剪空间-正交投影</h3><div align=center>
+
+<img src="orthographic_frustum.png" alt="正交摄像机的参数对正交投影视锥体的影响" style="zoom:80%;" />
+
+</div>
+
+<p>视锥体是个长方体，因此不需要FOV了，用Size代替了，Size是高度的一半,Aspect是横纵比。因此，我们得到公式：<br>$$<br>nearClipPlaneHeight =2 \cdot Size<br>$$<br>$$<br>farClipPlaneHeight = nearclipPlaneHeight<br>$$<br>$$<br>nearclipPlaneWidth = Aspect \cdot nearClipPlaneHeight<br>$$<br>$$<br>farClipPlaneWidth = nearClipPlaneWidth<br>$$</p>
+<p>这样，可以得到正交投影的裁剪矩阵：</p>
+
+<p>
+$$
+\begin{aligned}
+\mathbf p_{cip}=\mathbf M_{ortho} \mathbf P_{view} &=\left[\begin{array}{ccc}
+\frac{1}{\text {Aspect} \cdot \text {Size}} & 0 & 0 & 0 \\
+0 & \frac{1}{\text {Size}} & 0 & 0 \\
+0 & 0 & -\frac{2}{\text {Far}-\text {Near}} & -\frac{\text {Far}+\text {Near}}{\text {Far}-\text {Near}} \\
+0 & 0 & 0 & 1
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+z \\
+1
+\end{array}\right]=\left[\begin{array}{l}
+\frac{x}{\text {Aspect} \cdot \text {Size}}\\
+\frac{y}{\text {Size}} \\
+-\frac{2 z}{\text {Far}-\text {Near}}-\frac{\text {Far}+\text {Near}}{\text {Far}-\text {Near}} \\
+1
+\end{array}\right]
+\end{aligned}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+<p>然后观察空间的顶点与矩阵相乘：<br>\frac{x}{\text {Aspect} \cdot \text {Size}}</p>
+<p>可以看出，w分量依然为1。判断是否位于裁剪空间内与透视投影一样，x、y、z是否在[-w, w]之间。通过投影矩阵后，视锥体变化如下：</p>
+<p><img src="orthographic_matrix0.png" alt="在正交投影中，投影矩阵对顶点进行了缩放。图中标注了4个关键点经过投影矩阵变换后的结果。从这些结果可以看出x、y、z和w分量范围发生的变化"></p>
+<p>可以看出，变换后空间从长方体变成正方体了，范围是[-1, 1]。</p>
+<h2 id="3-3-屏幕空间"><a href="#3-3-屏幕空间" class="headerlink" title="3.3 屏幕空间"></a>3.3 屏幕空间</h2><p>经过投影矩阵变换后，我们完成了裁剪工作，开始正式投影了，把视锥体投影到屏幕空间。屏幕空间是个二维空间，投影的过程分为两步：</p>
+<p>首先，要进行齐次除法，也被称为透视除法。就是用x、y、z分量除以w分量。在OpenGL中，这一步得到的坐标叫<strong>归一化的设备坐标</strong>（<strong>NDC</strong>,Normalized Device Coordinates）。经过这一步，我们把坐标从齐次裁剪空间转换到NDC中，这样会使透视投影的类似金字塔形状的空间变成正方体，并且和正交投影的一样：</p>
+<p><img src="projection_matrix1.png" alt="经过齐次除法后，透视投影的裁剪空间会变换到一个立方体"></p>
+<p><img src="orthographic_matrix1.png" alt="经过齐次除法后，正交投影的裁剪空间会变换到一个立方体"></p>
+<p>透视投影坐标经裁剪矩阵变换后<code>w</code>是<code>-z</code>，所以坐标x、y、z都除以<code>-z</code>就得到了右边的样子。而正交投影变换后<code>w</code>是<code>1</code>，所以除以1没变化，这样两种投影方式就都是一样的正方体了。</p>
+<p>现在，我们开始屏幕映射了。Unity左下角坐标是（0, 0），右上角是（pixelWidth, pixelHeight），现在经过齐次除法后x、y的范围是[-1, 1]，所以这个过程就是个缩放的过程。</p>
+<blockquote>
+<p>首先把x、y变到[0, 1]，比如x = (x+1) / 2，然后再乘以pixelWidth就是映射后的x了，当然这里的x，y都是裁剪空间的坐标除以w。</p>
+</blockquote>
+<p>齐次除法和屏幕映射的过程可以使用下面的公式来总结：</p>
+
+<p>
+$$
+\begin{array}{l}
+\text {screen}_{x}=\frac{\operatorname{clip}_{x} \cdot \text {pixelWidth}}{2 \cdot \operatorname{clip}_{w}}+\frac{\text {pixelWidth}}{2} \\
+\text {screen}_{y}=\frac{\text {clip}_{y} \cdot \text {pixelHeight}}{2 \cdot \operatorname{clip}_{w}}+\frac{\text {pixelHeight}}{2}
+\end{array}
+$$
+</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+
+<p>在上式中，x、y被用作投影了，z分量会被用于深度缓冲，传统方式是z/w直接存进深度缓冲，但这不是必须的，驱动生产商会根据硬件来选择最好的存储格式。</p>
+<h1 id="4-法线变换"><a href="#4-法线变换" class="headerlink" title="4. 法线变换"></a>4. 法线变换</h1><p>在游戏中，模型的顶点携带的信息中，法线就是其中一种。我们变换一个模型，不仅需要变换它的顶点，还需要变换顶点法线，以便在后续处理（如片元着色器）中计算光照等。</p>
+<p>但在变换法线的时候，如果使用同一个变换矩阵，可能就无法确保维持法线的垂直性。</p>
+<p><img src="transform_normal.png" alt="进行非统一缩放时，如果使用和变换顶点相同的变换矩阵来变换法线，就会得到错误的结果，即变换后的法线方向与平面不再垂直"></p>
+<p>因此，在法线的变换过程中，我们使用原变换矩阵的<code>逆转置矩阵</code>来变换法线就可以得到正确的结果。</p>
+<p>因为逆矩阵的计算比较麻烦，所以我们可以根据变换类型尽可能的避免逆矩阵的计算过程：</p>
+<ul>
+<li>变换只包括旋转变换，那么这个变换矩阵就是正交矩阵（正交矩阵的转置矩阵与逆矩阵相同）；</li>
+<li>变换只包括旋转和统一缩放，则可以利用统一缩放指数<em>k</em>来得到变换矩阵的逆转置矩阵；</li>
+<li>变换包括了非统一变换，则必须求解逆转置矩阵。</li>
+</ul>
+<h1 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h1><p>顶点着色器的最基本的任务就是把顶点坐标从模型空间转换到裁剪空间中。而在片元着色器中，我们通常也可以得到该片元在屏幕空间的像素位置。</p>
+<p>通常在变换顶点时，我们都是使用<code>右乘</code>的方式来按<code>列矩阵</code>进行乘法。这是因为Unity提供的内置矩阵（如UNITY_MATRIX_MVP<code>(模型观察投影矩阵)</code>等）都是按照列存储的。</p>
+<div align=center>
+
+<p><img src="vertex_conversion.png" alt="渲染流水线中顶点的空间变换过程"></p>
+</div>
+
+<p>在Unity中，坐标系的旋向性也随着变换发生了转变。下图总结了Unity中各个空间使用的坐标系旋向性。</p>
+<div align=center>
+
+<p><img src="space_handness.png" alt="Unity中各个坐标空间的旋向性"></p>
+</div>
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2020/04/07/cg-unity-matrix/">计算机图形学-Unity中矩阵变换、坐标空间的回顾</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2020/04/07/cg-unity-matrix/">http://www.zanple.top/2020/04/07/cg-unity-matrix/</a></li>
+                    <li><strong>发布时间：</strong>2020-04-07</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Shader/" rel="tag">Shader</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Unity/" rel="tag">Unity</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/04/13/unity-dotween-ease/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Unity中DoTween插件的缓动函数</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/07/c4d-guilai/">
+                <span class="level-item">C4D短片-归来</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-矩阵与矩阵变换">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 矩阵与矩阵变换</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-矩阵">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 矩阵</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-齐次坐标表示法">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 齐次坐标表示法</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-3-行矩阵还是列矩阵">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 行矩阵还是列矩阵</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-矩阵变换">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 矩阵变换</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-二维变换矩阵">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 二维变换矩阵</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-三维变换矩阵">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 三维变换矩阵</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-2-1-基本操作">
+        <!-- span class="has-mr-6">2.2.1</span-->
+        <span>2.2.1 基本操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-2-复合变换">
+        <!-- span class="has-mr-6">2.2.2</span-->
+        <span>2.2.2 复合变换</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#3-坐标空间">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 坐标空间</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-坐标空间变换">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 坐标空间变换</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-模型空间">
+        <!-- span class="has-mr-6">3.2</span-->
+        <span>3.2 模型空间</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-2-1-模型空间">
+        <!-- span class="has-mr-6">3.2.1</span-->
+        <span>3.2.1 模型空间</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-2-世界空间">
+        <!-- span class="has-mr-6">3.2.2</span-->
+        <span>3.2.2 世界空间</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-3-观察空间">
+        <!-- span class="has-mr-6">3.2.3</span-->
+        <span>3.2.3 观察空间</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-4-裁剪空间-透视投影">
+        <!-- span class="has-mr-6">3.2.4</span-->
+        <span>3.2.4 裁剪空间-透视投影</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-5-裁剪空间-正交投影">
+        <!-- span class="has-mr-6">3.2.5</span-->
+        <span>3.2.5 裁剪空间-正交投影</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-3-屏幕空间">
+        <!-- span class="has-mr-6">3.3</span-->
+        <span>3.3 屏幕空间</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#4-法线变换">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 法线变换</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-总结">
+        <!-- span class="has-mr-6">5</span-->
+        <span>5. 总结</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="计算机图形学-Unity中矩阵变换、坐标空间的回顾" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

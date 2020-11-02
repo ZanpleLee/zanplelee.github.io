@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>几个GLSL小尝试 - Addendum</title>
+
+
+    <meta name="description" content="1. 笑脸跟着Martijn Steinrucken aka BigWings教程做的一个笑脸。~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几个GLSL小尝试">
+<meta property="og:url" content="http://www.zanple.top/2018/05/19/GLSL-ex/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="1. 笑脸跟着Martijn Steinrucken aka BigWings教程做的一个笑脸。~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/GLSL-ex.png">
+<meta property="article:published_time" content="2018-05-19T12:10:06.000Z">
+<meta property="article:modified_time" content="2020-03-27T07:43:45.177Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="Shader">
+<meta property="article:tag" content="GLSL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/GLSL-ex.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="几个GLSL小尝试" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/GLSL-ex.png" alt="几个GLSL小尝试">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>几个GLSL小尝试
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2018-05-19T12:10:06.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2018-05-19</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-03-27T07:43:45.177Z"><i class="far fa-calendar-check">&nbsp;</i>2020-03-27</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Shader/">Shader</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    13 分钟 读完 (大约 1980 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <h1 id="1-笑脸"><a href="#1-笑脸" class="headerlink" title="1. 笑脸"></a>1. 笑脸</h1><p>跟着Martijn Steinrucken aka BigWings教程做的一个笑脸。~<a id="more"></a></p>
+<div align=center>
+
+<p><video src="笑脸.mp4"></video></p>
+</div>
+
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Originate from Martijn Steinrucken aka BigWings</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#define S(a, b, t) smoothstep(a, b, t)</span></span><br><span class="line"><span class="meta">#define B(a, b, blur, t) S(a-blur, a+blur, t)*S(b+blur, b-blur, t)</span></span><br><span class="line"><span class="meta">#define sat(x) clamp(x, 0., 1.)</span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> remap01(<span class="type">float</span> a, <span class="type">float</span> b, <span class="type">float</span> t) &#123;</span><br><span class="line">	<span class="keyword">return</span> sat((t-a)/(b-a));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> remap(<span class="type">float</span> a, <span class="type">float</span> b, <span class="type">float</span> c, <span class="type">float</span> d, <span class="type">float</span> t) &#123;</span><br><span class="line">	<span class="keyword">return</span> sat((t-a)/(b-a)) * (d-c) + c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec2</span> within(<span class="type">vec2</span> uv, <span class="type">vec4</span> rect) &#123;</span><br><span class="line">	<span class="keyword">return</span> (uv-rect.xy)/(rect.zw-rect.xy);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec4</span> Brow(<span class="type">vec2</span> uv, <span class="type">float</span> smile) &#123;</span><br><span class="line">    <span class="type">float</span> offs = <span class="built_in">mix</span>(<span class="number">.2</span>, <span class="number">0.</span>, smile);                   <span class="comment">//眉毛提起效果</span></span><br><span class="line">    uv.y += offs;</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> y = uv.y;</span><br><span class="line">    uv.y += uv.x*<span class="built_in">mix</span>(<span class="number">.5</span>, <span class="number">.8</span>, smile)-<span class="built_in">mix</span>(<span class="number">.1</span>, <span class="number">.3</span>, smile);             <span class="comment">//眉毛上移 眉毛光泽变化 上下移动效果</span></span><br><span class="line">    uv.x -= <span class="built_in">mix</span>(<span class="number">.0</span>, <span class="number">.1</span>, smile);                 <span class="comment">//眉毛间距 左右移动</span></span><br><span class="line">    uv -= <span class="number">.5</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">vec4</span> col = <span class="type">vec4</span>(<span class="number">0.</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> blur = <span class="number">.1</span>;</span><br><span class="line">    </span><br><span class="line">   	<span class="type">float</span> d1 = <span class="built_in">length</span>(uv);</span><br><span class="line">    <span class="type">float</span> s1 = S(<span class="number">.45</span>, <span class="number">.45</span>-blur, d1);</span><br><span class="line">    <span class="type">float</span> d2 = <span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.1</span>, <span class="number">-.2</span>)*<span class="number">.7</span>);</span><br><span class="line">    <span class="type">float</span> s2 = S(<span class="number">.5</span>, <span class="number">.5</span>-blur, d2);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> browMask = sat(s1-s2);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> colMask = remap01(<span class="number">.7</span>, <span class="number">.8</span>, y)*<span class="number">.75</span>;</span><br><span class="line">    colMask *= S(<span class="number">.6</span>, <span class="number">.9</span>, browMask);             <span class="comment">//眉毛光泽</span></span><br><span class="line">    colMask *= smile;           <span class="comment">//眉毛高光变化</span></span><br><span class="line">    <span class="type">vec4</span> browCol = <span class="built_in">mix</span>(<span class="type">vec4</span>(<span class="number">.4</span>, <span class="number">.2</span>, <span class="number">.2</span>, <span class="number">1.</span>), <span class="type">vec4</span>(<span class="number">1.</span>, <span class="number">.75</span>, <span class="number">.5</span>, <span class="number">1.</span>), colMask);               <span class="comment">//眉毛光泽大小调整</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment">//眉毛阴影</span></span><br><span class="line">    uv.y += <span class="number">.15</span>-offs*<span class="number">.5</span>;                <span class="comment">//阴影下移  -offs消除眉毛阴影上挑</span></span><br><span class="line">    blur += <span class="built_in">mix</span>(<span class="number">.0</span>, <span class="number">.1</span>, smile);             <span class="comment">//阴影模糊 眉毛靠近阴影尖锐效果</span></span><br><span class="line">    d1 = <span class="built_in">length</span>(uv);</span><br><span class="line">    s1 = S(<span class="number">.45</span>, <span class="number">.45</span>-blur, d1);</span><br><span class="line">    d2 = <span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.1</span>, <span class="number">-.2</span>)*<span class="number">.7</span>);</span><br><span class="line">    s2 = S(<span class="number">.5</span>, <span class="number">.5</span>-blur, d2);</span><br><span class="line">    <span class="type">float</span> shadowMask = sat(s1-s2);</span><br><span class="line">    </span><br><span class="line">    col = <span class="built_in">mix</span>(col, <span class="type">vec4</span>(<span class="number">0.</span>,<span class="number">0.</span>,<span class="number">0.</span>,<span class="number">1.</span>), S(<span class="number">.0</span>, <span class="number">1.</span>, shadowMask)*<span class="number">.5</span>);</span><br><span class="line">    </span><br><span class="line">    col = <span class="built_in">mix</span>(col, browCol, S(<span class="number">.2</span>, <span class="number">.4</span>, browMask));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec4</span> Eye(<span class="type">vec2</span> uv, <span class="type">float</span> side, <span class="type">vec2</span> m, <span class="type">float</span> smile) &#123;                <span class="comment">//m保持眼睛跟跟随鼠标移动</span></span><br><span class="line">    uv -= <span class="number">.5</span>;</span><br><span class="line">    uv.x *= side;               <span class="comment">//side 取消眼睛的镜面对称</span></span><br><span class="line">    </span><br><span class="line">	<span class="type">float</span> d = <span class="built_in">length</span>(uv);</span><br><span class="line">    <span class="type">vec4</span> irisCol = <span class="type">vec4</span>(<span class="number">.3</span>, <span class="number">.5</span>, <span class="number">1.</span>, <span class="number">1.</span>);</span><br><span class="line">    <span class="type">vec4</span> col = <span class="built_in">mix</span>(<span class="type">vec4</span>(<span class="number">1.</span>), irisCol, S(<span class="number">.1</span>, <span class="number">.7</span>, d)*<span class="number">.5</span>);		<span class="comment">// 眼白梯度</span></span><br><span class="line">    col.a = S(<span class="number">.5</span>, <span class="number">.48</span>, d);									<span class="comment">// 眼罩</span></span><br><span class="line">    </span><br><span class="line">    col.rgb *= <span class="number">1.</span> - S(<span class="number">.45</span>, <span class="number">.5</span>, d)*<span class="number">.5</span>*sat(-uv.y-uv.x*side); 	<span class="comment">// 眼影  *side是为了保持眼角眼影的镜面对称</span></span><br><span class="line">    </span><br><span class="line">    d = <span class="built_in">length</span>(uv-m*<span class="number">.4</span>);									<span class="comment">// 虹膜 -m跟随鼠标移动 *.4削弱移动效果</span></span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">0.</span>), S(<span class="number">.3</span>, <span class="number">.28</span>, d)); 		<span class="comment">// 虹膜轮廓</span></span><br><span class="line">    </span><br><span class="line">    irisCol.rgb *= <span class="number">1.</span> + S(<span class="number">.3</span>, <span class="number">.05</span>, d);						<span class="comment">// 虹膜光</span></span><br><span class="line">    <span class="type">float</span> irisMask = S(<span class="number">.28</span>, <span class="number">.25</span>, d);</span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, irisCol.rgb, irisMask);			<span class="comment">// </span></span><br><span class="line">    </span><br><span class="line">    d = <span class="built_in">length</span>(uv-m*<span class="number">.45</span>);									<span class="comment">// </span></span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> pupilSize = <span class="built_in">mix</span>(<span class="number">.4</span>, <span class="number">.16</span>, smile);              <span class="comment">//瞳孔大小</span></span><br><span class="line">    <span class="type">float</span> pupilMask = S(pupilSize, pupilSize*<span class="number">.85</span>, d);</span><br><span class="line">    pupilMask *= irisMask;              <span class="comment">//确保瞳孔大小不会超过虹膜</span></span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">0.</span>), pupilMask);		<span class="comment">// 瞳孔</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> t = iTime*<span class="number">3.</span>;             <span class="comment">//高光的移动</span></span><br><span class="line">    <span class="type">vec2</span> offs = <span class="type">vec2</span>(<span class="built_in">sin</span>(t+uv.y*<span class="number">25.</span>), <span class="built_in">sin</span>(t+uv.x*<span class="number">25.</span>));</span><br><span class="line">    offs *= <span class="number">.01</span>*(<span class="number">1.</span>-smile);</span><br><span class="line">    </span><br><span class="line">    uv += offs;</span><br><span class="line">    <span class="type">float</span> highlight = S(<span class="number">.1</span>, <span class="number">.09</span>, <span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">-.15</span>, <span class="number">.15</span>)));</span><br><span class="line">    highlight += S(<span class="number">.07</span>, <span class="number">.05</span>, <span class="built_in">length</span>(uv+<span class="type">vec2</span>(<span class="number">-.08</span>, <span class="number">.08</span>)));</span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">1.</span>), highlight);			<span class="comment">// 瞳孔高光</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec4</span> Mouth(<span class="type">vec2</span> uv, <span class="type">float</span> smile) &#123;</span><br><span class="line">    uv -= <span class="number">.5</span>;</span><br><span class="line">	<span class="type">vec4</span> col = <span class="type">vec4</span>(<span class="number">.5</span>, <span class="number">.18</span>, <span class="number">.05</span>, <span class="number">1.</span>);</span><br><span class="line">    </span><br><span class="line">    uv.y *= <span class="number">1.5</span>;</span><br><span class="line">    uv.y -= uv.x*uv.x*<span class="number">2.</span>*smile;             <span class="comment">//嘴巴弧度上拉效果</span></span><br><span class="line">    </span><br><span class="line">    uv.x *= <span class="built_in">mix</span>(<span class="number">2.5</span>, <span class="number">1.</span>, smile);                <span class="comment">//嘴巴变小</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> d = <span class="built_in">length</span>(uv);</span><br><span class="line">    col.a = S(<span class="number">.5</span>, <span class="number">.48</span>, d);</span><br><span class="line">    </span><br><span class="line">    <span class="type">vec2</span> tUv = uv;</span><br><span class="line">    tUv.y += (<span class="built_in">abs</span>(uv.x)*<span class="number">.5</span>+<span class="number">.1</span>)*(<span class="number">1.</span>-smile);              <span class="comment">//牙齿效果</span></span><br><span class="line">    <span class="type">float</span> td = <span class="built_in">length</span>(tUv-<span class="type">vec2</span>(<span class="number">0.</span>, <span class="number">.6</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="type">vec3</span> toothCol = <span class="type">vec3</span>(<span class="number">1.</span>)*S(<span class="number">.6</span>, <span class="number">.35</span>, d);             <span class="comment">//牙齿</span></span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, toothCol, S(<span class="number">.4</span>, <span class="number">.37</span>, td));</span><br><span class="line">    </span><br><span class="line">    td = <span class="built_in">length</span>(uv+<span class="type">vec2</span>(<span class="number">0.</span>, <span class="number">.5</span>));</span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">1.</span>, <span class="number">.5</span>, <span class="number">.5</span>), S(<span class="number">.5</span>, <span class="number">.2</span>, td));</span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec4</span> Head(<span class="type">vec2</span> uv) &#123;</span><br><span class="line">	<span class="type">vec4</span> col = <span class="type">vec4</span>(<span class="number">.9</span>, <span class="number">.65</span>, <span class="number">.1</span>, <span class="number">1.</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> d = <span class="built_in">length</span>(uv);</span><br><span class="line">    </span><br><span class="line">    col.a = S(<span class="number">.5</span>, <span class="number">.49</span>, d);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> edgeShade = remap01(<span class="number">.35</span>, <span class="number">.5</span>, d);</span><br><span class="line">    edgeShade *= edgeShade;             <span class="comment">//边缘根号函数的渐变效果</span></span><br><span class="line">    col.rgb *= <span class="number">1.</span>-edgeShade*<span class="number">.5</span>;             <span class="comment">//渐变程度</span></span><br><span class="line">    </span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">.6</span>, <span class="number">.3</span>, <span class="number">.1</span>), S(<span class="number">.47</span>, <span class="number">.48</span>, d));               <span class="comment">//外环</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> highlight = S(<span class="number">.41</span>, <span class="number">.405</span>, d);</span><br><span class="line">    highlight *= remap(<span class="number">.41</span>, <span class="number">-.1</span>, <span class="number">.75</span>, <span class="number">0.</span>, uv.y);                <span class="comment">//高光渐变</span></span><br><span class="line">    highlight *= S(<span class="number">.18</span>, <span class="number">.19</span>, <span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.21</span>, <span class="number">.08</span>)));                <span class="comment">//眼睛内陷</span></span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">1.</span>), highlight);                <span class="comment">//高光及颜色</span></span><br><span class="line">    </span><br><span class="line">    d = <span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.25</span>, <span class="number">-.2</span>));              <span class="comment">//脸颊位置</span></span><br><span class="line">    <span class="type">float</span> cheek = S(<span class="number">.2</span>,<span class="number">.01</span>, d)*<span class="number">.4</span>;              <span class="comment">//脸颊颜色大小</span></span><br><span class="line">    cheek *= S(<span class="number">.17</span>, <span class="number">.16</span>, d);                <span class="comment">//脸颊整体形状</span></span><br><span class="line">    col.rgb = <span class="built_in">mix</span>(col.rgb, <span class="type">vec3</span>(<span class="number">1.</span>, <span class="number">.1</span>, <span class="number">.1</span>), cheek);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec4</span> Smiley(<span class="type">vec2</span> uv, <span class="type">vec2</span> m, <span class="type">float</span> smile) &#123;</span><br><span class="line">	<span class="type">vec4</span> col = <span class="type">vec4</span>(<span class="number">0.</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">length</span>(uv)&lt;<span class="number">.5</span>) &#123;					<span class="comment">// 头内部像素</span></span><br><span class="line">        <span class="type">float</span> side = <span class="built_in">sign</span>(uv.x);                <span class="comment">//取消镜面眼睛 sign函数</span></span><br><span class="line">        uv.x = <span class="built_in">abs</span>(uv.x);               </span><br><span class="line">        <span class="type">vec4</span> head = Head(uv);</span><br><span class="line">        col = <span class="built_in">mix</span>(col, head, head.a);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.2</span>, <span class="number">.075</span>))&lt;<span class="number">.175</span>) &#123;</span><br><span class="line">            <span class="type">vec4</span> eye = Eye(within(uv, <span class="type">vec4</span>(<span class="number">.03</span>, <span class="number">-.1</span>, <span class="number">.37</span>, <span class="number">.25</span>)), side, m, smile);               <span class="comment">//side</span></span><br><span class="line">            col = <span class="built_in">mix</span>(col, eye, eye.a);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.0</span>, <span class="number">-.15</span>))&lt;<span class="number">.3</span>) &#123;</span><br><span class="line">            <span class="type">vec4</span> mouth = Mouth(within(uv, <span class="type">vec4</span>(<span class="number">-.3</span>, <span class="number">-.43</span>, <span class="number">.3</span>, <span class="number">-.13</span>)), smile);</span><br><span class="line">            col = <span class="built_in">mix</span>(col, mouth, mouth.a);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">length</span>(uv-<span class="type">vec2</span>(<span class="number">.185</span>, <span class="number">.325</span>))&lt;<span class="number">.18</span>) &#123;</span><br><span class="line">            <span class="type">vec4</span> brow = Brow(within(uv, <span class="type">vec4</span>(<span class="number">.03</span>, <span class="number">.2</span>, <span class="number">.4</span>, <span class="number">.45</span>)), smile);</span><br><span class="line">            col = <span class="built_in">mix</span>(col, brow, brow.a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> mainImage( <span class="keyword">out</span> <span class="type">vec4</span> fragColor, <span class="keyword">in</span> <span class="type">vec2</span> fragCoord )</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">float</span> t = iTime;</span><br><span class="line">    </span><br><span class="line">    <span class="type">vec2</span> uv = fragCoord.xy / iResolution.xy;</span><br><span class="line">    uv -= <span class="number">.5</span>;</span><br><span class="line">    uv.x *= iResolution.x/iResolution.y;</span><br><span class="line">    </span><br><span class="line">    <span class="type">vec2</span> m = iMouse.xy / iResolution.xy;                <span class="comment">//鼠标动作</span></span><br><span class="line">    m -= <span class="number">.5</span>;                <span class="comment">//鼠标初始位置</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(m.x&lt;<span class="number">-.49</span> &amp;&amp; m.y&lt;<span class="number">-.49</span>) &#123;			<span class="comment">// 让他没有使用鼠标的时候环顾四周</span></span><br><span class="line">    	<span class="type">float</span> s = <span class="built_in">sin</span>(t*<span class="number">.5</span>);</span><br><span class="line">        <span class="type">float</span> c = <span class="built_in">cos</span>(t*<span class="number">.38</span>);</span><br><span class="line">        </span><br><span class="line">        m = <span class="type">vec2</span>(s, c)*<span class="number">.4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">length</span>(m) &gt; <span class="number">.707</span>) m *= <span class="number">0.</span>;		<span class="comment">// 修复全屏回来后的bug</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> d = <span class="built_in">dot</span>(uv, uv);          <span class="comment">//整体形变；固定中心</span></span><br><span class="line">    uv -= m*sat(<span class="number">.23</span>-d);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> smile = <span class="built_in">sin</span>(t*<span class="number">.5</span>)*<span class="number">.5</span>+<span class="number">.5</span>;              <span class="comment">//嘴巴的变化 从0~1</span></span><br><span class="line">	fragColor = Smiley(uv, m, smile);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-跳动的圆环"><a href="#2-跳动的圆环" class="headerlink" title="2. 跳动的圆环"></a>2. <a href="http://glslsandbox.com/e#46989.0">跳动的圆环</a></h1><div align=center>
+
+<p><video src="跳动的圆环.mp4"></video></p>
+</div>
+
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifdef GL_ES</span></span><br><span class="line"><span class="keyword">precision</span> <span class="keyword">mediump</span> <span class="type">float</span>;</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">uniform</span> <span class="type">float</span> time;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">vec2</span> mouse;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">vec2</span> resolution;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main( <span class="type">void</span> ) &#123;</span><br><span class="line"></span><br><span class="line">	<span class="type">vec2</span> position = ( <span class="built_in">gl_FragCoord</span>.xy / resolution.xy );</span><br><span class="line">	</span><br><span class="line">	<span class="type">vec2</span> posin = position;</span><br><span class="line">	</span><br><span class="line">	position = -<span class="type">vec2</span>(<span class="number">1.25</span>)+ <span class="number">2.5</span>*position; </span><br><span class="line">	</span><br><span class="line">	position.x *= resolution.x/resolution.y; </span><br><span class="line">	</span><br><span class="line">	position +=  <span class="number">0.1</span>*<span class="type">vec2</span>(<span class="built_in">cos</span>(time*<span class="number">1.</span>),<span class="built_in">sin</span>(time*<span class="number">3.</span>));</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="type">vec3</span> color = <span class="type">vec3</span>(<span class="number">0.0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="type">vec2</span> center = <span class="type">vec2</span>(<span class="number">0.</span>,<span class="number">0.</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="type">vec2</span> dir = <span class="built_in">normalize</span>(position-center);</span><br><span class="line">	</span><br><span class="line">	<span class="type">float</span> dist = <span class="built_in">length</span>(center - position);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(dist &lt; <span class="number">0.5</span>)&#123;</span><br><span class="line">		color = <span class="type">vec3</span>(<span class="number">1</span>,<span class="number">1.</span>,<span class="number">1.</span>);</span><br><span class="line">		color.g = <span class="built_in">smoothstep</span>(<span class="number">0.</span>,<span class="number">1.</span>,<span class="built_in">sin</span>(time));</span><br><span class="line">	&#125;</span><br><span class="line">	color.g = <span class="built_in">smoothstep</span>(<span class="number">0.1</span>,<span class="number">0.9</span>,posin.x);</span><br><span class="line">	</span><br><span class="line">	color.b = <span class="built_in">smoothstep</span>(<span class="number">0.1</span>,<span class="number">0.9</span>,posin.y);</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">if</span>(dist &gt;<span class="number">0.6</span>)&#123;</span><br><span class="line">		color = <span class="type">vec3</span>(<span class="number">0.8</span>,<span class="number">0.8</span>,<span class="number">0.8</span>);</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="built_in">gl_FragColor</span> = <span class="type">vec4</span>( color, <span class="number">1.0</span> );</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-GDUT2018"><a href="#3-GDUT2018" class="headerlink" title="3. GDUT2018"></a>3. GDUT2018</h1><div align=center>
+
+<p><video src="GDUT2018.mp4"></video></p>
+</div>
+
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifdef GL_ES</span></span><br><span class="line"><span class="keyword">precision</span> <span class="keyword">mediump</span> <span class="type">float</span>;</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#extension GL_OES_standard_derivatives : enable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">uniform</span> <span class="type">float</span> time;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">vec2</span> mouse;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">vec2</span> resolution;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="type">float</span> PI  = <span class="number">3.141592653589793</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="type">float</span> PI2 = PI * <span class="number">2.</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#define s(x) clamp(x,0.,1.)</span></span><br><span class="line"><span class="meta">#define _G sG()</span></span><br><span class="line"><span class="meta">#define _L sL()</span></span><br><span class="line"><span class="meta">#define _S sS()</span></span><br><span class="line"><span class="meta">#define _C sC()</span></span><br><span class="line"><span class="meta">#define _H sH()</span></span><br><span class="line"><span class="meta">#define _O sO()</span></span><br><span class="line"><span class="meta">#define _D sD()</span></span><br><span class="line"><span class="meta">#define _U sU()</span></span><br><span class="line"><span class="meta">#define _T sT()</span></span><br><span class="line"><span class="meta">#define _2 s2()</span></span><br><span class="line"><span class="meta">#define _1 s1()</span></span><br><span class="line"><span class="meta">#define _8 s8()</span></span><br><span class="line"></span><br><span class="line"><span class="type">vec2</span> pos;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> slice(<span class="type">float</span> x,<span class="type">float</span> start,<span class="type">float</span> end)&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">step</span>(start,x)*<span class="built_in">step</span>(x,end)*x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> tslice(<span class="type">float</span> x,<span class="type">float</span> start,<span class="type">float</span> end)&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">1.</span>-<span class="built_in">step</span>(<span class="built_in">step</span>(start,x)*<span class="built_in">step</span>(x,end)*x,<span class="number">0.</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> sqr(<span class="type">float</span> x)&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">-2.</span>*(<span class="built_in">step</span>(<span class="number">.5</span>,<span class="built_in">fract</span>(x*<span class="number">.5</span>))<span class="number">-.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">mat2</span> rotate2d(<span class="type">float</span> a)&#123;</span><br><span class="line">	<span class="type">float</span> c=<span class="built_in">cos</span>(a);</span><br><span class="line">	<span class="type">float</span> s=<span class="built_in">sin</span>(a);</span><br><span class="line">	<span class="keyword">return</span> <span class="type">mat2</span>(c,-s,s,c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> fill(<span class="type">float</span> d,<span class="type">float</span> r)&#123;<span class="keyword">return</span> <span class="built_in">step</span>(<span class="number">0.</span>,r - d);&#125;</span><br><span class="line"><span class="type">float</span> lBox(<span class="type">vec2</span> p)&#123;<span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">abs</span>(p.x),<span class="built_in">abs</span>(p.y));&#125;</span><br><span class="line"><span class="type">float</span> sBox(<span class="type">vec2</span> p,<span class="type">float</span> r)&#123;<span class="keyword">return</span> fill(lBox(p),r);&#125;</span><br><span class="line"><span class="type">float</span> lRect(<span class="type">vec2</span> p, <span class="type">vec2</span> size) &#123;  </span><br><span class="line">  <span class="type">vec2</span> d = <span class="built_in">abs</span>(p) - size;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">min</span>(<span class="built_in">max</span>(d.x, d.y), <span class="number">0.0</span>) + <span class="built_in">length</span>(<span class="built_in">max</span>(d,<span class="number">0.0</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> sRect(<span class="type">vec2</span> p,<span class="type">vec2</span> size)&#123;<span class="keyword">return</span> fill(lRect(p,size),<span class="number">0.</span>);&#125;</span><br><span class="line"><span class="type">void</span> i()&#123;pos.x-=<span class="number">2.</span>;&#125;</span><br><span class="line"><span class="type">void</span> cr(<span class="type">float</span> x)&#123;pos.x=x+<span class="number">2.</span>;pos.y+=<span class="number">2.</span>;&#125;</span><br><span class="line"><span class="type">float</span> sG(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(s(sBox(p,<span class="number">.6</span>)-sBox(p,<span class="number">.4</span>))</span><br><span class="line">	+sRect(p-<span class="type">vec2</span>(<span class="number">.2</span>,<span class="number">0</span>)  ,<span class="type">vec2</span>(<span class="number">.2</span>,<span class="number">.1</span>))</span><br><span class="line">	-sRect(p-<span class="type">vec2</span>(<span class="number">.5</span>,<span class="number">.25</span>),<span class="type">vec2</span>(<span class="number">.1</span>,<span class="number">.15</span>)));&#125;</span><br><span class="line"><span class="type">float</span> sL(<span class="type">vec2</span> p)&#123;<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)-sBox(p<span class="number">-.2</span>,<span class="number">.6</span>));&#125;</span><br><span class="line"><span class="type">float</span> sS(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)</span><br><span class="line">	-sRect(p-<span class="type">vec2</span>( <span class="number">.1</span>, <span class="number">.25</span>),<span class="type">vec2</span>(<span class="number">.5</span>,<span class="number">.15</span>))</span><br><span class="line">	-sRect(p-<span class="type">vec2</span>(<span class="number">-.1</span>,<span class="number">-.25</span>),<span class="type">vec2</span>(<span class="number">.5</span>,<span class="number">.15</span>)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> sC(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)</span><br><span class="line">	-sRect(p-<span class="type">vec2</span>(<span class="number">.1</span>,<span class="number">0.</span>),<span class="type">vec2</span>(<span class="number">.5</span>,<span class="number">.4</span>)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> sO(<span class="type">vec2</span> p)&#123;<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)-sBox(p,<span class="number">.4</span>));&#125;</span><br><span class="line"><span class="type">float</span> sH(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)</span><br><span class="line">        -sRect(p+<span class="type">vec2</span>(<span class="number">0.</span>,<span class="number">-.35</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.25</span>))</span><br><span class="line">	-sRect(p+<span class="type">vec2</span>(<span class="number">0.</span>,+<span class="number">.35</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.25</span>)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> sD(<span class="type">vec2</span> p)&#123;<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)-sBox(p,<span class="number">.4</span>));&#125;</span><br><span class="line"><span class="type">float</span> sU(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)</span><br><span class="line">     -sRect(p+<span class="type">vec2</span>(<span class="number">0.</span>,<span class="number">-.35</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.75</span>)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> sT(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)</span><br><span class="line">        -sRect(p+<span class="type">vec2</span>(<span class="number">-.5</span>,+<span class="number">.15</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.5</span>))</span><br><span class="line">	-sRect(p+<span class="type">vec2</span>(<span class="number">0.5</span>,+<span class="number">.15</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.5</span>)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">float</span> s1(<span class="type">vec2</span> p)&#123;<span class="keyword">return</span> sRect(p-<span class="type">vec2</span>(<span class="number">0</span>,<span class="number">0</span>),<span class="type">vec2</span>(<span class="number">.1</span>,<span class="number">.6</span>));&#125;</span><br><span class="line"><span class="type">float</span> s2(<span class="type">vec2</span> p)&#123;<span class="keyword">return</span> sS(<span class="type">vec2</span>(-p.x,p.y));&#125;</span><br><span class="line"><span class="type">float</span> s8(<span class="type">vec2</span> p)&#123;</span><br><span class="line">	<span class="keyword">return</span> s(sBox(p,<span class="number">.6</span>)</span><br><span class="line">	-sRect(p-<span class="type">vec2</span>( <span class="number">.0</span>, <span class="number">.25</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.15</span>))</span><br><span class="line">	-sRect(p-<span class="type">vec2</span>(<span class="number">-.0</span>,<span class="number">-.25</span>),<span class="type">vec2</span>(<span class="number">.4</span>,<span class="number">.15</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> sG()&#123;i();<span class="keyword">return</span> sG(pos);&#125;</span><br><span class="line"><span class="type">float</span> sD()&#123;i();<span class="keyword">return</span> sD(pos);&#125;</span><br><span class="line"><span class="type">float</span> sU()&#123;i();<span class="keyword">return</span> sU(pos);&#125;</span><br><span class="line"><span class="type">float</span> sT()&#123;i();<span class="keyword">return</span> sT(pos);&#125;</span><br><span class="line"><span class="type">float</span> sL()&#123;i();<span class="keyword">return</span> sL(pos);&#125;</span><br><span class="line"><span class="type">float</span> sS()&#123;i();<span class="keyword">return</span> sS(pos);&#125;</span><br><span class="line"><span class="type">float</span> sC()&#123;i();<span class="keyword">return</span> sC(pos);&#125;</span><br><span class="line"><span class="type">float</span> sO()&#123;i();<span class="keyword">return</span> sO(pos);&#125;</span><br><span class="line"><span class="type">float</span> sH()&#123;i();<span class="keyword">return</span> sH(pos);&#125;</span><br><span class="line"><span class="type">float</span> s2()&#123;i();<span class="keyword">return</span> s2(pos);&#125;</span><br><span class="line"><span class="type">float</span> s1()&#123;i();<span class="keyword">return</span> s1(pos);&#125;</span><br><span class="line"><span class="type">float</span> s8()&#123;i();<span class="keyword">return</span> s8(pos);&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> layerGDUTSCHOOL2018(<span class="type">vec2</span> p)&#123;</span><br><span class="line">   p.x+=<span class="number">1.</span>;</span><br><span class="line">   p.y-=<span class="number">.4</span>;</span><br><span class="line">   p*=<span class="number">6.</span>;</span><br><span class="line">   p.x-=<span class="number">1.</span>;</span><br><span class="line">   pos=p;</span><br><span class="line">   pos.x+=<span class="number">2.</span>;</span><br><span class="line">   <span class="type">float</span> l;</span><br><span class="line">   l+=_G+_D+_U+_T;cr(p.x);</span><br><span class="line">   l+=_S+_C+_H+_O+_O+_L;cr(p.x);</span><br><span class="line">   l+=_2+_O+_1+_8;cr(p.x);</span><br><span class="line">   <span class="keyword">return</span> s(l);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec2</span> transitionZoomIn(  <span class="type">vec2</span> p,<span class="type">float</span> t)&#123; <span class="keyword">return</span> p*<span class="built_in">clamp</span>(t,<span class="number">0.</span>,<span class="number">1.</span>);&#125;</span><br><span class="line"><span class="type">vec2</span> transitionZoomOut( <span class="type">vec2</span> p,<span class="type">float</span> t)&#123; <span class="keyword">return</span> p*<span class="built_in">clamp</span>(<span class="number">1.</span>-t,<span class="number">0.</span>,<span class="number">1.</span>);&#125;</span><br><span class="line"><span class="type">vec2</span> effectPixelate(    <span class="type">vec2</span> p,<span class="type">float</span> t)&#123; <span class="keyword">return</span> <span class="built_in">floor</span>(p*<span class="built_in">pow</span>(<span class="number">2.</span>,t*<span class="number">5.</span>))/<span class="built_in">pow</span>(<span class="number">2.</span>,t*<span class="number">5.</span>);&#125;</span><br><span class="line"><span class="type">vec2</span> effectRotateGlicth(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   p*=rotate2d(t*<span class="number">5.</span>);</span><br><span class="line">   p.y+=sqr(p.x*<span class="number">10.</span>)*<span class="built_in">sin</span>(t)*<span class="number">.01</span>;</span><br><span class="line">   p*=rotate2d(-t*<span class="number">5.</span>);</span><br><span class="line">   <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec2</span> effectProlongPolar(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   <span class="type">float</span> a = <span class="built_in">mod</span>((<span class="built_in">atan</span>(p.y,p.x) + PI2 + <span class="built_in">clamp</span>(t*PI*<span class="number">.5</span>,<span class="number">0.</span>,PI2)),PI2);</span><br><span class="line">   <span class="type">float</span> r = <span class="built_in">length</span>(p);</span><br><span class="line">   r=<span class="built_in">min</span>(r,t/<span class="number">5.</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="type">vec2</span>(r*<span class="built_in">cos</span>(a),r*<span class="built_in">sin</span>(a));</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec2</span> effectProlongX(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   p.x=<span class="built_in">sign</span>(p.x)*<span class="built_in">min</span>(<span class="built_in">abs</span>(p.x),t/<span class="number">5.</span>);</span><br><span class="line">   <span class="keyword">return</span> p;</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> maskRadar(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   <span class="type">float</span> a = <span class="built_in">mod</span>((<span class="built_in">atan</span>(p.y,p.x) + PI2 - t),PI2);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">1.</span>-a/PI2;</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> layerFakeChromaticAberration(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   <span class="type">float</span> l=layerGDUTSCHOOL2018(p);</span><br><span class="line">   <span class="type">float</span> purple=layerGDUTSCHOOL2018(p+<span class="type">vec2</span>(<span class="number">.005</span>+<span class="number">.005</span>*<span class="built_in">sin</span>(p.y*<span class="number">30.</span>+t*<span class="number">10.</span>),<span class="number">0.</span>));</span><br><span class="line">   <span class="type">float</span> green =layerGDUTSCHOOL2018(p-<span class="type">vec2</span>(<span class="number">.005</span>+<span class="number">.005</span>*<span class="built_in">cos</span>(p.y*<span class="number">30.</span>+t*<span class="number">10.</span>),<span class="number">0.</span>));</span><br><span class="line">   <span class="keyword">return</span> <span class="type">vec3</span>(<span class="number">.8</span>,<span class="number">.5</span>,<span class="number">1.</span>)*purple+<span class="type">vec3</span>(<span class="number">.5</span>,<span class="number">1.</span>,<span class="number">.5</span>)*green+<span class="type">vec3</span>(l);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> scene1(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   p=transitionZoomIn(p,t);</span><br><span class="line">   <span class="keyword">return</span> layerFakeChromaticAberration(p,t);</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> scene2(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   <span class="type">vec2</span> o = transitionZoomOut(p,t);</span><br><span class="line">   <span class="keyword">return</span> layerFakeChromaticAberration(o,t)*(<span class="number">1.</span>-t)+layerFakeChromaticAberration(p,t);</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> scene3(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   p=effectRotateGlicth(p,t);</span><br><span class="line">   <span class="keyword">return</span> layerFakeChromaticAberration(p,t);</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> scene4(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   p=effectPixelate(p,<span class="built_in">fract</span>(t));</span><br><span class="line">   <span class="keyword">return</span> layerFakeChromaticAberration(p,t);</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> scene5(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   p=effectRotateGlicth(p,t);</span><br><span class="line">   p=effectProlongX(p,t);</span><br><span class="line">   p=effectProlongPolar(p,t);</span><br><span class="line">   <span class="keyword">return</span> layerFakeChromaticAberration(p,t);</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">vec3</span> scene6(<span class="type">vec2</span> p,<span class="type">float</span> t)&#123;</span><br><span class="line">   <span class="keyword">return</span> layerFakeChromaticAberration(p,t)*maskRadar(p,t);</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main(<span class="type">void</span>)&#123;</span><br><span class="line">   <span class="type">vec2</span> p = (<span class="built_in">gl_FragCoord</span>.xy * <span class="number">2.0</span> - resolution) / <span class="built_in">min</span>(resolution.x, resolution.y);</span><br><span class="line">   <span class="type">vec3</span> color = <span class="type">vec3</span>(<span class="number">0.</span>,<span class="number">0.</span>,<span class="number">0.</span>);</span><br><span class="line">	</span><br><span class="line">   <span class="type">float</span> t = <span class="built_in">mod</span>(time,<span class="number">16.</span>);</span><br><span class="line">   <span class="type">float</span> tc = <span class="number">0.</span>;</span><br><span class="line">   <span class="type">float</span> ti;</span><br><span class="line">   ti=<span class="number">1.</span>;color+= tslice(t,tc,tc+ti) * scene1(p,t-tc);tc+=ti;</span><br><span class="line">   ti=<span class="number">1.</span>;color+= tslice(t,tc,tc+ti) * scene2(p,t-tc);tc+=ti;</span><br><span class="line">   ti=<span class="number">1.</span>;color+= tslice(t,tc,tc+ti) * scene3(p,t-tc);tc+=ti;</span><br><span class="line">   ti=<span class="number">1.</span>;color+= tslice(t,tc,tc+ti) * scene4(p,t-tc);tc+=ti;</span><br><span class="line">   ti=<span class="number">6.</span>;color+= tslice(t,tc,tc+ti) * scene5(p,t-tc);tc+=ti;</span><br><span class="line">   ti=<span class="number">6.</span>;color+= tslice(t,tc,tc+ti) * scene6(p,t-tc);tc+=ti;</span><br><span class="line">	</span><br><span class="line">   <span class="built_in">gl_FragColor</span> = <span class="type">vec4</span>(color, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-圆环"><a href="#4-圆环" class="headerlink" title="4. 圆环"></a>4. 圆环</h1><div align=center>
+
+<p><video src="圆环.mp4"></video></p>
+</div>
+
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifdef GL_ES</span></span><br><span class="line"><span class="keyword">precision</span> <span class="keyword">mediump</span> <span class="type">float</span>;</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">uniform</span> <span class="type">float</span> time;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">vec2</span> mouse;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">vec2</span> resolution;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">float</span> t;</span><br><span class="line">	t = time * <span class="number">1.0</span>;</span><br><span class="line">    <span class="type">vec2</span> r = resolution,</span><br><span class="line">    o = <span class="built_in">gl_FragCoord</span>.xy - r/<span class="number">2.</span>;</span><br><span class="line">    o = <span class="type">vec2</span>(<span class="built_in">length</span>(o) / r.y - <span class="number">.3</span>, <span class="built_in">atan</span>(o.y,o.x));    </span><br><span class="line">    <span class="type">vec4</span> s = <span class="number">0.07</span>*<span class="built_in">cos</span>(<span class="number">1.5</span>*<span class="type">vec4</span>(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) + t + o.y + <span class="built_in">cos</span>(o.y) * <span class="built_in">cos</span>(t)),</span><br><span class="line">    e = s.yzwx, </span><br><span class="line">    f = <span class="built_in">max</span>(o.x-s,e-o.x);</span><br><span class="line">    <span class="built_in">gl_FragColor</span> = <span class="built_in">dot</span>(<span class="built_in">clamp</span>(f*r.y,<span class="number">0.</span>,<span class="number">1.</span>), <span class="number">80.</span>*(s-e)) * (s<span class="number">-.1</span>) + f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2018/05/19/GLSL-ex/">几个GLSL小尝试</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2018/05/19/GLSL-ex/">http://www.zanple.top/2018/05/19/GLSL-ex/</a></li>
+                    <li><strong>发布时间：</strong>2018-05-19</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/GLSL/" rel="tag">GLSL</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Shader/" rel="tag">Shader</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/07/12/android-2048-game/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">利用Android Studio开发2048小游戏</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-笑脸">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 笑脸</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-跳动的圆环">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 跳动的圆环</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-GDUT2018">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. GDUT2018</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-圆环">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 圆环</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="几个GLSL小尝试" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Unity-新式数字博物馆 - Addendum</title>
+
+
+    <meta name="description" content="一个基于Unity的虚拟现实大创项目。  1. 引言博物馆作为一个向公众展示产品文化，传承人类文明与社会历史文化的重要平台，在人们日益重视精神文化的生活中占据着重要地位，而博物馆的存在在于让观众对其展品能够有一定深度的了解。因此，运用各种展现方式来激发观众的展品的兴趣与求知欲便尤为重要。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity-新式数字博物馆">
+<meta property="og:url" content="http://www.zanple.top/2019/08/23/unity-new-museum/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="一个基于Unity的虚拟现实大创项目。  1. 引言博物馆作为一个向公众展示产品文化，传承人类文明与社会历史文化的重要平台，在人们日益重视精神文化的生活中占据着重要地位，而博物馆的存在在于让观众对其展品能够有一定深度的了解。因此，运用各种展现方式来激发观众的展品的兴趣与求知欲便尤为重要。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/unity-new-museum.png">
+<meta property="article:published_time" content="2019-08-23T08:24:26.000Z">
+<meta property="article:modified_time" content="2019-08-23T08:24:26.000Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="建模">
+<meta property="article:tag" content="游戏">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="VR">
+<meta property="article:tag" content="大创">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/unity-new-museum.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Unity-新式数字博物馆" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/unity-new-museum.png" alt="Unity-新式数字博物馆">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>Unity-新式数字博物馆
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2019-08-23T08:24:26.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2019-08-23</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Unity/">Unity</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    25 分钟 读完 (大约 3709 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <blockquote>
+<p>一个基于Unity的虚拟现实大创项目。</p>
+</blockquote>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h1><p>博物馆作为一个向公众展示产品文化，传承人类文明与社会历史文化的重要平台，在人们日益重视精神文化的生活中占据着重要地位，而博物馆的存在在于让观众对其展品能够有一定深度的了解。因此，运用各种展现方式来激发观众的展品的兴趣与求知欲便尤为重要。<a id="more"></a>而传统博物馆与目前已有的数字虚拟化博物馆在人们普遍的逻辑思维里便只是一个“收藏文物和展示文物”的地方，形成这种思维的主要原因是传统博物馆与目前已有的数字虚拟化博物馆的展陈设计过于呆板无趣，且展品大多数锁在玻璃柜里。目前大多博物馆都还停留在模仿一些著名博物馆的展陈方式而没有结合自身展品的特征来进行展览，而数字虚拟博物馆局限于对现实博物馆的还原，缺乏对展品展陈方式的创新和与展品的互动，导致观众失去参观的兴趣和进一步了解的欲望，进一步制约着博物馆的发展。</p>
+<p>随着科技的发展，虚拟现实（Virtual Reality/VR）技术也得到了飞快的进步，人们对VR技术的关注日渐升温，且VR技术的沉浸性这一基本特征可以帮助博物馆还原展品的发展状态与内在联系，突破二维展示的局限，最大化的还原场景的真实性，为展览呈现效果单一的缺陷带来显著改变。而VR技术的交互性和多感知性则可进一步拉近与观众的距离，增加展陈的趣味性，提升观众的兴趣，从而达到增强观众的参观体验。</p>
+<h1 id="2-项目意义："><a href="#2-项目意义：" class="headerlink" title="2. 项目意义："></a>2. 项目意义：</h1><h2 id="2-1-对博物馆运维成本与文物保护上的作用"><a href="#2-1-对博物馆运维成本与文物保护上的作用" class="headerlink" title="2.1 对博物馆运维成本与文物保护上的作用"></a>2.1 对博物馆运维成本与文物保护上的作用</h2><p>在博物馆很多艺术品都是经历了很长的历史而保留下来的，有些文物已经出现剥落、脱色、脆化等情况，而且经过人工修复也无法长期展示和研究。使用虚拟技术有利于易损文物的保护，降低博物馆对文物的维修成本。另一方面，通过运用VR技术构建场景体验式博物馆，可以克服传统展示易受展厅空间限制的缺点，减少展品展柜和场景体验区的占用空间，降低搭建场景体验区的成本。</p>
+<h2 id="2-2-对博物馆藏品展示方式上的作用"><a href="#2-2-对博物馆藏品展示方式上的作用" class="headerlink" title="2.2 对博物馆藏品展示方式上的作用"></a>2.2 对博物馆藏品展示方式上的作用</h2><p>我国各种博物馆保存的文物达到了 100 多万件，而且因为展柜占用的空间，还有将文物存放在展柜中，更是影响观众的欣赏。而运用VR技术则可以让观众进行虚拟操作，与展品进行互动，拉近了观众与藏品的距离，而且也能加深人们对艺术品的理解力，提高人们观赏历史文物的兴趣。</p>
+<p>当下数字虚拟博物馆大多还局限于对现实博物馆的还原，没有真正运用虚拟现实技术的优势。而场景体验式的特点，为观众提供身临其境的感觉，实现观众在博物馆这个限定空间内能够沉浸于多个场景的时空中，将延伸与拓展博物馆展示的更大价值和意义。当观众在博物馆内戴上VR 头盔或眼镜后，观看的场景与在馆内观看其他视频的环境截然不同。并且这样的虚拟场景不再局限于传统博物馆对单类展品发展的线性介绍，而可以同时对多类展品的发展有机地联系在一起，实现在同一空间不同时间的综合展览，让观众对不同展品的时间发展有更为深入的理解。这样非线性思维方式使得体验成为一种超越时间和空间的跳跃式行为，观众可以从任意一个展品感受历史的发展，又在历史的发展中与任意一个展品相遇。这种更接近于人类大脑信息记忆的随意性和跳跃性体验，恢复了观众亲近事件的自然状态，让每个人见证参与的历史化作场景回到我们身边。</p>
+<h2 id="2-3-对博物馆教育功能的意义"><a href="#2-3-对博物馆教育功能的意义" class="headerlink" title="2.3 对博物馆教育功能的意义"></a>2.3 对博物馆教育功能的意义</h2><p>利用虚拟现实和三维技术给人们提供一个真实的、直观的艺术展品与场景。利用VR这一新兴的体验方式，极大的提高了观众的参观兴趣，同时能够充分满足观众对展品观赏的需求。尤其对于青少年观众来说，他们更注重与展览的趣味性，VR技术对于他们的吸引性更强。</p>
+<p>而场景体验式的博物馆，可以让观众同时了解到多种展品的历史发展状态，让观众对历史的发展有更为全面的认知。数字博物馆内的参观引导机制与博物馆文创周边的结合，增强观众尤其是青少年对展品及历史探索的主动性。</p>
+<h1 id="3-实际应用"><a href="#3-实际应用" class="headerlink" title="3. 实际应用"></a>3. 实际应用</h1><h2 id="3-1-应用于博物馆文物的展示"><a href="#3-1-应用于博物馆文物的展示" class="headerlink" title="3.1 应用于博物馆文物的展示"></a>3.1 应用于博物馆文物的展示</h2><p>利用计算机三维建模技术对特定历史时期的场景及相关文物进行建模，结合VR设备实现对特定历史时期的场景和文物的还原。使观众能在参观博物馆时能够“置身”于某个时空，冲任意角度真实地感受所处的历史背景，大大加深了观众对展品的了解与兴趣，丰富了参观博物馆的实际体验，降低馆方建造场景式体验区的成本。借助VR设备的手柄，观众可以在虚拟的场景中与展品进行一定的互动，能够将展品“拿在手中”，从多个角度零距离的观察展品。</p>
+<p>而虚拟博物馆的场景式特点，可以在同一空间下对多种物品的发展同时进行展示，让观众对不同展品的发展历程有更为立体的认识，传统博物馆只能分别对展品发展历程展示的缺陷。</p>
+<p>对场景中的探索过程进行一定的设计，结合博物馆的文创周边产品，能够让观众不再是被动盲目的接受知识，引导观众主动去探索展品。</p>
+<p>对于面对青少年的特殊展厅，加入引导人的体验机制，让青少年在与展品进行互动和深入了解后进行答题，予以一定的奖励，进一步加深博物馆的教育功能。</p>
+<h2 id="3-2-应用于移动式博物馆"><a href="#3-2-应用于移动式博物馆" class="headerlink" title="3.2 应用于移动式博物馆"></a>3.2 应用于移动式博物馆</h2><p>利用VR设备的便携性，能够解决传统博物馆在地理空间上的分配不均问题，降低公众参观博物馆的门槛，拉近博物馆与公众的距离。利用这一特征，各大博物馆可以开设移动式新型博物馆，定期到各社区与学校开展相应的文化活动，满足公众的文化需求，而基于虚拟现实技术的场景体验式数字博物馆，可以避免移动式博物馆空间小，能够展示展品少的缺点；同时借助VR这一新兴技术，可以极大地刺激观众的兴趣，让更多人能够主动地到博物馆参展。</p>
+<h1 id="4-研究内容"><a href="#4-研究内容" class="headerlink" title="4. 研究内容"></a>4. 研究内容</h1><p>在2017年3月由美国博物馆联盟所属未来博物馆中心发布的引导现代博物馆发展的报告中，提出了九大提升优化博物馆体验的设计方法。其中重点提到了虚拟现实技术在助力博物馆展示的突破点。虚拟现实（VR，Virtual Reality）是利用电脑模拟产生的三维空间，进而营造出虚拟世界的一种新媒体技术。使用者佩戴特制的头盔显示器、手柄以及身体部位跟踪器等设备，在虚拟场景中通过视觉、听觉和触觉等感官的模拟，获得如同身临其境的感受。随着 2016 年以来虚拟现实技术的迅猛发展，世界各地的博物馆也相继尝试将这样一种新兴技术作为特殊的叙事性设计加以应用。</p>
+<p>本项目的主要研究内容是借助VR设备，利用计算机三维建模技术对场景和展品进行建模。选取八九十年代至今这一典型历史时期。将这一历史时期分为八九十年代、二十世纪末、2008年与当下时期这四个变化较大的时间段，通过对居民客厅的再现，还原改革开放以来民众家居生活用品及电子产品的发展历程，探索制定引导参观机制以提高观众探索的主动性，加强博物馆的教育功能。团队利用Cinema 4D对场景和展品的建模，Unity进行该应用的开发，最后借助HTC Vive将应用中的场景映射到观众眼前。</p>
+<h1 id="5-关键问题"><a href="#5-关键问题" class="headerlink" title="5. 关键问题"></a>5. 关键问题</h1><h2 id="5-1-拟真场景的搭建与展品的建模"><a href="#5-1-拟真场景的搭建与展品的建模" class="headerlink" title="5.1 拟真场景的搭建与展品的建模"></a>5.1 拟真场景的搭建与展品的建模</h2><p>对不同时期的场景和展品需要进行一定的研究，确保搭建的符合该时期的历史事实。如场景的灯光与房间的材质的还原，展品材质的还原，都需要对大量该历史时期的记载进行参考，将展品与场景整合模拟出较为真实的历史场景。</p>
+<h2 id="5-2-借助VR设备实现观众与场景的交互"><a href="#5-2-借助VR设备实现观众与场景的交互" class="headerlink" title="5.2 借助VR设备实现观众与场景的交互"></a>5.2 借助VR设备实现观众与场景的交互</h2><p>观众需要利用手柄对虚拟场景进行交互，如行走，拿取，旋转等操作。如何利用手柄实现与虚拟博物馆的最佳交互方式，还原不同展品的真实交互方式，需要通过一定的实验与测试进行对比。</p>
+<h2 id="5-3-引导参观机制与观众体验的平衡"><a href="#5-3-引导参观机制与观众体验的平衡" class="headerlink" title="5.3 引导参观机制与观众体验的平衡"></a>5.3 引导参观机制与观众体验的平衡</h2><p>通过设定引导参观机制来让观众主动探索博物馆，同时避免该机制过于繁杂导致观众的探索兴趣降低。例如对于青少年这一群体，如何通过设定一定的问题与奖励机制，鼓励青少年能够主动了解展品背后的历史知识，需要通过一定的实验与测试进行设定。</p>
+<h1 id="6-实现"><a href="#6-实现" class="headerlink" title="6. 实现"></a>6. 实现</h1><p>建模部分基本在<code>3ds Max</code>和<code>Cinema 4D</code>完成，部分模型来自<a href="https://www.3d66.com/">3D溜溜网。</a>将模型导出为fbx格式（3ds Max文件直接用unity导入）。</p>
+<div align=center>
+
+<p><img src="unity-new-museum.png" alt="导入Unity"></p>
+<img src="image-20200328171409707.png" alt="2010模型" style="zoom: 80%;" />
+
+</div>
+
+<p>制作不同时期家具的UI界面：</p>
+<div align=center>
+
+<img src="image-20200328171656170.png" alt="90年代" style="zoom:80%;" />
+
+<img src="image-20200328171757293.png" alt="2019" style="zoom:80%;" />
+
+</div>
+
+<p>在Unity中绑定各个物品的触发事件，如电视的播放，风扇的旋转等。</p>
+<p>为了增加每个时期的真实性，对每个时代的介绍故事进行策划，其中2010的故事撰写时我参考了很多资料如阎雷的《昨天的中国》等，并选取特定的时期并结合房间物品特色以日记的形式叙述故事：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">1985年 11月7日 晴&#x2F;雾</span><br><span class="line">今天窗外白茫茫一片，被太阳穿透的奶白色晨雾，让窗外的整个世界看上去像一幅雕刻作品，深蓝色的天空仿佛预示着冬天即将来临。</span><br><span class="line">傍晚从楼层管理员那里买到了一瓶酸奶。</span><br><span class="line">最近开了好多个体商店，买东西似乎变得越来越方便。家里的缝纫机最近不大顺滑，大抵是要买润滑油了吧。</span><br><span class="line">明天早起骑车到白天鹅宾馆看展览，顺便到新开的商店看看。</span><br><span class="line"></span><br><span class="line">1999年 12月20日 晴</span><br><span class="line">澳门回归了！</span><br><span class="line">昨晚看来澳门回归的交接仪式，五星红旗终于再次飘扬在澳门上，澳门再也不是“ma-cau”了！</span><br><span class="line">最近大家都在谈论12月31日世界末日的传言，哈哈哈哈要是真是世界末日我要和我的魂斗罗呆在一起。</span><br><span class="line">晚上和李明去PS厅打拳皇97，再到他家看看什么特丽龙彩电是怎样的。</span><br><span class="line">过了这个世纪我也要去买一台“NOKIA”。</span><br><span class="line"></span><br><span class="line">2010年 5月12日 雨</span><br><span class="line"></span><br><span class="line">今天是5月12日，汶川大地震两年了，逝者安息！但愿希望能更快地从悲壮中生长出来吧。</span><br><span class="line">上海世博会开幕了十几天了，不知不觉奥运会过了两年了，仿佛还是昨天的事，中国逐渐走向世界的大舞台了啊。</span><br><span class="line">连续下了几天的雨了，要是有个机器人能够帮我打理好家里的一切像扫地做饭多好啊，这样我就可以躺在床上什么事也不做了。</span><br><span class="line">昨天新买的手机发现居然不能放内存卡了！</span><br><span class="line"></span><br><span class="line">2018年 11月2日 阴</span><br><span class="line">今天第一次看到港珠澳大桥，天哪，这么浩大的工程是怎么完成的。</span><br><span class="line">柔宇科技的折叠手机有点炫酷，虽然边框还是有点大。毕竟这年头连显示器、电视都做到接近无边框了。</span><br><span class="line">小爱同学坏了今天修好寄回来了，无聊的时候还是有点意思的。</span><br><span class="line">晚上回家又塞车了…什么时候能有自动驾驶啊。</span><br><span class="line">明天就是LPL总决赛了，IG加油啊。</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2019/08/23/unity-new-museum/">Unity-新式数字博物馆</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2019/08/23/unity-new-museum/">http://www.zanple.top/2019/08/23/unity-new-museum/</a></li>
+                    <li><strong>发布时间：</strong>2019-08-23</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Unity/" rel="tag">Unity</a>,&nbsp;<a class="has-link-grey -link" href="/tags/VR/" rel="tag">VR</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E5%A4%A7%E5%88%9B/" rel="tag">大创</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E5%BB%BA%E6%A8%A1/" rel="tag">建模</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/26/digtalmedia-web/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">数媒自习室-基于ASP的动态网页开发</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/21/java-swing/">
+                <span class="level-item">Java Swing图形用户界面</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-引言">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 引言</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-项目意义：">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 项目意义：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-对博物馆运维成本与文物保护上的作用">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 对博物馆运维成本与文物保护上的作用</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-对博物馆藏品展示方式上的作用">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 对博物馆藏品展示方式上的作用</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-对博物馆教育功能的意义">
+        <!-- span class="has-mr-6">2.3</span-->
+        <span>2.3 对博物馆教育功能的意义</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-实际应用">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 实际应用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-应用于博物馆文物的展示">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 应用于博物馆文物的展示</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-应用于移动式博物馆">
+        <!-- span class="has-mr-6">3.2</span-->
+        <span>3.2 应用于移动式博物馆</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#4-研究内容">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 研究内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-关键问题">
+        <!-- span class="has-mr-6">5</span-->
+        <span>5. 关键问题</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#5-1-拟真场景的搭建与展品的建模">
+        <!-- span class="has-mr-6">5.1</span-->
+        <span>5.1 拟真场景的搭建与展品的建模</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-借助VR设备实现观众与场景的交互">
+        <!-- span class="has-mr-6">5.2</span-->
+        <span>5.2 借助VR设备实现观众与场景的交互</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-3-引导参观机制与观众体验的平衡">
+        <!-- span class="has-mr-6">5.3</span-->
+        <span>5.3 引导参观机制与观众体验的平衡</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#6-实现">
+        <!-- span class="has-mr-6">6</span-->
+        <span>6. 实现</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Unity-新式数字博物馆" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

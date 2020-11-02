@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>蛋黄哥学算术-基于flash的小游戏 - Addendum</title>
+
+
+    <meta name="description" content="概述：蛋黄哥学算术是一个面向儿童的益智型算术小游戏，游戏共有三个难度：入门级、一般级和大师级，可供不同水平阶段的儿童进行算术练习。 类型：面向儿童的益智算术小游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蛋黄哥学算术-基于flash的小游戏">
+<meta property="og:url" content="http://www.zanple.top/2018/12/18/danghuang-game/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="概述：蛋黄哥学算术是一个面向儿童的益智型算术小游戏，游戏共有三个难度：入门级、一般级和大师级，可供不同水平阶段的儿童进行算术练习。 类型：面向儿童的益智算术小游戏">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/danghuang-game.png">
+<meta property="article:published_time" content="2018-12-18T07:21:51.000Z">
+<meta property="article:modified_time" content="2018-12-18T07:21:51.000Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="游戏">
+<meta property="article:tag" content="ActionScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/danghuang-game.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="蛋黄哥学算术-基于flash的小游戏" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/danghuang-game.png" alt="蛋黄哥学算术-基于flash的小游戏">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>蛋黄哥学算术-基于flash的小游戏
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2018-12-18T07:21:51.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2018-12-18</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/ActionScript/">ActionScript</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    7 分钟 读完 (大约 1070 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p><strong>概述</strong>：蛋黄哥学算术是一个面向儿童的益智型算术小游戏，游戏共有三个难度：<code>入门级</code>、<code>一般级</code>和<code>大师级</code>，可供不同水平阶段的儿童进行算术练习。</p>
+<p><strong>类型</strong>：面向儿童的益智算术小游戏<a id="more"></a></p>
+<h1 id="1-游戏介绍"><a href="#1-游戏介绍" class="headerlink" title="1. 游戏介绍"></a>1. 游戏介绍</h1><h2 id="1-1-游戏内容"><a href="#1-1-游戏内容" class="headerlink" title="1.1 游戏内容"></a>1.1 游戏内容</h2><p>本游戏以蛋黄哥（懒蛋蛋）为游戏主角，以小学生为游戏对象加入三种不同难度的算术题：10以内的加减法、100以内的加减法和100以内的乘除法。玩家在点击开始选择难度后进入游戏，开始计时。玩家需要根据屏幕上随机生成的等式在下方的输入框内输入答案并点击确定按钮；每局游戏都有相应的计时器，生命值，在规定时间内生命值为零则视为游戏失败，进入失败界面；若在规定时间内未作答或未耗尽生命值则进入超时界面之后跳转至失败界面；只有在规定的时间内在不耗尽生命值的情况下正确答题方才算成功。</p>
+<h2 id="1-2-流程结构"><a href="#1-2-流程结构" class="headerlink" title="1.2 流程结构"></a>1.2 流程结构</h2><div align=center>
+
+<p><img src="image-20200327172757095.png" alt="流程图"></p>
+</div>
+
+<h2 id="1-3-作品的视觉设计"><a href="#1-3-作品的视觉设计" class="headerlink" title="1.3 作品的视觉设计"></a>1.3 作品的视觉设计</h2><div align=center>
+
+<p><img src="image-20200327172858208.png" alt="主界面"></p>
+<p><img src="image-20200327172918632.png" alt="难度选择"></p>
+<p><img src="image-20200327172937426.png" alt="游戏主界面"></p>
+</div>
+
+<h1 id="2-游戏的技术实现"><a href="#2-游戏的技术实现" class="headerlink" title="2.游戏的技术实现"></a>2.游戏的技术实现</h1><h2 id="2-1-页面之间的主要跳转方式"><a href="#2-1-页面之间的主要跳转方式" class="headerlink" title="2.1 页面之间的主要跳转方式"></a>2.1 页面之间的主要跳转方式</h2><h3 id="2-1-1-通过跳转至场景的方式实现不同页面的切换"><a href="#2-1-1-通过跳转至场景的方式实现不同页面的切换" class="headerlink" title="2.1.1 通过跳转至场景的方式实现不同页面的切换"></a>2.1.1 通过跳转至场景的方式实现不同页面的切换</h3><div align=center>
+
+<p><img src="image-20200327173215321.png" alt="跳转"></p>
+</div>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">button_3.addEventListener(MouseEvent.CLICK, fl_ClickToGoToScene_2);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fl_ClickToGoToScene_2</span>(<span class="params">event:MouseEvent</span>):<span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	MovieClip(<span class="keyword">this</span>.root).gotoAndPlay(<span class="number">1</span>, <span class="string">"场景 1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-通过跳转至不同帧的方式实现不同页面的切换"><a href="#2-1-2-通过跳转至不同帧的方式实现不同页面的切换" class="headerlink" title="2.1.2 通过跳转至不同帧的方式实现不同页面的切换"></a>2.1.2 通过跳转至不同帧的方式实现不同页面的切换</h3><div align=center>
+
+<p><img src="image-20200327173244020.png" alt="跳转"></p>
+</div>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nd3.addEventListener(MouseEvent.CLICK, fl_ClickToGoToAndStopAtFrame_15);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fl_ClickToGoToAndStopAtFrame_15</span>(<span class="params">event:MouseEvent</span>):<span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	gotoAndStop(<span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-通过函数显示对象"><a href="#2-2-通过函数显示对象" class="headerlink" title="2.2 通过函数显示对象"></a>2.2 通过函数显示对象</h2><p>延时添加至舞台</p>
+<div align=center>
+
+<p><img src="image-20200327173347948.png" alt="延时添加至舞台"></p>
+</div>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> interval:uint=<span class="number">200</span>;</span><br><span class="line"><span class="keyword">var</span> myTimer8:Timer=<span class="keyword">new</span> Timer(interval);</span><br><span class="line">myTimer8.addEventListener(TimerEvent.TIMER, timerHandler);</span><br><span class="line">myTimer8.start();</span><br><span class="line"><span class="keyword">var</span> play1:playbtn=<span class="keyword">new</span> playbtn();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timerHandler</span>(<span class="params">event:TimerEvent</span>):<span class="title">void</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> t:<span class="built_in">Number</span>=myTimer8.currentCount/<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="number">1.2</span>) &#123;</span><br><span class="line">		myTimer8.stop();</span><br><span class="line">		play1.x= <span class="number">640</span>;</span><br><span class="line">		play1.y= <span class="number">360</span>;</span><br><span class="line">		addChild(play1);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-视频的播放"><a href="#2-3-视频的播放" class="headerlink" title="2.3 视频的播放"></a>2.3 视频的播放</h2><p>跳转至帧并播放视频</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ClickToGoToAndStopAtFrame_5</span>(<span class="params">event:MouseEvent</span>):<span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	gotoAndStop(<span class="number">5</span>);</span><br><span class="line">	video1.play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-场景的背景音乐"><a href="#2-4-场景的背景音乐" class="headerlink" title="2.4 场景的背景音乐"></a>2.4 场景的背景音乐</h2><div align=center>
+
+<p><img src="image-20200327173541130.png" alt="背景音乐图层"></p>
+</div>
+
+<h2 id="2-5-按钮音效"><a href="#2-5-按钮音效" class="headerlink" title="2.5 按钮音效"></a>2.5 按钮音效</h2><div align=center>
+
+<p><img src="image-20200327173628711.png" alt="将音频插入到指针经过的帧上"></p>
+</div>
+
+<h2 id="2-6-场景的连续播放"><a href="#2-6-场景的连续播放" class="headerlink" title="2.6 场景的连续播放"></a>2.6 场景的连续播放</h2><p>通过添加计时器在该帧播放完后跳转到另一帧</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> interval:uint=<span class="number">200</span>;</span><br><span class="line"><span class="keyword">var</span> myTimer2:Timer=<span class="keyword">new</span> Timer(interval);</span><br><span class="line">myTimer2.addEventListener(TimerEvent.TIMER, timerHandler);</span><br><span class="line">myTimer2.start();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timerHandler</span>(<span class="params">event:TimerEvent</span>):<span class="title">void</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> t:<span class="built_in">Number</span>=myTimer2.currentCount/<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">if</span> (t == <span class="number">1.2</span>) &#123;</span><br><span class="line">		myTimer.stop();</span><br><span class="line">		gotoAndStop(<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-7-生命条"><a href="#2-7-生命条" class="headerlink" title="2.7 生命条"></a>2.7 生命条</h2><p>通过生命条影片剪辑元件跳到下一帧并减少1个生命值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">define_f</span>(<span class="params">event:MouseEvent</span>):<span class="title">void</span> </span>&#123;</span><br><span class="line">	num3in = <span class="built_in">Number</span>(num3.text);</span><br><span class="line">	<span class="keyword">if</span>(num3in == num3temp)&#123;</span><br><span class="line">		myTimer.stop();</span><br><span class="line">		gotoAndStop(<span class="number">3</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		lifebar.nextFrame();</span><br><span class="line">		num3.text = <span class="string">""</span>;</span><br><span class="line">		life --;</span><br><span class="line">		<span class="keyword">if</span>(life == <span class="number">0</span>)&#123;</span><br><span class="line">			myTimer.stop();</span><br><span class="line">			gotoAndStop(<span class="number">2</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-8-游戏主题的实现"><a href="#2-8-游戏主题的实现" class="headerlink" title="2.8 游戏主题的实现"></a>2.8 游戏主题的实现</h2><div align=center>
+
+<img src="image-20200327173755557.png" alt="主题" style="zoom:80%;" />
+
+</div>
+
+<h2 id="2-9-功能的实现"><a href="#2-9-功能的实现" class="headerlink" title="2.9 功能的实现"></a>2.9 功能的实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">stop ();<span class="comment">//计时器</span></span><br><span class="line"><span class="keyword">var</span> myTimer:Timer = <span class="keyword">new</span> Timer(<span class="number">1000</span>,<span class="number">60</span>);</span><br><span class="line">myTimer.addEventListener(TimerEvent.TIMER, timefun);</span><br><span class="line">myTimer.start();</span><br><span class="line"><span class="keyword">var</span> time:<span class="built_in">Number</span>=<span class="number">30</span>;</span><br><span class="line"><span class="keyword">var</span> timetemp:<span class="built_in">Number</span>=time;</span><br><span class="line">timer.text=<span class="built_in">String</span>(time);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timefun</span>(<span class="params">the:TimerEvent</span>):<span class="title">void</span> </span>&#123;</span><br><span class="line">	time-=<span class="number">1</span>;</span><br><span class="line">	timer.text=<span class="built_in">String</span>(time);</span><br><span class="line">	<span class="keyword">if</span>(time == <span class="number">0</span>)&#123;</span><br><span class="line">		myTimer.stop();</span><br><span class="line">		gotoAndStop(<span class="number">4</span>);</span><br><span class="line">	&#125;&#125;</span><br><span class="line"><span class="keyword">var</span> num1temp :<span class="built_in">Number</span>;<span class="comment">//定义</span></span><br><span class="line"><span class="keyword">var</span> num2temp :<span class="built_in">Number</span>;</span><br><span class="line"><span class="keyword">var</span> num3temp :int;</span><br><span class="line"><span class="keyword">var</span> num3in:<span class="built_in">Number</span>;</span><br><span class="line"><span class="keyword">var</span> life:<span class="built_in">Number</span>;</span><br><span class="line"><span class="keyword">var</span> numhow:<span class="built_in">Number</span>;</span><br><span class="line"><span class="keyword">var</span> num3ch:<span class="built_in">Number</span>;</span><br><span class="line">life = <span class="number">5</span>;<span class="comment">//起始生命值</span></span><br><span class="line"><span class="keyword">do</span>&#123;<span class="comment">//算术方法的随机控制，并保证不会出现非整除算式</span></span><br><span class="line">num1temp =int(<span class="built_in">Math</span>.random()*<span class="number">100</span>)+<span class="number">1</span>;</span><br><span class="line">num2temp =int(<span class="built_in">Math</span>.random()*<span class="number">100</span>)+<span class="number">1</span>;</span><br><span class="line">numhow = int(<span class="built_in">Math</span>.random()*<span class="number">10</span>)+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(numhow &gt; <span class="number">5</span>)&#123;</span><br><span class="line">		how.text = <span class="string">'x'</span>;</span><br><span class="line">		num3temp = num1temp * num2temp;</span><br><span class="line">		num3ch =<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">		how.text = <span class="string">'÷'</span>;</span><br><span class="line">		num3temp = num1temp / num2temp;</span><br><span class="line">		num3ch = (num3temp*num2temp)-num1temp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">while</span>(num3ch != <span class="number">0</span>);</span><br><span class="line">num1.text = <span class="built_in">String</span>(num1temp);</span><br><span class="line">num2.text = <span class="built_in">String</span>(num2temp);<span class="comment">//将生成的随机数显示到屏幕上</span></span><br><span class="line">define.addEventListener(MouseEvent.CLICK,define_f);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">define_f</span>(<span class="params">event:MouseEvent</span>):<span class="title">void</span> </span>&#123;</span><br><span class="line">	<span class="comment">//回答正确与否的判断，每次答错都会清空输入框的内容并扣去一个生命值；生命值为零或超时则跳转到失败页面，回答正确则跳转到成功页面</span></span><br><span class="line">	num3in = <span class="built_in">Number</span>(num3.text);</span><br><span class="line">	<span class="keyword">if</span>(num3in == num3temp)&#123;</span><br><span class="line">		myTimer.stop();</span><br><span class="line">		gotoAndStop(<span class="number">3</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		lifebar.nextFrame();</span><br><span class="line">		num3.text = <span class="string">""</span>;</span><br><span class="line">		life --;</span><br><span class="line">		<span class="keyword">if</span>(life == <span class="number">0</span>)&#123;</span><br><span class="line">			myTimer.stop();</span><br><span class="line">			gotoAndStop(<span class="number">2</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-工作分析和总结"><a href="#3-工作分析和总结" class="headerlink" title="3.工作分析和总结"></a>3.工作分析和总结</h1><h2 id="3-1-遇到的问题及解决"><a href="#3-1-遇到的问题及解决" class="headerlink" title="3.1 遇到的问题及解决"></a>3.1 遇到的问题及解决</h2><ul>
+<li>运行时帧的不断切换播放（通过stop();解决）</li>
+<li>编译器空对象错误（计时器等在跳转帧时未停止，视频未停止，通过停止后解决）</li>
+<li>随机生成的运算符号不显示（随机数生成的结果没有完整的考虑在选择结构中）</li>
+</ul>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2018/12/18/danghuang-game/">蛋黄哥学算术-基于flash的小游戏</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2018/12/18/danghuang-game/">http://www.zanple.top/2018/12/18/danghuang-game/</a></li>
+                    <li><strong>发布时间：</strong>2018-12-18</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/ActionScript/" rel="tag">ActionScript</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/12/26/design-UI/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">UI设计汇总（持续更新）</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/12/12/sketch-2018/">
+                <span class="level-item">素描</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            37
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            19
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-游戏介绍">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 游戏介绍</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-游戏内容">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 游戏内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-流程结构">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 流程结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-3-作品的视觉设计">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 作品的视觉设计</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-游戏的技术实现">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2.游戏的技术实现</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-页面之间的主要跳转方式">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 页面之间的主要跳转方式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-1-通过跳转至场景的方式实现不同页面的切换">
+        <!-- span class="has-mr-6">2.1.1</span-->
+        <span>2.1.1 通过跳转至场景的方式实现不同页面的切换</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-1-2-通过跳转至不同帧的方式实现不同页面的切换">
+        <!-- span class="has-mr-6">2.1.2</span-->
+        <span>2.1.2 通过跳转至不同帧的方式实现不同页面的切换</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-2-通过函数显示对象">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 通过函数显示对象</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-视频的播放">
+        <!-- span class="has-mr-6">2.3</span-->
+        <span>2.3 视频的播放</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-4-场景的背景音乐">
+        <!-- span class="has-mr-6">2.4</span-->
+        <span>2.4 场景的背景音乐</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-5-按钮音效">
+        <!-- span class="has-mr-6">2.5</span-->
+        <span>2.5 按钮音效</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-6-场景的连续播放">
+        <!-- span class="has-mr-6">2.6</span-->
+        <span>2.6 场景的连续播放</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-7-生命条">
+        <!-- span class="has-mr-6">2.7</span-->
+        <span>2.7 生命条</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-8-游戏主题的实现">
+        <!-- span class="has-mr-6">2.8</span-->
+        <span>2.8 游戏主题的实现</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-9-功能的实现">
+        <!-- span class="has-mr-6">2.9</span-->
+        <span>2.9 功能的实现</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-工作分析和总结">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3.工作分析和总结</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-遇到的问题及解决">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 遇到的问题及解决</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="蛋黄哥学算术-基于flash的小游戏" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
