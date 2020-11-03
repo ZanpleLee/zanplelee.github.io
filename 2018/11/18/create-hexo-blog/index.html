@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.zanple.top/gallery/create-hexo-blog.png">
 <meta property="article:published_time" content="2018-11-18T12:04:38.000Z">
-<meta property="article:modified_time" content="2020-04-07T14:59:47.593Z">
+<meta property="article:modified_time" content="2020-11-03T07:26:30.551Z">
 <meta property="article:author" content="Zanple">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="计算机网络">
@@ -156,7 +156,7 @@
             <div class="level-left">
                     <time class="level-item has-text-grey" datetime="2018-11-18T12:04:38.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2018-11-18</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-04-07T14:59:47.593Z"><i class="far fa-calendar-check">&nbsp;</i>2020-04-07</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-11-03T07:26:30.551Z"><i class="far fa-calendar-check">&nbsp;</i>2020-11-03</time>
                 
                 
                 <div class="level-item">
@@ -169,7 +169,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    35 分钟 读完 (大约 5226 个字)
+                    37 分钟 读完 (大约 5495 个字)
                 </span>
                 
                 
@@ -184,7 +184,8 @@
 </blockquote>
 <hr>
 <p>2019.3.8更新 更换了博客的主题，并部署到阿里云上</p>
-<p>2020.4.7更新 解决博客公式显示问题<a id="more"></a></p>
+<p>2020.4.7更新 解决博客公式显示问题</p>
+<p>2020.11.3更新 解决阿里云重新部署的问题，解决FontAwesome加载慢导致博客卡顿的问题<a id="more"></a></p>
 <h1 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1. 环境配置"></a>1. 环境配置</h1><p>环境配置部分参考了codesheep的<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=1565">搭建教程</a>。</p>
 <h2 id="1-1-安装Node-js"><a href="#1-1-安装Node-js" class="headerlink" title="1.1 安装Node.js"></a>1.1 安装Node.js</h2><ul>
 <li><p>因为Hexo是基于Node.js的，所以第一步就是安装Node.js。到Node.js的<a href="https://nodejs.org/">官网</a>下载最新的版本（选择LTS版）。</p>
@@ -334,6 +335,9 @@ $$
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">diff:source/css/style.styl</span><br><span class="line">+<span class="selector-class">.post-copyright</span></span><br><span class="line">+    <span class="selector-tag">font-size</span>: 1<span class="selector-tag">rem</span></span><br><span class="line">+    <span class="selector-tag">letter-spacing</span>: 0<span class="selector-class">.02rem</span></span><br><span class="line">+    <span class="selector-tag">word-break</span>: <span class="selector-tag">break-all</span></span><br><span class="line">+    <span class="selector-tag">margin</span>: 2<span class="selector-class">.5rem</span> 0 0</span><br><span class="line">+    <span class="selector-tag">padding</span>: 1<span class="selector-tag">rem</span> 1<span class="selector-tag">rem</span></span><br><span class="line">+    <span class="selector-tag">border-left</span>: 3<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#FF1700</span></span><br><span class="line">+    <span class="selector-tag">background-color</span>: <span class="selector-id">#F9F9F9</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="2-2-10-修复嵌入视频显示大小异常"><a href="#2-2-10-修复嵌入视频显示大小异常" class="headerlink" title="2.2.10 修复嵌入视频显示大小异常"></a>2.2.10 修复嵌入视频显示大小异常</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.bilibili</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0</span>;              <span class="comment">/*高度设置这里无效，设置为0，用padding撑开div*/</span></span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">75%</span>;    <span class="comment">/*68%到80%都可以*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.bilibili</span> <span class="selector-tag">iframe</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-11-修复由于Font-Awesome导致的页面加载慢问题"><a href="#2-2-11-修复由于Font-Awesome导致的页面加载慢问题" class="headerlink" title="2.2.11 修复由于Font Awesome导致的页面加载慢问题"></a>2.2.11 修复由于Font Awesome导致的页面加载慢问题</h3><p>部署在阿里云上经常发现打开网页速度慢，并且图标经常不能正确加载。在浏览器中打开控制台可以看到是由于FontAwesome加载问题导致的，解决方法是，选择使用 CDN 载入 Font Awesome 图标。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">diff:themes/icarus/includes/helpers/cdn.js</span><br><span class="line">const icon_providers = &#123;</span><br><span class="line">-	 fontawesome: 'https://use.fontawesome.com/releases/v5.11.2/css/all.css'</span><br><span class="line">+    fontawesome: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css'</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h1 id="3-阿里云部署"><a href="#3-阿里云部署" class="headerlink" title="3. 阿里云部署"></a>3. 阿里云部署</h1><p>Hexo博客的阿里云部署主要参照于<a href="http://www.atangbiji.com/2019/12/22/buildHexoBlog/">阿汤笔迹的文章。</a>基于CentOS 7.4.</p>
 <h2 id="3-1-阿里云服务器设置"><a href="#3-1-阿里云服务器设置" class="headerlink" title="3.1 阿里云服务器设置"></a>3.1 阿里云服务器设置</h2><h3 id="3-1-1-远程连接Linux实例"><a href="#3-1-1-远程连接Linux实例" class="headerlink" title="3.1.1 远程连接Linux实例"></a>3.1.1 远程连接Linux实例</h3><p>远程连接服务器的方法都很多。我们既可以通过阿里云自带的VNC（Virtual Network Console，虚拟网络控制台）远程连接Linux实例，也可以通过远程连接软件（例如PuTTY、Xshell、SecureCRT等）连接Linux实例。</p>
@@ -488,6 +492,11 @@ $$
 <p>此时，便可以通过浏览器访问<a href="http://xxx.xxx.xxx.xxx/">http://xxx.xxx.xxx.xxx:80/</a> 进入hexo我的博客主页了。</p>
 <h3 id="3-3-2-域名绑定"><a href="#3-3-2-域名绑定" class="headerlink" title="3.3.2 域名绑定"></a>3.3.2 域名绑定</h3><p>待ECS服务器备案审核通过，在阿里云后台对域名解析进行设置，将域名的解析值修改为ECS实例的公网IP。进而完成域名与ECS服务器实例的公网IP进行绑定。</p>
 <p><img src="jiexi.png" alt="解析"></p>
+<h2 id="3-4-注意事项"><a href="#3-4-注意事项" class="headerlink" title="3.4 注意事项"></a>3.4 注意事项</h2><p>两次配置都遇到了配置完访问<a href="http://xxx.xxx.xxx.xxx:80/拒绝访问的问题。">http://xxx.xxx.xxx.xxx:80/拒绝访问的问题。</a></p>
+<p>拒绝访问一般是Nginx服务器没打开，重新打开一次就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#cd &#x2F;usr&#x2F;local&#x2F;nginx</span><br><span class="line">#ls</span><br><span class="line">#cd sbin</span><br><span class="line">#.&#x2F;nginx</span><br></pre></td></tr></table></figure>
+
+<p>第二个问题是打开Nginx服务器后显示403。利用FileZilla连接服务器可以看到/home/www/hexo/目录为空，因此检查钩子文件是否有问题。</p>
 
         </div>
             
@@ -807,6 +816,10 @@ $$
         <a class="is-flex" href="#2-2-10-修复嵌入视频显示大小异常">
         <!-- span class="has-mr-6">2.2.10</span-->
         <span>2.2.10 修复嵌入视频显示大小异常</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-11-修复由于Font-Awesome导致的页面加载慢问题">
+        <!-- span class="has-mr-6">2.2.11</span-->
+        <span>2.2.11 修复由于Font Awesome导致的页面加载慢问题</span>
         </a></li></ul></li></ul></li><li>
         <a class="is-flex" href="#3-阿里云部署">
         <!-- span class="has-mr-6">3</span-->
@@ -867,7 +880,11 @@ $$
         <a class="is-flex" href="#3-3-2-域名绑定">
         <!-- span class="has-mr-6">3.3.2</span-->
         <span>3.3.2 域名绑定</span>
-        </a></li></ul></li></ul></li></ul>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-4-注意事项">
+        <!-- span class="has-mr-6">3.4</span-->
+        <span>3.4 注意事项</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>

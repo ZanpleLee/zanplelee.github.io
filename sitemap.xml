@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.zanple.top/2018/11/18/create-hexo-blog/</loc>
+    
+    <lastmod>2020-11-03</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.zanple.top/2020/10/01/gaming-texture/</loc>
     
     <lastmod>2020-10-01</lastmod>
@@ -131,13 +138,6 @@
     <loc>http://www.zanple.top/2020/04/07/cg-unity-matrix/</loc>
     
     <lastmod>2020-04-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.zanple.top/2018/11/18/create-hexo-blog/</loc>
-    
-    <lastmod>2020-04-07</lastmod>
     
   </url>
   
