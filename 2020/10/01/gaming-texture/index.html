@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.zanple.top/gallery/gaming-texture.jpg">
 <meta property="article:published_time" content="2020-10-01T08:10:37.000Z">
-<meta property="article:modified_time" content="2020-10-01T08:45:26.451Z">
+<meta property="article:modified_time" content="2021-03-04T04:48:01.359Z">
 <meta property="article:author" content="Zanple">
 <meta property="article:tag" content="游戏">
 <meta property="article:tag" content="美术">
@@ -157,7 +157,7 @@
             <div class="level-left">
                     <time class="level-item has-text-grey" datetime="2020-10-01T08:10:37.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-10-01</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-10-01T08:45:26.451Z"><i class="far fa-calendar-check">&nbsp;</i>2020-10-01</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-04T04:48:01.359Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-04</time>
                 
                 
                 <div class="level-item">
@@ -170,7 +170,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    41 分钟 读完 (大约 6077 个字)
+                    44 分钟 读完 (大约 6528 个字)
                 </span>
                 
                 
@@ -199,7 +199,7 @@
 <p>在高光反射/光泽度工作流中，Diffuse贴图严格影响着材质的基本颜色而对材质的其他特征（如发射率）没有影响。对于介电材质而言，其材质颜色来自Diffuse贴图；对于金属材质而言，大部分颜色来自Specular高光贴图。</p>
 <p>在金属/粗糙度工作流中，BaseColor贴图实则包含了漫反射和高光贴图的信息。而Metallic贴图这决定了有多少BaseColor被解释为漫反射或者高光。</p>
 </blockquote>
-<h2 id="1-4-Gradient-amp-ColorLUT"><a href="#1-4-Gradient-amp-ColorLUT" class="headerlink" title="*1.4 Gradient&amp;ColorLUT"></a>*1.4 Gradient&amp;ColorLUT</h2><p><strong>Gradient Map</strong>（渐变图）和ColorLUT（颜色查找表）也可以认为是颜色贴图的一种，这类贴图通过在一维或二维的方式将一种颜色映射到另一种颜色。且通常作为全局资源使用（不是特定于某一模型）。</p>
+<h2 id="1-4-Gradient-amp-Ramp、ColorLUT"><a href="#1-4-Gradient-amp-Ramp、ColorLUT" class="headerlink" title="*1.4 Gradient&amp;Ramp、ColorLUT"></a>*1.4 Gradient&amp;Ramp、ColorLUT</h2><p><strong>Gradient&amp;Ramp Map</strong>（渐变图）和ColorLUT（颜色查找表）也可以认为是颜色贴图的一种，这类贴图通过在一维或二维的方式将一种颜色映射到另一种颜色。且通常作为全局资源使用（不是特定于某一模型）。</p>
 <div align=center>
 
 <p><img src="TeamFortress2.jpg" alt="使用渐变纹理来控制漫反射光照"></p>
@@ -262,6 +262,7 @@
 
 <p><strong>金属贴图的运行方式类似于掩码的运作方式，因为该贴图向着色器阐释如何分析基础色中的数据。</strong>金属感对象的光泽度由粗糙度控制。 材质越粗糙，其光泽度就会越低， 而缺少粗糙度将使金属显得非常有光泽。</p>
 <h3 id="3-1-2-Roughness"><a href="#3-1-2-Roughness" class="headerlink" title="3.1.2 Roughness"></a>3.1.2 Roughness</h3><p><strong>Roughness</strong>（粗糙度贴图）定义材质得粗糙度信息，0（黑色-0 sRGB）表示光滑，1（白-255 sRGB）表示粗糙。粗粗糙度是指造成光漫射的表面不规则状况，反射方向根据表面粗糙度自由变化。这改变了光的方向，但是光强度保持恒定不变。表面越粗糙，高光越散越暗。表面越光滑，高光反射集中，尽管反射的光的总量是一点的，表面也会更亮，光会更强。</p>
+<p>粗糙度贴图采样得来的粗糙度数值会影响一个表面的微平面统计学上的取向度。一个比较粗糙的表面会得到更宽阔更模糊的镜面反射（高光），而一个比较光滑的表面则会得到集中而清晰的镜面反射。</p>
 <div align=center>
 
 <p><img src="Roughness.jpg" alt="粗糙度贴图"></p>
@@ -293,6 +294,7 @@
 
 <p><strong>Anisotropic Map</strong>（各向异性贴图）是一种特殊的反射贴图。拉丝金属通常具有各向异性的高光，这是由表面的微划痕引起的。有时使用各项异性贴图去制作拉丝金属的效果。</p>
 <h1 id="4-结构贴图"><a href="#4-结构贴图" class="headerlink" title="4. 结构贴图"></a>4. 结构贴图</h1><h2 id="4-1-Ambient-Occlusion"><a href="#4-1-Ambient-Occlusion" class="headerlink" title="4.1 Ambient Occlusion"></a>4.1 Ambient Occlusion</h2><p><strong>Ambient Occlusion</strong>（AO，环境光遮蔽贴图）描述了较大尺度的光线遮蔽信息，通常由高模烘培得到。指表面某点能获得多少环境中的光，用来模拟物体之间所产生的阴影，在不打光的时候增加体积感。</p>
+<p>比如我们有一个砖块表面，反照率纹理上的砖块裂缝部分应该没有任何阴影信息。然而AO贴图则会把那些光线较难逃逸出来的暗色边缘指定出来。在光照的结尾阶段引入环境遮蔽可以明显的提升你场景的视觉效果。</p>
 <p><img src="AO.jpg" alt="AO图"></p>
 <p>环境光遮蔽贴图基于物体与其他物体越接近的区域，受到反射光线的照明越弱这一现象来模拟现实照明的一部分效果。<strong>该贴图只影响漫反射分配，不影响高光反射分配。</strong></p>
 <h2 id="4-2-Cavity"><a href="#4-2-Cavity" class="headerlink" title="4.2 Cavity"></a>4.2 Cavity</h2><p><strong>Cavity Map</strong>（缝隙图）描述了比AO图更小尺度的光线遮蔽信息，通常由高模或者法线贴图烘培得到。</p>
@@ -369,50 +371,34 @@
 </div>
 
 <p>DuDv的工作方式与视差贴图扭曲曲面的方式类似，只是DuDv不考虑视角（无视差）。从DuDv贴图中获取Du和Dv，对反射贴图中的每个像素，将Du添加到反射贴图的U纹理坐标，并将Dv添加到其V坐标。最后偏移反射贴图像素，从而产生失真。</p>
+<h1 id="7-一些注意事项"><a href="#7-一些注意事项" class="headerlink" title="7. 一些注意事项"></a>7. 一些注意事项</h1><p>在使用这些贴图时，如果要对其进行运算则需要格外注意其贴图储存的信息是否经过伽马编码。<strong>其中，颜色值和颜色操作的计算应该在线性空间内执行。</strong></p>
+<p>一般来说，基本颜色(Base Color)贴图在创建的时候就已经在sRGB空间了，因此我们需要在光照计算之前先把他们转换到线性空间。环境光遮蔽贴图(Ambient Occlusion maps)通常也需要我们转换到线性空间。而像金属度贴图(Metallic)和粗糙度贴图(Roughness)大多都会保证在线性空间中。</p>
+<p>可以简单地区分为，如果贴图代表着我们看到的颜色，则它该被阐释为sRGB；如果贴图代表数据，则应该将其阐释为线性。</p>
 <hr>
 <ol>
-<li><p>《Unity Shader入门精要》</p>
-</li>
-<li><p>《Real-Time Rendering 4th Edition》</p>
-</li>
-<li><p>GAMES101:现代计算机图形学入门[<a href="http://games-cn.org/intro-graphics/]">http://games-cn.org/intro-graphics/]</a></p>
-</li>
-<li><p>游戏美术基础：游戏贴图[<a href="https://www.jianshu.com/p/c1ed26cbb6b4]">https://www.jianshu.com/p/c1ed26cbb6b4]</a></p>
-</li>
-<li><p>Polycount - Texture types[<a href="http://wiki.polycount.com/wiki/Texture_types]">http://wiki.polycount.com/wiki/Texture_types]</a></p>
-</li>
-<li><p>《Real-time Shallow Water Simulation and Environment Mapping and Clouds - Rene Truelsen》</p>
-</li>
-<li><p>What are the different texture maps for?[<a href="https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for]">https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for]</a></p>
-</li>
-<li><p>The PBR Guide part 1[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]</a></p>
-</li>
-<li><p>The PBR Guide part 2[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]</a></p>
-</li>
-<li><p>Diffuse/Specular vs BaseColor[<a href="https://resources.turbosquid.com/stemcell/stemcell-3d-modeling-workflow/stemcell-textures-materials/diffuse-specular-vs-basecolor/]">https://resources.turbosquid.com/stemcell/stemcell-3d-modeling-workflow/stemcell-textures-materials/diffuse-specular-vs-basecolor/]</a></p>
-</li>
-<li><p>Normal vs. Displacement Mapping &amp; Why Games Use Normals[<a href="https://cgcookie.com/articles/normal-vs-displacement-mapping-why-games-use-normals]">https://cgcookie.com/articles/normal-vs-displacement-mapping-why-games-use-normals]</a></p>
-</li>
-<li><p>Physically-Based Rendering, And You Can Too![<a href="https://marmoset.co/posts/physically-based-rendering-and-you-can-too/]">https://marmoset.co/posts/physically-based-rendering-and-you-can-too/]</a></p>
-</li>
-<li><p>Level of Detail[<a href="https://resources.turbosquid.com/level-of-detail/]">https://resources.turbosquid.com/level-of-detail/]</a></p>
-</li>
-<li><p>Elliminate Texture Confusion: Bump, Normal and Displacement Maps[<a href="https://www.pluralsight.com/blog/film-games/bump-normal-and-displacement-maps]">https://www.pluralsight.com/blog/film-games/bump-normal-and-displacement-maps]</a></p>
-</li>
-<li><p>VECTOR DISPLACEMENT MAPS[<a href="http://docs.pixologic.com/user-guide/3d-modeling/exporting-your-model/vector-displacement-Maps/]">http://docs.pixologic.com/user-guide/3d-modeling/exporting-your-model/vector-displacement-Maps/]</a></p>
-</li>
-<li><p>Parallax Map with Offset Limiting: A PerPixel Approximation of Uneven Surfaces</p>
-</li>
-<li><p>BRUSHED METAL V-RAY MATERIAL[<a href="https://resources.turbosquid.com/library-tutorials/brushed-metal/]">https://resources.turbosquid.com/library-tutorials/brushed-metal/]</a></p>
-</li>
-<li><p>Half Avocado[<a href="https://quixel.com/megascans/home?category=3D%20asset&amp;category=edible&amp;category=fruit&amp;assetId=ujcxeblva]">https://quixel.com/megascans/home?category=3D%20asset&amp;category=edible&amp;category=fruit&amp;assetId=ujcxeblva]</a></p>
-</li>
-<li><p>Art of Lighting Game Environments in Unity[<a href="https://cgcookie.com/articles/art-of-lighting-game-environments]">https://cgcookie.com/articles/art-of-lighting-game-environments]</a></p>
-</li>
-<li><p>Detail Maps[<a href="https://docs.cryengine.com/display/SDKDOC2/Detail+Maps]">https://docs.cryengine.com/display/SDKDOC2/Detail+Maps]</a></p>
-</li>
-<li><p>180701 UE4 Flowmap Fields Visualizer[<a href="https://www.youtube.com/watch?v=frfcRzuw6OM]">https://www.youtube.com/watch?v=frfcRzuw6OM]</a></p>
-</li>
+<li>《Unity Shader入门精要》</li>
+<li>《Real-Time Rendering 4th Edition》</li>
+<li>GAMES101:现代计算机图形学入门[<a href="http://games-cn.org/intro-graphics/]">http://games-cn.org/intro-graphics/]</a></li>
+<li>游戏美术基础：游戏贴图[<a href="https://www.jianshu.com/p/c1ed26cbb6b4]">https://www.jianshu.com/p/c1ed26cbb6b4]</a></li>
+<li>Polycount - Texture types[<a href="http://wiki.polycount.com/wiki/Texture_types]">http://wiki.polycount.com/wiki/Texture_types]</a></li>
+<li>《Real-time Shallow Water Simulation and Environment Mapping and Clouds - Rene Truelsen》</li>
+<li>What are the different texture maps for?[<a href="https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for]">https://help.poliigon.com/en/articles/1712652-what-are-the-different-texture-maps-for]</a></li>
+<li>The PBR Guide part 1[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]</a></li>
+<li>The PBR Guide part 2[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]</a></li>
+<li>Diffuse/Specular vs BaseColor[<a href="https://resources.turbosquid.com/stemcell/stemcell-3d-modeling-workflow/stemcell-textures-materials/diffuse-specular-vs-basecolor/]">https://resources.turbosquid.com/stemcell/stemcell-3d-modeling-workflow/stemcell-textures-materials/diffuse-specular-vs-basecolor/]</a></li>
+<li>Normal vs. Displacement Mapping &amp; Why Games Use Normals[<a href="https://cgcookie.com/articles/normal-vs-displacement-mapping-why-games-use-normals]">https://cgcookie.com/articles/normal-vs-displacement-mapping-why-games-use-normals]</a></li>
+<li>Physically-Based Rendering, And You Can Too![<a href="https://marmoset.co/posts/physically-based-rendering-and-you-can-too/]">https://marmoset.co/posts/physically-based-rendering-and-you-can-too/]</a></li>
+<li>Level of Detail[<a href="https://resources.turbosquid.com/level-of-detail/]">https://resources.turbosquid.com/level-of-detail/]</a></li>
+<li>Elliminate Texture Confusion: Bump, Normal and Displacement Maps[<a href="https://www.pluralsight.com/blog/film-games/bump-normal-and-displacement-maps]">https://www.pluralsight.com/blog/film-games/bump-normal-and-displacement-maps]</a></li>
+<li>VECTOR DISPLACEMENT MAPS[<a href="http://docs.pixologic.com/user-guide/3d-modeling/exporting-your-model/vector-displacement-Maps/]">http://docs.pixologic.com/user-guide/3d-modeling/exporting-your-model/vector-displacement-Maps/]</a></li>
+<li>Parallax Map with Offset Limiting: A PerPixel Approximation of Uneven Surfaces</li>
+<li>BRUSHED METAL V-RAY MATERIAL[<a href="https://resources.turbosquid.com/library-tutorials/brushed-metal/]">https://resources.turbosquid.com/library-tutorials/brushed-metal/]</a></li>
+<li>Half Avocado[<a href="https://quixel.com/megascans/home?category=3D%20asset&amp;category=edible&amp;category=fruit&amp;assetId=ujcxeblva]">https://quixel.com/megascans/home?category=3D%20asset&amp;category=edible&amp;category=fruit&amp;assetId=ujcxeblva]</a></li>
+<li>Art of Lighting Game Environments in Unity[<a href="https://cgcookie.com/articles/art-of-lighting-game-environments]">https://cgcookie.com/articles/art-of-lighting-game-environments]</a></li>
+<li>Detail Maps[<a href="https://docs.cryengine.com/display/SDKDOC2/Detail+Maps]">https://docs.cryengine.com/display/SDKDOC2/Detail+Maps]</a></li>
+<li>180701 UE4 Flowmap Fields Visualizer[<a href="https://www.youtube.com/watch?v=frfcRzuw6OM]">https://www.youtube.com/watch?v=frfcRzuw6OM]</a></li>
+<li>Theory[<a href="https://link.zhihu.com/?target=https%3A//learnopengl.com/PBR/Theory">https://learnopengl.com/PBR/Theory</a>]</li>
+<li>Lighting[<a href="https://link.zhihu.com/?target=https%3A//learnopengl.com/PBR/Lighting">https://learnopengl.com/PBR/Lighting</a>]</li>
 </ol>
 
         </div>
@@ -471,6 +457,13 @@
 
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/01/04/directx11-01-triangle/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">DirectX11入门笔记-01-绘制三角形</span>
+            </a>
+        </div>
         
         
         <div class="level-end">
@@ -550,7 +543,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            37
+                            43
                         </p>
                     </a>
                 </div>
@@ -562,7 +555,7 @@
                     </p>
                     <a href="/categories">
                         <p class="title has-text-weight-normal">
-                            19
+                            20
                         </p>
                     </a>
                 </div>
@@ -574,7 +567,7 @@
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            43
+                            44
                         </p>
                     </a>
                 </div>
@@ -655,9 +648,9 @@
         <!-- span class="has-mr-6">1.3</span-->
         <span>1.3 Base Color</span>
         </a></li><li>
-        <a class="is-flex" href="#1-4-Gradient-amp-ColorLUT">
+        <a class="is-flex" href="#1-4-Gradient-amp-Ramp、ColorLUT">
         <!-- span class="has-mr-6">1.4</span-->
-        <span>*1.4 Gradient&ColorLUT</span>
+        <span>*1.4 Gradient&Ramp、ColorLUT</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#2-凹凸贴图">
         <!-- span class="has-mr-6">2</span-->
@@ -806,7 +799,11 @@
         <a class="is-flex" href="#6-8-DuDv-Map">
         <!-- span class="has-mr-6">6.7</span-->
         <span>6.8 DuDv Map</span>
-        </a></li></ul></li></ul>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#7-一些注意事项">
+        <!-- span class="has-mr-6">7</span-->
+        <span>7. 一些注意事项</span>
+        </a></li></ul>
             </div>
         </div>
     </div>
@@ -833,7 +830,7 @@
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2020 Zanple&nbsp;
+                &copy; 2021 Zanple&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
                         href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
                 

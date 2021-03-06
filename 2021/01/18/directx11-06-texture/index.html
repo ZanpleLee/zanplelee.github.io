@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DirectX11入门笔记-06-纹理贴图 - Addendum</title>
+
+
+    <meta name="description" content="上一节中实现了摄像机与游戏类，但现在游戏中的物体还没有贴图材质。纹理贴图就是这样一种将图像数据映射到网格三角形上的技术，可以使我们为场景增添更多细节，令它更具真实感。一个纹理可以当作渲染目标（即Direct3D中的渲染到纹理技术），又能把它作为着色器资源（即在着色器中对该纹理进行采样），但是不能同时“身兼数职”。  为场景中的物体添加贴图，我们需要引入DDSTextureLoader与WICTex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectX11入门笔记-06-纹理贴图">
+<meta property="og:url" content="http://www.zanple.top/2021/01/18/directx11-06-texture/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="上一节中实现了摄像机与游戏类，但现在游戏中的物体还没有贴图材质。纹理贴图就是这样一种将图像数据映射到网格三角形上的技术，可以使我们为场景增添更多细节，令它更具真实感。一个纹理可以当作渲染目标（即Direct3D中的渲染到纹理技术），又能把它作为着色器资源（即在着色器中对该纹理进行采样），但是不能同时“身兼数职”。  为场景中的物体添加贴图，我们需要引入DDSTextureLoader与WICTex">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/dragon.jpg">
+<meta property="article:published_time" content="2021-01-18T13:25:16.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:54:25.579Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="Direct3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/dragon.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="DirectX11入门笔记-06-纹理贴图" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-06-纹理贴图">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>DirectX11入门笔记-06-纹理贴图
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-01-18T13:25:16.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-18</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:54:25.579Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    14 分钟 读完 (大约 2033 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>上一节中实现了摄像机与游戏类，但现在游戏中的物体还没有贴图材质。纹理贴图就是这样一种将图像数据映射到网格三角形上的技术，可以使我们为场景增添更多细节，令它更具真实感。一个纹理可以当作<strong>渲染目标</strong>（即Direct3D中的渲染到纹理技术），又能把它作为<strong>着色器资源</strong>（即在着色器中对该纹理进行采样），但是不能同时“身兼数职”。 </p>
+<p>为场景中的物体添加贴图，我们需要引入<em>DDSTextureLoader</em>与<em>WICTextureLoader</em>这两个库，前者用来加载.dds格式的贴图，后者则为通用贴图加载。<a id="more"></a></p>
+<hr>
+<h1 id="1-纹理坐标"><a href="#1-纹理坐标" class="headerlink" title="1. 纹理坐标"></a>1. 纹理坐标</h1><div align=center>
+
+<img src="1.jpg" alt="纹理坐标系" style="zoom:25%;" />
+
+</div>
+
+<p>Direct3D所采用的纹理坐标系与屏幕或图片的坐标系类似，是由指向图像水平正方向的<strong><em>u</em></strong>轴与指向图像垂直正方向的<strong><em>v</em></strong>轴所组成的。取值范围为<code>0≤u</code>，<code>v≤1</code>的坐标(<em>u</em>,<em>v</em>)标定的是一种称为<strong>纹素</strong>（texel）的纹理元素。分别映射到<code>[0, Width]</code>和<code>[0, Height]</code>。</p>
+<div align=center>
+
+<img src="2.jpg" alt="左侧的三角形位于3D空间，我们将把右侧纹理上的2D三角形映射到左侧的3D三角形上" style="zoom:67%;" />
+
+</div>
+
+<p>对于每个3D三角形来说，我们希望在将要映射与其上的纹理中定义出与之对应的三角形。设<strong><em>p0</em></strong>、<strong><em>p1</em></strong>以及<strong><em>p2</em></strong>为3D三角形的3个顶点，它们分别对应于纹理坐标<strong><em>q0</em></strong>、<strong><em>q1</em></strong>与<strong><em>q2</em></strong>。则针对3D三角形上的任意一点(<em>x</em>,<em>y</em>,<em>z</em>)处的纹理坐标(<em>u</em>,<em>v</em>)都可以通过与之插值所用的相同参数<em>s</em>、<em>t</em>来对纹理纹理坐标进行线性插值求得。</p>
+<p>这就是说，如果：<br>$$<br>(x, y, z) = \mathbf{p_0} + s(\mathbf{p_1} - \mathbf{p_0}) + t(\mathbf{p_2} - \mathbf{p_0})<br>$$<br>当<em>s</em>≥0，<em>t</em>≥0，<em>s</em>+<em>t</em>≤1时，那么：<br>$$<br>(u, v) = \mathbf{q_0} + s(\mathbf{q_1} - \mathbf{q_0}) + t(\mathbf{q_2} - \mathbf{q_0})<br>$$<br>依次方法便可求出三角形上每个点处对应的纹理坐标。</p>
+<p>为了实现此计算需要对顶点结构体进行修改：</p>
+<blockquote>
+<p>将HLSL头文件的结构体中的Color改为Tex</p>
+<p>顶点着色器中同理，将Color改为Tex</p>
+<p>将pIn.Color.a改为texColor.a</p>
+</blockquote>
+<p>在GameApp的游戏对象类中添加纹理设置函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetTexture</span><span class="params">(ID3D11ShaderResourceView* texture)</span></span>;</span><br><span class="line"><span class="keyword">void</span> GameApp::GameObject::SetTexture(ID3D11ShaderResourceView* texture)</span><br><span class="line">&#123;</span><br><span class="line">	m_pTexture = texture;</span><br><span class="line">&#125;</span><br><span class="line">ComPtr&lt;ID3D11ShaderResourceView&gt; m_pTexture;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-纹理数据源"><a href="#2-纹理数据源" class="headerlink" title="2. 纹理数据源"></a>2. 纹理数据源</h1><p>对于实时图形应用程序来说，DDS图像文件格式是一种尚佳的选择。</p>
+<blockquote>
+<p>为了缓解场景中纹理数量增加带来内存需求压力，Direct3D支持下列几种压缩格式（也称为块压缩）：</p>
+<ol>
+<li><strong>BC1</strong>(DXGI_FORMAT_BC1_UNORM)：如果我们需要将图片压缩为支持3个颜色通道和仅有1位（开/关）alpha分量的格式，则使用此格式。</li>
+<li><strong>BC2</strong>(DXGI_FORMAT_BC2_UNORM)：如果我们需要将图片压缩为支持3个颜色通道和仅有4位alpha分量的格式，则应用此格式。</li>
+<li><strong>BC3</strong>(DXGI_FORMAT_BC3_UNORM)：如果我们需要将图片压缩为支持3个颜色通道和仅有8位alpha分量的格式，则应用此格式。</li>
+<li><strong>BC4</strong>(DXGI_FORMAT_BC4_UNORM)：如果我们需要将图片压缩为仅含有1个颜色通道的格式（如灰度图像），则应用此格式。</li>
+<li><strong>BC5</strong>(DXGI_FORMAT_BC5_UNORM)：如果我们需要将图片压缩为只支持2个颜色通道的格式，则应用此格式。</li>
+<li><strong>BC6</strong>(DXGI_FORMAT_BC6_UF16)：如果我们需要将图片压缩为HDR图像数据，则应用此格式。</li>
+<li><strong>BC7</strong>(DXGI_FORMAT_BC7_UNORM)：此格式用于对RGBA数据进行高质量的压缩。特别是，<strong>此格式可极大地减少因压缩法线图而造成的误差。</strong></li>
+</ol>
+</blockquote>
+<p>这些格式的优点是可以使图像以压缩的形式存于显存之中，而在需要时，GPU便能动态地对它们进行解压。</p>
+<h1 id="3-采样器"><a href="#3-采样器" class="headerlink" title="3. 采样器"></a>3. 采样器</h1><p>在运用纹理的过程中，除了纹理数据本身以外，还有另外两个相关的重要概念，即纹理过滤以及寻址模式。采集纹理资源时所用的过滤器和寻址模式都是通过采样器对象来定义的。</p>
+<p>添加采样器</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">float4 texColor = g_Tex.Sample(g_SamLinear, pIn.Tex);</span><br><span class="line">ComPtr&lt;ID3D11SamplerState&gt; m_pSampler;				    <span class="comment">// 采样器状态</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-1-过滤器"><a href="#3-1-过滤器" class="headerlink" title="3.1 过滤器"></a>3.1 过滤器</h2><p>当触发纹理放大操作时，我们便需要对纹素之间的颜色数据进行插值估算，从而获得指定纹素处的颜色信息。图形硬件往往会支持<strong>常量插值</strong>与<strong>线性插值</strong>两种插值方法。在实践中，线性插值的使用更为普遍。</p>
+<div align=center>
+
+<p><img src="3.jpg" alt="常量插值与线性插值"></p>
+</div>
+
+<p>图a中，若给出了纹素点，我们便可以通过构建分段常量函数来求出纹素点之间某处的近似值。由于得到的近似值为最近纹素点的取值，所以这种方法有时被称为最近邻点采样。图b中，若给出了纹素点，我们便可以通过构建分段线性函数来求出纹素点之间某处的近似值。</p>
+<div align=center>
+
+<img src="4.jpg" alt="双线性插值" style="zoom:33%;" />
+
+</div>
+
+<p>此外还有双线性插值，其处理流程如上图所示：给出四个纹素之间的一个纹理坐标，先在水平方向<strong><em>u</em></strong>上进行两次1D线性插值（求出<strong><em>cT</em></strong>与<strong><em>cB</em></strong>），然后在垂直方向<strong><em>v</em></strong>上在进行一次1D内插（求出<strong><em>c</em></strong>）。</p>
+<p>通过常量插值来求得纹素之间纹理坐标处的纹理数据也称为<strong>点过滤</strong>，对应的通过线性插值的方法称为<strong>线性过滤</strong>。</p>
+<h2 id="3-2-寻址模式"><a href="#3-2-寻址模式" class="headerlink" title="3.2 寻址模式"></a>3.2 寻址模式</h2><p>Direct3D允许我们采用下列4中不同的寻址模式（Address Mode）来扩充此函数的定义域。分别是<strong>重复寻址模式</strong>（wrap）、<strong>边框颜色寻址模式</strong>（border color）、<strong>钳位寻址模式</strong>（clamp）与<strong>镜像寻址模式</strong>（mirror）。</p>
+<h3 id="3-2-1-重复寻址模式"><a href="#3-2-1-重复寻址模式" class="headerlink" title="3.2.1 重复寻址模式"></a>3.2.1 重复寻址模式</h3><div align=center>
+
+<img src="5.jpg" alt="重复寻址模式" style="zoom:50%;" />
+
+</div>
+
+<p>重复寻址模式通过在坐标的每个整数点处重复绘制图像来扩充纹理函数。</p>
+<h3 id="3-2-2-边框颜色寻址模式"><a href="#3-2-2-边框颜色寻址模式" class="headerlink" title="3.2.2 边框颜色寻址模式"></a>3.2.2 边框颜色寻址模式</h3><div align=center>
+
+<img src="6.jpg" alt="边框颜色寻址模式" style="zoom:50%;" />
+
+</div>
+
+<p>边框颜色寻址模式通过将每个不在范围[0,1]^2内的坐标(<em>u</em>,<em>v</em>)都映射为指定的颜色而扩充纹理函数。</p>
+<h3 id="3-2-3-钳位寻址模式"><a href="#3-2-3-钳位寻址模式" class="headerlink" title="3.2.3 钳位寻址模式"></a>3.2.3 钳位寻址模式</h3><div align=center>
+
+<img src="7.jpg" alt="钳位寻址模式" style="zoom:50%;" />
+
+</div>
+
+<p>钳位寻址模式通过将范围[0,1]^2外的每个坐标(<em>u</em>,<em>v</em>)都映射为颜色<strong><em>T</em></strong>(<em>u0</em>,<em>v0</em>)来扩充纹理函数。其中(<em>u0</em>,<em>v0</em>)为范围[0,1]^2内距离(<em>u</em>,<em>v</em>)最近的点。</p>
+<h3 id="3-2-4-镜像寻址模式"><a href="#3-2-4-镜像寻址模式" class="headerlink" title="3.2.4 镜像寻址模式"></a>3.2.4 镜像寻址模式</h3><div align=center>
+
+<img src="8.jpg" alt="镜像寻址模式" style="zoom:50%;" />
+
+</div>
+
+<p>镜像寻址模式通过在坐标的每个整数点处绘制图像的镜像来扩充纹理函数。</p>
+<h2 id="3-3-采样器对象"><a href="#3-3-采样器对象" class="headerlink" title="3.3 采样器对象"></a>3.3 采样器对象</h2><p>采样器会被着色器使用，为了将采样器绑定到着色器上供其使用，我们就需要为采样器对象绑定描述符。更改顶点布局类型为<code>VertexPosNormalTex</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化游戏对象</span></span><br><span class="line">ComPtr&lt;ID3D11ShaderResourceView&gt; texture;</span><br><span class="line"><span class="comment">//初始化木箱</span></span><br><span class="line">CreateDDSTextureFromFile(m_pDevice.Get(), <span class="string">L"Texture\\WoodCrate.dds"</span>, <span class="literal">nullptr</span>, texture.GetAddressOf());</span><br><span class="line">m_WoodCrate.SetBuffer(m_pDevice.Get(), Geometry::CreateBox());</span><br><span class="line">m_WoodCrate.SetTexture(texture.Get());</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化地板</span></span><br><span class="line">CreateDDSTextureFromFile(m_pDevice.Get(), <span class="string">L"Texture\\floor.dds"</span>, <span class="literal">nullptr</span>, texture.ReleaseAndGetAddressOf());</span><br><span class="line">m_Floor.SetBuffer(m_pDevice.Get(),</span><br><span class="line">	Geometry::CreatePlane(XMFLOAT2(<span class="number">20.0f</span>, <span class="number">20.0f</span>), XMFLOAT2(<span class="number">5.0f</span>, <span class="number">5.0f</span>)));</span><br><span class="line">m_Floor.SetTexture(texture.Get());</span><br><span class="line">m_Floor.GetTransform().SetPosition(<span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化采样器状态</span></span><br><span class="line">D3D11_SAMPLER_DESC sampDesc;</span><br><span class="line">ZeroMemory(&amp;sampDesc, <span class="keyword">sizeof</span>(sampDesc));</span><br><span class="line">sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;</span><br><span class="line">sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;</span><br><span class="line">sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;</span><br><span class="line">sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;</span><br><span class="line">sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;</span><br><span class="line">sampDesc.MinLOD = <span class="number">0</span>;</span><br><span class="line">sampDesc.MaxLOD = D3D11_FLOAT32_MAX;</span><br><span class="line">m_pDevice-&gt;CreateSamplerState(&amp;sampDesc, m_pSampler.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<p>绑定缓冲区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m_pContext-&gt;PSSetSamplers(0, 1, m_pSampler.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<p>在Draw函数中设置纹理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置纹理</span><br><span class="line">deviceContext-&gt;PSSetShaderResources(0, 1, m_pTexture.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考：</p>
+<p>1.《DirectX 12 3D游戏开发实战 第7章》</p>
+<p>2.<a href="https://www.cnblogs.com/X-Jun/p/9297810.html">DirectX11 With Windows SDK–09 纹理映射与采样器状态</a></p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/01/18/directx11-06-texture/">DirectX11入门笔记-06-纹理贴图</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/01/18/directx11-06-texture/">http://www.zanple.top/2021/01/18/directx11-06-texture/</a></li>
+                    <li><strong>发布时间：</strong>2021-01-18</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/09/directx11-05-camera/">
+                <span class="level-item">DirectX11入门笔记-05-摄像机类与游戏对象类</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-纹理坐标">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 纹理坐标</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-纹理数据源">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 纹理数据源</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-采样器">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 采样器</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-过滤器">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 过滤器</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-寻址模式">
+        <!-- span class="has-mr-6">3.2</span-->
+        <span>3.2 寻址模式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-2-1-重复寻址模式">
+        <!-- span class="has-mr-6">3.2.1</span-->
+        <span>3.2.1 重复寻址模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-2-边框颜色寻址模式">
+        <!-- span class="has-mr-6">3.2.2</span-->
+        <span>3.2.2 边框颜色寻址模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-3-钳位寻址模式">
+        <!-- span class="has-mr-6">3.2.3</span-->
+        <span>3.2.3 钳位寻址模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-4-镜像寻址模式">
+        <!-- span class="has-mr-6">3.2.4</span-->
+        <span>3.2.4 镜像寻址模式</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-3-采样器对象">
+        <!-- span class="has-mr-6">3.3</span-->
+        <span>3.3 采样器对象</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="DirectX11入门笔记-06-纹理贴图" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

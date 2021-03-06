@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DirectX11入门笔记-02-绘制正方体 - Addendum</title>
+
+
+    <meta name="description" content="上一节中我们已经绘制出了2D的多边形，本节则从最简单的几何体——立方体的绘制开始">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectX11入门笔记-02-绘制正方体">
+<meta property="og:url" content="http://www.zanple.top/2021/01/05/directx11-02-cube/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="上一节中我们已经绘制出了2D的多边形，本节则从最简单的几何体——立方体的绘制开始">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/dragon.jpg">
+<meta property="article:published_time" content="2021-01-04T16:25:10.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:50:28.291Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="Direct3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/dragon.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="DirectX11入门笔记-02-绘制正方体" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-02-绘制正方体">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>DirectX11入门笔记-02-绘制正方体
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-01-04T16:25:10.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-05</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:50:28.291Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    17 分钟 读完 (大约 2608 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>上一节中我们已经绘制出了2D的多边形，本节则从最简单的几何体——立方体的绘制开始<a id="more"></a></p>
+<h1 id="1-顶点与索引"><a href="#1-顶点与索引" class="headerlink" title="1. 顶点与索引"></a>1. 顶点与索引</h1><p>正方体的绘制同样是立方体的<code>8个顶点</code>通过索引的方式进行绘制。与上一节绘制多边形不同的是，正方体的8个顶点处在不同平面，因此顶点需要储存在两个深度上。</p>
+<div align=center>
+
+<p><img src="image-1.png" alt="立方体顶点索引"></p>
+</div>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置立方体顶点</span></span><br><span class="line">VertexPosColor vertices[] =</span><br><span class="line">&#123;</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">-1.0f</span>, <span class="number">-1.0f</span>, <span class="number">-1.0f</span>), XMFLOAT4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">-1.0f</span>, <span class="number">1.0f</span>, <span class="number">-1.0f</span>), XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">-1.0f</span>), XMFLOAT4(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">1.0f</span>, <span class="number">-1.0f</span>, <span class="number">-1.0f</span>), XMFLOAT4(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">-1.0f</span>, <span class="number">-1.0f</span>, <span class="number">1.0f</span>), XMFLOAT4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">-1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>), XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>), XMFLOAT4(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">	&#123; XMFLOAT3(<span class="number">1.0f</span>, <span class="number">-1.0f</span>, <span class="number">1.0f</span>), XMFLOAT4(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>) &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>设置索引，将其分为<code>12个三角形</code>进行绘制。</p>
+<div align=center>
+
+<p><img src="image-2.png" alt="索引对应的三角形"></p>
+</div>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 索引数组</span></span><br><span class="line">DWORD indices[] = &#123;</span><br><span class="line">	<span class="comment">//立方体前表面</span></span><br><span class="line">	<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>,</span><br><span class="line">	<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>,</span><br><span class="line">	<span class="comment">//立方体后表面</span></span><br><span class="line">	<span class="number">4</span>, <span class="number">6</span>, <span class="number">5</span>,</span><br><span class="line">	<span class="number">4</span>, <span class="number">7</span>, <span class="number">6</span>,</span><br><span class="line">	<span class="comment">//立方体左表面</span></span><br><span class="line">	<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>,</span><br><span class="line">	<span class="number">4</span>, <span class="number">1</span>, <span class="number">0</span>,</span><br><span class="line">	<span class="comment">//立方体右表面</span></span><br><span class="line">	<span class="number">3</span>, <span class="number">2</span>, <span class="number">6</span>,</span><br><span class="line">	<span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>,</span><br><span class="line">	<span class="comment">//立方体上表面</span></span><br><span class="line">	<span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>,</span><br><span class="line">	<span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>,</span><br><span class="line">	<span class="comment">//立方体下表面</span></span><br><span class="line">	<span class="number">4</span>, <span class="number">0</span>, <span class="number">3</span>,</span><br><span class="line">	<span class="number">4</span>, <span class="number">3</span>, <span class="number">7</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时运行程序，在客户区并没有看到立方体。这是因为我们没有将顶点由局部坐标空间变换到齐次裁剪空间。</p>
+<h1 id="2-常量缓冲区"><a href="#2-常量缓冲区" class="headerlink" title="2. 常量缓冲区"></a>2. 常量缓冲区</h1><p>因此我们需要创建<strong>常量缓冲区</strong>，其数据内容可供着色器程序使用。在<code>GameApp.h</code>中创建常量缓冲的结构体、指针和世界-观察-投影矩阵：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ConstantBuffer</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		DirectX::XMMATRIX WorldViewProj; <span class="comment">//世界观察投影矩阵</span></span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ComPtr&lt;ID3D11Buffer&gt; m_pConstantBuffer;		    <span class="comment">//常量缓冲区</span></span><br><span class="line">DirectX::XMMATRIX m_world;</span><br><span class="line">DirectX::XMMATRIX m_view;</span><br><span class="line">DirectX::XMMATRIX m_proj;</span><br></pre></td></tr></table></figure>
+
+<p>同样，我们需要构建一个常量缓冲区描述符：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置常量缓冲区描述</span></span><br><span class="line">D3D11_BUFFER_DESC cbd;</span><br><span class="line">ZeroMemory(&amp;cbd, <span class="keyword">sizeof</span>(cbd));</span><br><span class="line">cbd.Usage = D3D11_USAGE_DYNAMIC;</span><br><span class="line">cbd.ByteWidth = <span class="keyword">sizeof</span>(ConstantBuffer);</span><br><span class="line">cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;</span><br><span class="line">cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;</span><br><span class="line"><span class="comment">// 新建常量缓冲区，不使用初始数据</span></span><br><span class="line">m_pDevice-&gt;CreateBuffer(&amp;cbd, <span class="literal">nullptr</span>, m_pConstantBuffer.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<p>构建观察矩阵，用最新的世界-观察-投影矩阵来更新常量缓冲区。</p>
+<blockquote>
+<p>3D的部分包含了四大变换：世界变换、观察变换、投影变换和视口变换。其中前面三种变换需要在顶点着色器完成，必要时需要提供变换矩阵。而视口变换是在光栅化阶段完成的。</p>
+<p><strong>注意</strong>：对于不同的物体，需要使用不同的世界变换矩阵；而对于同一个物体的所有顶点，都要使用一致的世界变换矩阵来变换。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构建观察矩阵</span></span><br><span class="line"><span class="keyword">static</span> XMVECTOR pos = XMVectorSet(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">-4.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line"><span class="keyword">static</span> XMVECTOR target = XMVectorZero();</span><br><span class="line"><span class="keyword">static</span> XMVECTOR up = XMVectorSet(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line"></span><br><span class="line">m_world = XMMatrixIdentity();</span><br><span class="line">m_view = XMMatrixLookAtLH(pos, target, up);</span><br><span class="line">m_proj = XMMatrixPerspectiveFovLH(XM_PIDIV2, AspectRatio(), <span class="number">1.0f</span>, <span class="number">1000.0f</span>);</span><br><span class="line">XMMATRIX worldViewProj = m_world * m_view * m_proj;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用最新的worldViewProj矩阵来更新常量缓冲区</span></span><br><span class="line">m_CBuffer.WorldViewProj = XMMatrixTranspose(worldViewProj);</span><br><span class="line">D3D11_MAPPED_SUBRESOURCE mappedData;</span><br><span class="line">m_pContext-&gt;Map(m_pConstantBuffer.Get(), <span class="number">0</span>, D3D11_MAP_WRITE_DISCARD, <span class="number">0</span>, &amp;mappedData);</span><br><span class="line">memcpy_s(mappedData.pData, <span class="keyword">sizeof</span>(m_CBuffer), &amp;m_CBuffer, <span class="keyword">sizeof</span>(m_CBuffer));</span><br><span class="line">m_pContext-&gt;Unmap(m_pConstantBuffer.Get(), <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里我们对世界-观察-投影坐标进行了转置<code>XMMatrixTranspose</code>，这是因为HLSL中使用的为<strong>列矩阵</strong>，而使用到的DirectXMath数学库中生成的矩阵都是<strong>行矩阵</strong>。如果没对行距阵进行转置，则需要在着色器中通过<code>row_major</code>标识指定为行距阵。</p>
+<p>齐次坐标表示法中的第四个坐标w的取值将根据被描述对象是点还是向量而定：<strong>(x, y, z, 0)表示向量</strong>，<strong>(x, y, z, 1)表示点</strong>。</p>
+<blockquote>
+<p>DirectXMath中的常用矩阵：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>XMMatrixScale</td>
+<td>缩放矩阵</td>
+</tr>
+<tr>
+<td>XMMatrixRotationX|XMMatrixRotationY|XMMatrixRotationZ</td>
+<td>旋转矩阵</td>
+</tr>
+<tr>
+<td>XMMatrixLookAtLH(<em>输入摄影机坐标</em>,<em>输入摄影机焦点坐标</em>,<em>输入摄影机上朝向坐标</em>)</td>
+<td><em>输出视图变换矩阵</em></td>
+</tr>
+<tr>
+<td>XMMatrixOrthographicLH(<em>待投影区域的宽度</em>,<em>待投影区域的高度</em>,<em>近平面</em>,<em>远平面</em>)</td>
+<td>以原点为中心的正交投影矩阵</td>
+</tr>
+<tr>
+<td>XMMatrixOrthographicOffCenterLH(<em>待投影区域的左边界</em>,<em>待投影区域的右边界</em>,<em>待投影区域的下边界</em>,<em>待投影区域的上边界</em>,<em>近平面</em>,<em>远平面</em>)</td>
+<td>离心的正交投影矩阵</td>
+</tr>
+</tbody></table>
+<p><a href="https://www.cnblogs.com/X-Jun/p/9041966.html">DirectX11 With Windows SDK–05 DirectXMath数学库</a></p>
+</blockquote>
+<h1 id="3-着色器"><a href="#3-着色器" class="headerlink" title="3. 着色器"></a>3. 着色器</h1><h2 id="3-1-着色器修改"><a href="#3-1-着色器修改" class="headerlink" title="3.1 着色器修改"></a>3.1 着色器修改</h2><p>完成常量缓冲区的创建后，对着色器的内容进行修改（主要是顶点着色器的内容），将顶点变换到齐次裁剪空间中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cbuffer ConstantBuffer : <span class="keyword">register</span>(b0)</span><br><span class="line">&#123;</span><br><span class="line">    matrix gWorldViewProj; <span class="comment">//把顶点变换到齐次裁剪空间，由世界、视图、投影3种变换组合而成的矩阵</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VertexIn</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    float3 posL : POSITION;</span><br><span class="line">    float4 color : COLOR;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VertexOut</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    float4 posH : SV_POSITION;</span><br><span class="line">    float4 color : COLOR;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">VertexOut <span class="title">VS</span><span class="params">(VertexIn vIn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    VertexOut vOut;</span><br><span class="line">    vOut.posH = mul(float4(vIn.posL, <span class="number">1.0f</span>), gWorldViewProj);</span><br><span class="line">    <span class="comment">//直接把顶点颜色传递到像素着色器</span></span><br><span class="line">    vOut.color = vIn.color; </span><br><span class="line">    <span class="keyword">return</span> vOut;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的如<code>PosW</code>、<code>PosH</code>这样带字母后缀的变量名，其字母表达了当前点或向量所处的空间：</p>
+<table>
+<thead>
+<tr>
+<th>字母后缀</th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L</td>
+<td>处于物体局部空间（Local Space）</td>
+</tr>
+<tr>
+<td>W</td>
+<td>处于世界空间（World Space）</td>
+</tr>
+<tr>
+<td>V</td>
+<td>处于观察空间（View Space）</td>
+</tr>
+<tr>
+<td>H</td>
+<td>处于齐次裁减空间（Homogeneous space）</td>
+</tr>
+</tbody></table>
+<p>此时运行程序，便可以看到构建好的立方体绘制出来了。</p>
+<div align=center>
+
+<p><img src="image-3.png" alt="绘制立方体"></p>
+</div>
+
+<blockquote>
+<p>不要在着色器内使用过多的常量缓冲区。根据[Thibieroz13]提出的建议，出于性能的考虑，常量缓冲区的数量应少于5个为宜。</p>
+</blockquote>
+<h2 id="3-2-常量缓冲区的封装规则"><a href="#3-2-常量缓冲区的封装规则" class="headerlink" title="3.2 常量缓冲区的封装规则"></a>3.2 常量缓冲区的封装规则</h2><p>在HLSL中，常量缓冲区会以<strong>补齐填充</strong>的方式将其中的元素都包装为4D向量，但每一个元素只能置于<strong>一个4D向量</strong>中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如下面两个float3</span></span><br><span class="line">float3 Pos, Dir;</span><br><span class="line"><span class="comment">//会以下列方式封装在着色器的内存中</span></span><br><span class="line"><span class="built_in">vector</span> <span class="number">1</span> : (Pos.x, Pos.y, Pos.z, empty)</span><br><span class="line"><span class="built_in">vector</span> <span class="number">2</span> : (Dir.x, Dir.y, Dir.z, empty)</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.cnblogs.com/X-Jun/p/9376474.html#_lab2_1_0">总结</a>常量缓冲区的打包规则：<br><strong>1. C++中的结构体数据是以字节流的形式传输给HLSL的；</strong><br><strong>2. HLSL常量缓冲区中的向量不允许拆分；</strong><br><strong>3. HLSL常量缓冲区中多个相邻的变量若有空缺则优先打包进同一个4D向量中；</strong><br><strong>4. HLSL常量缓冲区中，结构体常量前面的所有常量都会被打包成4D向量，内部也进行打包操作，但结构体的最后一个成员可能会和后续的常量打包成4D向量；</strong><br><strong>5. 对于在常量缓冲区的数组，需要特殊对待，数组中的每一个元素都会独自打包，但对于最后一个元素来说如果后续的变量不是数组、结构体且还有空缺，则可以进行打包操作。</strong></p>
+<p>所以避免出现潜在问题的办法如下：<br><strong>1. 若要使用数组，数组的类型最好能按16字节对齐</strong><br><strong>2. 结构体的总大小也需要按16字节对齐。</strong></p>
+<h1 id="4-立方体旋转"><a href="#4-立方体旋转" class="headerlink" title="4. 立方体旋转"></a>4. 立方体旋转</h1><h2 id="4-1-立方体自动旋转"><a href="#4-1-立方体自动旋转" class="headerlink" title="4.1 立方体自动旋转"></a>4.1 立方体自动旋转</h2><p>立方体实现旋转比较简单，只需要更改立方体的坐标然后再更新常量缓冲区便可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">float</span> phi = <span class="number">0.0f</span>, theta = <span class="number">0.0f</span>;</span><br><span class="line">phi += <span class="number">0.0001f</span>, theta += <span class="number">0.0001f</span>;</span><br><span class="line">m_world = XMMatrixTranspose(XMMatrixRotationX(phi) * XMMatrixRotationY(theta));</span><br></pre></td></tr></table></figure>
+
+<div align=center>
+
+<p><img src="gif-1.gif" alt="立方体的旋转效果"></p>
+</div>
+
+<h2 id="4-2-通过鼠标-键盘旋转立方体"><a href="#4-2-通过鼠标-键盘旋转立方体" class="headerlink" title="4.2 通过鼠标/键盘旋转立方体"></a>4.2 通过鼠标/键盘旋转立方体</h2><h3 id="4-2-1-鼠标-键盘的消息响应函数"><a href="#4-2-1-鼠标-键盘的消息响应函数" class="headerlink" title="4.2.1 鼠标/键盘的消息响应函数"></a>4.2.1 鼠标/键盘的消息响应函数</h3><p>要通过鼠标/键盘控制立方体的旋转，首先需要实现鼠标/键盘的消息响应（即窗口能接收到鼠标/键盘操作的信息）。</p>
+<p>这里直接使用DirectXTK提供的Mouse类和Keyboard类。</p>
+<p>引入这两个类到工程文件后，需要对之前创建的D3DApp框架做一些调整。对于鼠标/键盘，我们除了获取鼠标键盘发出的信息外，还需要得到鼠标/键盘的状态信息。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 键鼠输入</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;DirectX::<span class="built_in">Mouse</span>&gt; m_pMouse = <span class="built_in">std</span>::make_unique&lt;DirectX::<span class="built_in">Mouse</span>&gt;();<span class="comment">//鼠标</span></span><br><span class="line">DirectX::<span class="built_in">Mouse</span>::ButtonStateTracker m_MouseTracker;<span class="comment">//鼠标状态追踪器</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;DirectX::<span class="built_in">Keyboard</span>&gt; m_pKeyboard = <span class="built_in">std</span>::make_unique&lt;DirectX::<span class="built_in">Keyboard</span>&gt;(); <span class="comment">//键盘</span></span><br><span class="line">DirectX::<span class="built_in">Keyboard</span>::KeyboardStateTracker m_KeyboardTracker;<span class="comment">//键盘状态追踪器</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，我们还需要在D3DApp中处理鼠标/键盘的消息响应函数。</p>
+<h3 id="4-2-2-更改立方体的信息"><a href="#4-2-2-更改立方体的信息" class="headerlink" title="4.2.2 更改立方体的信息"></a>4.2.2 更改立方体的信息</h3><p>在GameApp中对鼠标进行初始化，并设置鼠标模式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m_pMouse-&gt;SetWindow(m_hMainWnd);</span><br><span class="line">m_pMouse-&gt;SetMode(DirectX::<span class="built_in">Mouse</span>::MODE_ABSOLUTE);</span><br></pre></td></tr></table></figure>
+
+<p>这里将鼠标状态设置为了<code>MODE_ABSOLUTE</code>，鼠标模式有下面两种：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Mode</span><br><span class="line">&#123;</span><br><span class="line">    MODE_ABSOLUTE = <span class="number">0</span>,  <span class="comment">//绝对坐标模式，每次状态更新xy值为屏幕像素坐标，且鼠标可见</span></span><br><span class="line">    MODE_RELATIVE,      <span class="comment">//相对运动模式，每次状态更新xy值为每一帧之间的像素位移量，且鼠标不可见</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在上面立方体的自动旋转中，我们通过改变立方体的世界坐标来达到旋转的效果。对于鼠标，我们使用鼠标的偏移量作为旋转的距离；对于键盘， 我们使用按压持续时间来作为旋转的距离。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">float</span> cubePhi = <span class="number">0.0f</span>, cubeTheta = <span class="number">0.0f</span>;</span><br><span class="line"><span class="comment">//获取鼠标状态</span></span><br><span class="line"><span class="built_in">Mouse</span>::State mouseState = m_pMouse-&gt;GetState();</span><br><span class="line"><span class="built_in">Mouse</span>::State lastMouseState = m_MouseTracker.GetLastState();</span><br><span class="line"><span class="comment">//获取键盘状态</span></span><br><span class="line"><span class="built_in">Keyboard</span>::State keyState = m_pKeyboard-&gt;GetState();</span><br><span class="line"><span class="built_in">Keyboard</span>::State lastKeyState = m_KeyboardTracker.GetLastState();</span><br><span class="line"><span class="comment">//更新鼠标按钮状态跟踪器，仅当鼠标按住的情况下才进行移动</span></span><br><span class="line">m_MouseTracker.Update(mouseState);</span><br><span class="line">m_KeyboardTracker.Update(keyState);</span><br><span class="line"><span class="comment">//根据鼠标的移动距离计算旋转角度</span></span><br><span class="line"><span class="keyword">if</span> (mouseState.leftButton == <span class="literal">true</span> &amp;&amp; m_MouseTracker.leftButton == m_MouseTracker.HELD)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//使场景中的每个像素按鼠标移动距离的0.01倍进行缩放</span></span><br><span class="line">	cubeTheta -= (mouseState.x - lastMouseState.x) * <span class="number">0.01f</span>;</span><br><span class="line">	cubePhi -= (mouseState.y - lastMouseState.y) * <span class="number">0.01f</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//根据键盘按键的时长计算旋转角度</span></span><br><span class="line"><span class="keyword">if</span> (keyState.IsKeyDown(<span class="built_in">Keyboard</span>::W))</span><br><span class="line">	cubePhi += dt * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span> (keyState.IsKeyDown(<span class="built_in">Keyboard</span>::S))</span><br><span class="line">	cubePhi -= dt * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span> (keyState.IsKeyDown(<span class="built_in">Keyboard</span>::A))</span><br><span class="line">	cubeTheta += dt * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span> (keyState.IsKeyDown(<span class="built_in">Keyboard</span>::D))</span><br><span class="line">	cubeTheta -= dt * <span class="number">2</span>;</span><br><span class="line">m_world = XMMatrixRotationY(cubeTheta) * XMMatrixRotationX(cubePhi);</span><br></pre></td></tr></table></figure>
+
+<div align=center>
+
+<p><img src="gif-2.gif" alt="鼠标控制立方体旋转"></p>
+</div>
+
+<hr>
+<p>参考：</p>
+<p>1.<a href="https://www.cnblogs.com/X-Jun/p/9032810.html">DirectX11 With Windows SDK–03 索引缓冲区、常量缓冲区</a></p>
+<p>2.《DirectX 12 3D游戏开发实战 第6章&amp;附录B》</p>
+<p>3.<a href="https://github.com/microsoft">microsoft</a>/<strong><a href="https://github.com/microsoft/DirectXTK">DirectXTK</a></strong></p>
+<p>4.<a href="https://www.cnblogs.com/X-Jun/p/9034692.html">DirectX11 With Windows SDK–06 键盘和鼠标输入</a></p>
+<p>5.<a href="https://www.cnblogs.com/X-Jun/p/9376474.html">DirectX11–深入理解HLSL常量缓冲区打包规则</a></p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/01/05/directx11-02-cube/">DirectX11入门笔记-02-绘制正方体</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/01/05/directx11-02-cube/">http://www.zanple.top/2021/01/05/directx11-02-cube/</a></li>
+                    <li><strong>发布时间：</strong>2021-01-05</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/01/06/directx11-03-geometry/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">DirectX11入门笔记-03-不同形状的几何体</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/04/directx11-01-triangle/">
+                <span class="level-item">DirectX11入门笔记-01-绘制三角形</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-顶点与索引">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 顶点与索引</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-常量缓冲区">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 常量缓冲区</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-着色器">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 着色器</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-着色器修改">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 着色器修改</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-常量缓冲区的封装规则">
+        <!-- span class="has-mr-6">3.2</span-->
+        <span>3.2 常量缓冲区的封装规则</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#4-立方体旋转">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 立方体旋转</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#4-1-立方体自动旋转">
+        <!-- span class="has-mr-6">4.1</span-->
+        <span>4.1 立方体自动旋转</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-通过鼠标-键盘旋转立方体">
+        <!-- span class="has-mr-6">4.2</span-->
+        <span>4.2 通过鼠标/键盘旋转立方体</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#4-2-1-鼠标-键盘的消息响应函数">
+        <!-- span class="has-mr-6">4.2.1</span-->
+        <span>4.2.1 鼠标/键盘的消息响应函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-2-更改立方体的信息">
+        <!-- span class="has-mr-6">4.2.2</span-->
+        <span>4.2.2 更改立方体的信息</span>
+        </a></li></ul></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="DirectX11入门笔记-02-绘制正方体" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

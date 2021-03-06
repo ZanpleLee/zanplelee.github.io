@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DirectX11入门笔记-04-光照与光栅化 - Addendum</title>
+
+
+    <meta name="description" content="在上一节中，我们绘制出了各种几何体。但这些几何体的所有面都是相同的颜色，看起来像是一个2D平面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectX11入门笔记-04-光照与光栅化">
+<meta property="og:url" content="http://www.zanple.top/2021/01/07/directx11-04-light/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="在上一节中，我们绘制出了各种几何体。但这些几何体的所有面都是相同的颜色，看起来像是一个2D平面。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/dragon.jpg">
+<meta property="article:published_time" content="2021-01-07T07:15:25.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:53:11.637Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="Direct3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/dragon.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="DirectX11入门笔记-04-光照与光栅化" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-04-光照与光栅化">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>DirectX11入门笔记-04-光照与光栅化
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-01-07T07:15:25.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-07</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:53:11.637Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    28 分钟 读完 (大约 4266 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>在上一节中，我们绘制出了各种几何体。但这些几何体的所有面都是相同的颜色，看起来像是一个2D平面。<a id="more"></a></p>
+<div align=center>
+
+<p><img src="image-1.png" alt=""></p>
+</div>
+
+<p>这是因为我们视觉上对世界的感知依靠的是光照及其与材质的交互，因此首先要解决的就是遵循自然规律实现精确的光照模型。</p>
+<div align=center>
+
+<img src="image-2.png" alt="" style="zoom: 50%;" />
+
+</div>
+
+<p>在开启光照的同时，我们不再直接指定顶点的颜色，而是指定材质与光照，再运用光照方程基于两者的交互来计算顶点颜色。这样做会使物体的颜色更趋于真实。</p>
+<hr>
+<h1 id="1-光照"><a href="#1-光照" class="headerlink" title="1. 光照"></a>1. 光照</h1><h2 id="1-1-法向量"><a href="#1-1-法向量" class="headerlink" title="1.1 法向量"></a>1.1 法向量</h2><p>我们把对每个像素逐一进行法线插值并执行光照计算的方法称为<strong>逐像素光照</strong>或<strong>phong光照模型</strong>。而之前对每个顶点逐一进行光照计算的则为<strong>逐顶点光照</strong>，开销虽低但精度也低。这里将通过顶点着色器输出每个顶点光照的计算结果，再到像素着色器中对三角形中的像素进行插值。</p>
+<blockquote>
+<p>将运算作业从像素着色器移至顶点着色器是一种常见的性能优化手段。</p>
+</blockquote>
+<h3 id="1-1-1-计算法向量"><a href="#1-1-1-计算法向量" class="headerlink" title="1.1.1 计算法向量"></a>1.1.1 计算法向量</h3><p>三角形网络运用一种被称为求顶点法线平均值的计算方法。此方法通过对网格中共享顶点<strong>v</strong>的多边形的平面法线求平均值，从而获得网格中任意顶点v处的顶点法线<strong>n</strong>。</p>
+<div align=center>
+
+<img src="image-3.png" alt="顶点法线" style="zoom:33%;" />
+
+</div>
+
+<p>对于上图网格中的四个多边形共用顶点<strong>v</strong>，因此，<strong>v</strong>处的顶点法线为：<br>$$<br>\mathbf{n}<em>{\text {avg }}=\frac{\mathbf{n}</em>{0}+\mathbf{n}<em>{1}+\mathbf{n}</em>{2}+\mathbf{n}<em>{3}}{\left|\mathbf{n}</em>{0}+\mathbf{n}<em>{1}+\mathbf{n}</em>{2}+\mathbf{n}_{3}\right|}<br>$$<br>但对于棱角分明的物体，如立方体，一共由12个三角形组成，2个三角形的4个顶点构成一个面。由于该面的4个顶点要求法向量朝向一致，而一个顶点虽然与立方体的三个面邻接，但是法向量只有一个，因此需要分化出3个包含不同法向量的顶点。</p>
+<h3 id="1-1-2-法向量的变换"><a href="#1-1-2-法向量的变换" class="headerlink" title="1.1.2 法向量的变换"></a>1.1.2 法向量的变换</h3><p>在游戏中，模型的顶点携带的信息中，法线就是其中一种。我们变换一个模型，不仅需要变换它的顶点，还需要变换顶点法线，以便在后续处理（如片元着色器）中计算光照等。</p>
+<p>但在变换法线的时候，如果使用同一个变换矩阵，可能就无法确保维持法线的垂直性。</p>
+<div align=center>
+
+<p><img src="image-4.png" alt="进行非统一缩放时，如果使用和变换顶点相同的变换矩阵来变换法线，就会得到错误的结果，即变换后的法线方向与平面不再垂直"></p>
+</div>
+
+<p>因此，在法线的变换过程中，我们使用原变换矩阵的<code>逆转置矩阵</code>来变换法线就可以得到正确的结果。</p>
+<blockquote>
+<p>尽管运用了逆转置变换，但法向量仍可能会失去其单位长度。所以在变换完成后，可能需要对它再次进行规范化处理。</p>
+</blockquote>
+<p>因为逆矩阵的计算比较麻烦，所以我们可以根据变换类型尽可能的避免逆矩阵的计算过程：</p>
+<ul>
+<li>变换只包括旋转变换，那么这个变换矩阵就是正交矩阵（正交矩阵的转置矩阵与逆矩阵相同）；</li>
+<li>变换只包括旋转和统一缩放，则可以利用统一缩放指数<em>k</em>来得到变换矩阵的逆转置矩阵；</li>
+<li>变换包括了非统一变换，则必须求解<strong>逆转置矩阵</strong>。</li>
+</ul>
+<p>我们在头文件<code>MathHelper.h</code>中为计算逆转置矩阵实现了一个辅助函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> DirectX::XMMATRIX XM_CALLCONV <span class="title">InverseTranspose</span><span class="params">(DirectX::FXMMATRIX M)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> DirectX;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//针对法向量的逆转置</span></span><br><span class="line">	XMMATRIX A = M;</span><br><span class="line">	<span class="comment">//将向量变换矩阵中与平移操作有关的项清零</span></span><br><span class="line">	A.r[<span class="number">3</span>] = XMVectorSet(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line"></span><br><span class="line">	XMVECTOR det = XMMatrixDeterminant(A);</span><br><span class="line">	<span class="keyword">return</span> XMMatrixTranspose(XMMatrixInverse(&amp;det, A));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-参与光照计算的一些关键向量"><a href="#1-2-参与光照计算的一些关键向量" class="headerlink" title="1.2 参与光照计算的一些关键向量"></a>1.2 参与光照计算的一些关键向量</h2><div align=center>
+
+<img src="image-5.png" alt="光照计算中所需要的各种重要向量" style="zoom:50%;" />
+
+</div>
+
+<p>如上图所示，<code>E</code>为观察者的观察位置，观察向量<code>v</code>为单位向量，<code>r</code>为反射向量，<code>I</code>为光线的入射方向，<code>n</code>为<code>p点</code>的表面法线，光向量<code>L</code>为单位向量，其所指方向与入射光线I的方向刚好相反。</p>
+<h2 id="1-3-漫反射光照"><a href="#1-3-漫反射光照" class="headerlink" title="1.3 漫反射光照"></a>1.3 漫反射光照</h2><p>我们将漫反射光照的计算分为两个部分。第一部分，我们要指定光照颜色以及<strong>漫反射反照率（Diffuse Albedo）</strong>颜色。漫反射反照率表示的是根据表面的<strong>漫反射率</strong>而被反射的入射光量。要对它们进行处理就需要分量式颜色乘法。</p>
+<p>设<code>ID</code>表示漫反射光颜色向量，<code>md</code>表示漫反射反照率，<code>L</code>为光向量，而<code>n</code>为表面法线。则根据上述表示某点的漫反射光量为：<br>$$<br>\mathbf{c}<em>{d}=\mathbf{I}</em>{d} \otimes \mathbf{m}_{d}<br>$$</p>
+<p>但上述公式并非十分准确，我们还需将朗伯余弦定律（根据表面法线与光向量之间的夹角来控制表面接收原始光照的量）考虑在内。</p>
+<div align=center>
+
+<img src="image-6.png" alt="(a)横截面面积为A1的光束垂直照射到表面(b)将横截面面积为A1的光束以某角度照射到表面上的最大面积为A2，因此等量光能将扩散到更大的面积上，继而导致照射到物体表面的光束看起来“偏暗”" style="zoom: 50%;" />
+
+</div>
+
+<p>则位于表面上某点处的漫反射光量为：</p>
+<p>$$<br>\mathbf{c}<em>{d}=\mathbf{k}</em>{d}\mathbf{D}=\max (\mathbf{L} \cdot \mathbf{n}, 0) \cdot \mathbf{I}<em>{d} \otimes \mathbf{m}</em>{d}<br>$$</p>
+<h2 id="1-4-环境光照"><a href="#1-4-环境光照" class="headerlink" title="1.4 环境光照"></a>1.4 环境光照</h2><p>我们的光照模型虽然并没有考虑到场景中其他物体反射来的间接光照。事实上，我们在真实世界所看到的多是间接光。为了处理这些间接光照，我们给光照方程引进了一个环境光（Ambient Light）项：<br>$$<br>\mathbf{c}<em>{a}=\mathbf{I}</em>{a} \otimes \mathbf{m}_{d}<br>$$</p>
+<p>环境光颜色向量为<code>Ia</code>，漫反射反照率<code>md</code>指示了根据表面漫反射而被表面反射的入射光量。</p>
+<p>总体思路是：<strong>间接光照在场景中会发生多次的散射与反射，并会在所有方向上均等的射向目标物体。</strong></p>
+<h2 id="1-5-镜面光照"><a href="#1-5-镜面光照" class="headerlink" title="1.5 镜面光照"></a>1.5 镜面光照</h2><p>与漫反射不同，高光可能不会传入眼睛，因为它只在一个特定的方向上反射；高光的计算过程与观察点的位置相关。也就是说，当场景中的观察点位置发生变化时，我们看到的高光强度也会跟着变化。</p>
+<div align=center>
+
+<img src="image-7.png" alt="镜面反射" style="zoom:80%;" />
+
+</div>
+
+<p>设<code>L</code>表示从被照射点向光源的方向向量，<code>v</code>为物体表面一点到人眼的单位方向向量，<code>r</code>为光反射后的单位方向向量，<code>p</code>为镜面系数（系数越大，表面越光滑，而且p的值必须大于等于1），可以用下面的公式来表达亮度<code>ks</code>：</p>
+<p>$$<br>k_{s}=\left{\begin{array}{l}<br>\max (\mathbf{v} \cdot \mathbf{r}, 0)^{p}, \mathbf{L} \cdot \mathbf{n}&gt;0 \<br>0, \mathbf{L} \cdot \mathbf{n}\leq 0<br>\end{array}\right.<br>$$</p>
+<p>因此高光项为：<br>$$<br>\mathbf{c}<em>{s}=\mathbf{k}</em>{s}\mathbf{S}=\mathbf{k}<em>{s}\cdot \mathbf{I}</em>{s} \otimes \mathbf{m}_{s}<br>$$</p>
+<h2 id="1-6-光照模型"><a href="#1-6-光照模型" class="headerlink" title="1.6 光照模型"></a>1.6 光照模型</h2><p>将漫反射光、环境光以及镜面光所组合起来即可得到光照方程：<br>$$<br>\text{LitColor}=\mathbf{c}<em>{a} +\mathbf{c}</em>{d}+\mathbf{c}<em>{s}<br>$$<br>其中，<br>$$<br>\mathbf{c}</em>{a}=\mathbf{I}<em>{a} \otimes \mathbf{m}</em>{d}<br>$$<br>$$<br>\mathbf{c}<em>{d}=\max (\mathbf{L} \cdot \mathbf{n}, 0) \cdot \mathbf{I}</em>{d} \otimes \mathbf{m}<em>{d}<br>$$<br>$$<br>\mathbf{c}</em>{s}=\mathbf{k}<em>{s}\cdot \mathbf{I}</em>{s} \otimes \mathbf{m}<em>{s}<br>$$<br>$$<br>k</em>{s}=\left{\begin{array}{l}<br>\max (\mathbf{v} \cdot \mathbf{r}, 0)^{p}, \mathbf{L} \cdot \mathbf{n}&gt;0 \<br>0, \mathbf{L} \cdot \mathbf{n}\leq 0<br>\end{array}\right.<br>$$</p>
+<h3 id="1-6-1-平行光"><a href="#1-6-1-平行光" class="headerlink" title="1.6.1 平行光"></a>1.6.1 平行光</h3><p>平行光是一种距离目标物体极远的光源，因此我们能够忽略距离带来的影响，而仅指定照射到场景中光线的向量。</p>
+<div align=center>
+
+<img src="image-8.png" alt="平行光" style="zoom:33%;" />
+
+</div>
+
+<p>在C++中定义平行光的结构体并初始化平行光数据：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DirectionalLight</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectX::XMFLOAT4 ambient;</span><br><span class="line">	DirectX::XMFLOAT4 diffuse;</span><br><span class="line">	DirectX::XMFLOAT4 specular;</span><br><span class="line">	DirectX::XMFLOAT3 direction;</span><br><span class="line">	<span class="keyword">float</span> pad; <span class="comment">//最后用一个浮点数填充使得该结构体大小满足16的倍数，便于我们以后在HLSL设置数组</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">m_DirLight.ambient = XMFLOAT4(<span class="number">0.2f</span>, <span class="number">0.2f</span>, <span class="number">0.2f</span>, <span class="number">1.0f</span>);</span><br><span class="line">m_DirLight.diffuse = XMFLOAT4(<span class="number">0.8f</span>, <span class="number">0.8f</span>, <span class="number">0.8f</span>, <span class="number">1.0f</span>);</span><br><span class="line">m_DirLight.specular = XMFLOAT4(<span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">1.0f</span>);</span><br><span class="line">m_DirLight.direction = XMFLOAT3(<span class="number">-0.577f</span>, <span class="number">-0.577f</span>, <span class="number">0.577f</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在HLSL中定义平行光的结构体和计算函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//平行光</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DirectionalLight</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    float4 Ambient;</span><br><span class="line">    float4 Diffuse;</span><br><span class="line">    float4 Specular;</span><br><span class="line">    float3 Direction;</span><br><span class="line">    <span class="keyword">float</span> Pad;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ComputeDirectionalLight</span><span class="params">(Material mat, DirectionalLight L,</span></span></span><br><span class="line"><span class="function"><span class="params">	float3 normal, float3 toEye,</span></span></span><br><span class="line"><span class="function"><span class="params">	out float4 ambient,</span></span></span><br><span class="line"><span class="function"><span class="params">	out float4 diffuse,</span></span></span><br><span class="line"><span class="function"><span class="params">	out float4 spec)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//初始化输出</span></span><br><span class="line">    ambient = float4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">    diffuse = float4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">    spec = float4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//光向量与光向量刚好相反</span></span><br><span class="line">    float3 lightVec = -L.Direction;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加环境光</span></span><br><span class="line">    ambient = mat.Ambient * L.Ambient;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加漫反射光和镜面光</span></span><br><span class="line">    <span class="keyword">float</span> diffuseFactor = dot(lightVec, normal);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//展开，避免动态分支</span></span><br><span class="line">	[flatten]</span><br><span class="line">    <span class="keyword">if</span> (diffuseFactor &gt; <span class="number">0.0f</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        float3 v = reflect(-lightVec, normal);</span><br><span class="line">        <span class="keyword">float</span> specFactor = <span class="built_in">pow</span>(<span class="built_in">max</span>(dot(v, toEye), <span class="number">0.0f</span>), mat.Specular.w);</span><br><span class="line"></span><br><span class="line">        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;</span><br><span class="line">        spec = specFactor * mat.Specular * L.Specular;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里用到了HLSL中的关键字<strong>flatten</strong>，这些关键词是HLSL编译器为了优化代码为if和for语句添加的标签，具体含义如下：</p>
+<ol>
+<li><p>if语句</p>
+</li>
+<li><ol>
+<li>branch<br>添加了branch标签的if语句shader会根据判断语句只执行当前情况的代码，这样会产生跳转指令。</li>
+<li>flatten<br>添加了flatten标签的if语句shader会执行全部情况的分支代码，然后根据判断语句来决定使用哪个结果。</li>
+</ol>
+</li>
+<li><p>for语句</p>
+</li>
+<li><ol>
+<li>unroll<br>添加了unroll标签的for循环是可以展开的，直到循环条件终止，代价是产生更多机器码</li>
+<li>loop<br>添加了loop标签的for循环不能展开，流式控制每次的循环迭代，for默认是loop</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h2 id="1-7-材质"><a href="#1-7-材质" class="headerlink" title="1.7 材质"></a>1.7 材质</h2><p>光在照射到物体上时，由于物体的材质特性会反射一部分光到人眼，最终我们观察到的物体颜色就是被反射的那部分光的颜色。不同的物体有不同的材质属性，决定了各种颜色分量的反射系数是多少。</p>
+<p>在C++中定义材质的结构体：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//物体表面材质</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Material</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectX::XMFLOAT4 ambient;</span><br><span class="line">	DirectX::XMFLOAT4 diffuse;</span><br><span class="line">	DirectX::XMFLOAT4 specular; </span><br><span class="line">	DirectX::XMFLOAT4 reflect;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在HLSL中定义材质的结构体初始化像素着色器中的材质数据：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//物体表面材质</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Material</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    float4 Ambient;</span><br><span class="line">    float4 Diffuse;</span><br><span class="line">    float4 Specular; <span class="comment">// w = SpecPower</span></span><br><span class="line">    float4 Reflect;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//初始化用于PS的常量缓冲区的值</span></span><br><span class="line">m_PSConstantBuffer.material.ambient = XMFLOAT4(<span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">1.0f</span>);</span><br><span class="line">m_PSConstantBuffer.material.diffuse = XMFLOAT4(<span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">m_PSConstantBuffer.material.specular = XMFLOAT4(<span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">5.0f</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-8-常量缓冲区"><a href="#1-8-常量缓冲区" class="headerlink" title="1.8 常量缓冲区"></a>1.8 常量缓冲区</h2><p>由于需要对顶点做一些不同的变换，同时在像素着色器中添加光照。因此更改常量缓冲区与着色器：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VSConstantBuffer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectX::XMMATRIX world;</span><br><span class="line">	DirectX::XMMATRIX view;</span><br><span class="line">	DirectX::XMMATRIX proj;</span><br><span class="line">	DirectX::XMMATRIX worldInvTranspose;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PSConstantBuffer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectionalLight dirLight;</span><br><span class="line">	Material material;</span><br><span class="line">	DirectX::XMFLOAT4 eyePos;</span><br><span class="line">&#125;;</span><br><span class="line">ComPtr&lt;ID3D11Buffer&gt;m_pConstantBuffers[<span class="number">2</span>];	 <span class="comment">//常量缓冲区</span></span><br><span class="line">VSConstantBuffer m_VSConstantBuffer;		 <span class="comment">//用于修改用于VS的GPU常量缓冲区的变量</span></span><br><span class="line">PSConstantBuffer m_PSConstantBuffer;		 <span class="comment">//用于修改用于PS的GPU常量缓冲区的变量</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cbuffer VSConstantBuffer : <span class="keyword">register</span>(b0)</span><br><span class="line">&#123;</span><br><span class="line">    matrix g_World;</span><br><span class="line">    matrix g_View;</span><br><span class="line">    matrix g_Proj;</span><br><span class="line">    matrix g_WorldInvTranspose;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cbuffer PSConstantBuffer : <span class="keyword">register</span>(b1)</span><br><span class="line">&#123;</span><br><span class="line">    DirectionalLight g_DirLight;</span><br><span class="line">    Material g_Material;</span><br><span class="line">    float3 g_EyePosW;</span><br><span class="line">    <span class="keyword">float</span> g_Pad;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-9-着色器"><a href="#1-9-着色器" class="headerlink" title="1.9 着色器"></a>1.9 着色器</h2><h3 id="1-9-1-顶点着色器"><a href="#1-9-1-顶点着色器" class="headerlink" title="1.9.1 顶点着色器"></a>1.9.1 顶点着色器</h3><p>在顶点着色器中将顶点变换到不同空间输出：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//顶点着色器</span></span><br><span class="line"><span class="function">VertexOut <span class="title">VS</span><span class="params">(VertexIn vIn)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    VertexOut vOut;</span><br><span class="line">    matrix viewProj = mul(g_View, g_Proj);</span><br><span class="line">    <span class="comment">//将顶点变换到世界空间</span></span><br><span class="line">    float4 posW = mul(float4(vIn.PosL, <span class="number">1.0f</span>), g_World);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//从顶点变换到齐次裁剪空间</span></span><br><span class="line">    vOut.PosH = mul(posW, viewProj);</span><br><span class="line">    vOut.PosW = posW.xyz;</span><br><span class="line">    <span class="comment">//假设这里进行的是等比缩放，否则这里需要使用世界矩阵的逆转置矩阵</span></span><br><span class="line">    vOut.NormalW = mul(vIn.NormalL, (float3x3) g_WorldInvTranspose);</span><br><span class="line">    vOut.Color = vIn.Color; <span class="comment">// 这里alpha通道的值默认为1.0</span></span><br><span class="line">    <span class="keyword">return</span> vOut;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-2-像素着色器"><a href="#1-9-2-像素着色器" class="headerlink" title="1.9.2 像素着色器"></a>1.9.2 像素着色器</h3><p>在像素着色器中规范化法线，计算每个像素的最终颜色：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//像素着色器</span></span><br><span class="line"><span class="function">float4 <span class="title">PS</span><span class="params">(VertexOut pIn)</span> : SV_Target</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//对法线插值可能导致其非规范化，因此需要再次对它进行规范化处理</span></span><br><span class="line">    pIn.NormalW = normalize(pIn.NormalW);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//光线经表面上一点反射到观察点这一方向上的向量</span></span><br><span class="line">    float3 toEyeW = normalize(g_EyePosW - pIn.PosW);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化为0 </span></span><br><span class="line">    float4 ambient, diffuse, spec;</span><br><span class="line">    float4 A, D, S;</span><br><span class="line">    ambient = diffuse = spec = A = D = S = float4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line"></span><br><span class="line">    ComputeDirectionalLight(g_Material, g_DirLight, pIn.NormalW, toEyeW, A, D, S);</span><br><span class="line">    ambient += A;</span><br><span class="line">    diffuse += D;</span><br><span class="line">    spec += S;</span><br><span class="line"></span><br><span class="line">    float4 litColor = pIn.Color * (ambient + diffuse) + spec;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//从漫反射材质中获得alpha的常见手段</span></span><br><span class="line">    litColor.a = g_Material.Diffuse.a * pIn.Color.a;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> litColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-光栅化状态"><a href="#2-光栅化状态" class="headerlink" title="2. 光栅化状态"></a>2. 光栅化状态</h1><p>Direct3D是基于状态机的，我们可以通过修改这些状态来修改渲染管线的当前行为。有三种状态值得我们现在以及后续留意：</p>
+<ol>
+<li>光栅化状态（光栅化阶段）</li>
+<li>混合状态（输出合并阶段）</li>
+<li>深度/模板状态（输出合并阶段）</li>
+</ol>
+<blockquote>
+<p>光栅化阶段尽管是不可编程的，<strong>但在该阶段需要完成许多任务：</strong></p>
+<ol>
+<li>顶点着色器、几何着色器完成了顶点输出后，光栅化阶段会负责对前面传来的顶点数据，尤其是对4D位置向量(SV_POSITION)进行透视除法，判断顶点是否在NDC空间内。</li>
+<li>其次，根据光栅化状态来决定顶点顺(逆)时针排布的三角形是否通过。</li>
+<li>它还能指定额外的裁剪区域，即矩形区域外的三角形(或者部分)被裁剪掉，仅留下剩余在矩形区域内的像素片元传递到像素着色器中进行处理。</li>
+<li>根据三角形的三个顶点，光栅化就可以通过线性插值法对顶点内的所有成员(如位置，颜色，法向量等)进行插值运算，并根据视口信息计算出位于三角形内的所有像素顶点以传递给像素着色器，如前面的彩色渐变三角形。</li>
+<li>由于光栅化阶段会进行视口变换，在像素着色器中，<code>SV_POSITION</code>的<code>x</code>分量和<code>y</code>分量都已经经过视口变换成为最终的屏幕坐标，且带有小数点<code>0.5</code>，这是因为要取到像素的中心位置，即对于800x600的视口区域，实际上的屏幕坐标取值范围为<code>[0.5, 799.5]x[0.5, 599.5]</code>，<code>z</code>分量取值范围为<code>[0, 1]</code>。</li>
+</ol>
+</blockquote>
+<h2 id="2-1-D3D11-RASTERIZER-DESC结构体"><a href="#2-1-D3D11-RASTERIZER-DESC结构体" class="headerlink" title="2.1 D3D11_RASTERIZER_DESC结构体"></a>2.1 D3D11_RASTERIZER_DESC结构体</h2><p>用于配置渲染流水线中光栅化阶段的光栅器状态组由结构体<code>D3D11_RASTERIZER_DESC</code>表示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">D3D11_RASTERIZER_DESC</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    D3D11_FILL_MODE FillMode;       <span class="comment">//填充模式，默认为D3D11_FULL_MODE_SOLID</span></span><br><span class="line">    D3D11_CULL_MODE CullMode;       <span class="comment">//裁剪模式，默认为D3D11_CULL_MODE_BACK</span></span><br><span class="line">    BOOL FrontCounterClockwise;     <span class="comment">//是否三角形顶点按逆时针排布时为正面，默认为false</span></span><br><span class="line">    INT DepthBias;                  <span class="comment">//忽略，默认为0</span></span><br><span class="line">    FLOAT DepthBiasClamp;           <span class="comment">//忽略，默认为0.0f</span></span><br><span class="line">    FLOAT SlopeScaledDepthBias;     <span class="comment">//忽略，默认为0.0f</span></span><br><span class="line">    BOOL DepthClipEnable;           <span class="comment">//是否允许深度测试将范围外的像素进行裁剪，默认为true</span></span><br><span class="line">    BOOL ScissorEnable;             <span class="comment">//是否允许指定矩形范围的裁剪，默认为false</span></span><br><span class="line">    BOOL MultisampleEnable;         <span class="comment">//是否允许多重采样，默认为false</span></span><br><span class="line">    BOOL AntialiasedLineEnable;     <span class="comment">//是否允许反走样线，仅当无多重采样为时才有效，默认为false</span></span><br><span class="line">&#125;D3D11_RASTERIZER_DESC;</span><br></pre></td></tr></table></figure>
+
+<p>其中有3个关键成员：</p>
+<h3 id="2-1-1-FillMode"><a href="#2-1-1-FillMode" class="headerlink" title="2.1.1 FillMode"></a>2.1.1 FillMode</h3><table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D3D11_FILL_WIREFRAME</td>
+<td>采用线框模式进行渲染</td>
+</tr>
+<tr>
+<td>D3D11_FILL_SOLID</td>
+<td>使用实体模式进行渲染，默认</td>
+</tr>
+</tbody></table>
+<h3 id="2-1-2-CullMode"><a href="#2-1-2-CullMode" class="headerlink" title="2.1.2 CullMode"></a>2.1.2 CullMode</h3><table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D3D11_CULL_NONE</td>
+<td>禁用剔除操作</td>
+</tr>
+<tr>
+<td>D3D11_CULL_BACK</td>
+<td>剔除背面朝向的三角形，默认</td>
+</tr>
+<tr>
+<td>D3D11_CULL_FRONT</td>
+<td>剔除正面朝向的三角形</td>
+</tr>
+</tbody></table>
+<h3 id="2-1-3-FrontCounterClockwise"><a href="#2-1-3-FrontCounterClockwise" class="headerlink" title="2.1.3 FrontCounterClockwise"></a>2.1.3 FrontCounterClockwise</h3><table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FrontCounterClockwise = false</td>
+<td>根据摄像机的观察视角，将顶点顺序为顺时针方向的三角形看作正面朝向，而把逆时针绕序的三角形当作背面朝向。默认。</td>
+</tr>
+<tr>
+<td>FrontCounterClockwise = true</td>
+<td>根据摄像机的观察视角，将顶点顺序为逆时针方向的三角形看作正面朝向，而把顺时针绕序的三角形当作背面朝向。</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-初始化光栅化状态"><a href="#2-2-初始化光栅化状态" class="headerlink" title="2.2 初始化光栅化状态"></a>2.2 初始化光栅化状态</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">D3D11_RASTERIZER_DESC rasterizerDesc;</span><br><span class="line">ZeroMemory(&amp;rasterizerDesc, <span class="keyword">sizeof</span>(rasterizerDesc));</span><br><span class="line">rasterizerDesc.FillMode = D3D11_FILL_WIREFRAME;</span><br><span class="line">rasterizerDesc.CullMode = D3D11_CULL_NONE;</span><br><span class="line">rasterizerDesc.FrontCounterClockwise = <span class="literal">false</span>;</span><br><span class="line">rasterizerDesc.DepthClipEnable = <span class="literal">true</span>;</span><br><span class="line">m_pDevice-&gt;CreateRasterizerState(&amp;rasterizerDesc, m_pRSWireframe.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<p>运行程序，便可看到带有平行光的效果了，同时还可以切换显示模式。</p>
+<div align=center>
+
+<p><img src="gif-1.gif" alt="光照效果"></p>
+</div>
+
+
+<hr>
+<p>参考：</p>
+<p>1.<a href="http://zanple.top/2020/04/07/cg-unity-matrix/">计算机图形学-Unity中矩阵变换、坐标空间的回顾</a></p>
+<p>2.《DirectX 12 3D游戏开发实战 第8章》</p>
+<p>3.<a href="https://www.cnblogs.com/X-Jun/p/9095615.html">DirectX11 With Windows SDK–07 添加光照与常用几何模型、光栅化状态</a></p>
+<p>4.<a href="https://zhuanlan.zhihu.com/p/115871017">HLSL 关键词branch flatten unroll loop</a></p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/01/07/directx11-04-light/">DirectX11入门笔记-04-光照与光栅化</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/01/07/directx11-04-light/">http://www.zanple.top/2021/01/07/directx11-04-light/</a></li>
+                    <li><strong>发布时间：</strong>2021-01-07</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/01/09/directx11-05-camera/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">DirectX11入门笔记-05-摄像机类与游戏对象类</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/06/directx11-03-geometry/">
+                <span class="level-item">DirectX11入门笔记-03-不同形状的几何体</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-光照">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 光照</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-法向量">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 法向量</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-1-计算法向量">
+        <!-- span class="has-mr-6">1.1.1</span-->
+        <span>1.1.1 计算法向量</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-1-2-法向量的变换">
+        <!-- span class="has-mr-6">1.1.2</span-->
+        <span>1.1.2 法向量的变换</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#1-2-参与光照计算的一些关键向量">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 参与光照计算的一些关键向量</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-3-漫反射光照">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 漫反射光照</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-4-环境光照">
+        <!-- span class="has-mr-6">1.4</span-->
+        <span>1.4 环境光照</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-5-镜面光照">
+        <!-- span class="has-mr-6">1.5</span-->
+        <span>1.5 镜面光照</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-6-光照模型">
+        <!-- span class="has-mr-6">1.6</span-->
+        <span>1.6 光照模型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-6-1-平行光">
+        <!-- span class="has-mr-6">1.6.1</span-->
+        <span>1.6.1 平行光</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#1-7-材质">
+        <!-- span class="has-mr-6">1.7</span-->
+        <span>1.7 材质</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-8-常量缓冲区">
+        <!-- span class="has-mr-6">1.8</span-->
+        <span>1.8 常量缓冲区</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-9-着色器">
+        <!-- span class="has-mr-6">1.9</span-->
+        <span>1.9 着色器</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-9-1-顶点着色器">
+        <!-- span class="has-mr-6">1.9.1</span-->
+        <span>1.9.1 顶点着色器</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-9-2-像素着色器">
+        <!-- span class="has-mr-6">1.9.2</span-->
+        <span>1.9.2 像素着色器</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#2-光栅化状态">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 光栅化状态</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-D3D11-RASTERIZER-DESC结构体">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 D3D11_RASTERIZER_DESC结构体</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-1-FillMode">
+        <!-- span class="has-mr-6">2.1.1</span-->
+        <span>2.1.1 FillMode</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-1-2-CullMode">
+        <!-- span class="has-mr-6">2.1.2</span-->
+        <span>2.1.2 CullMode</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-1-3-FrontCounterClockwise">
+        <!-- span class="has-mr-6">2.1.3</span-->
+        <span>2.1.3 FrontCounterClockwise</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-2-初始化光栅化状态">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 初始化光栅化状态</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="DirectX11入门笔记-04-光照与光栅化" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

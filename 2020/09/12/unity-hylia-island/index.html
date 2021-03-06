@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.zanple.top/gallery/unity-hylia-island.jpg">
 <meta property="article:published_time" content="2020-09-12T03:44:50.000Z">
-<meta property="article:modified_time" content="2020-09-13T08:36:57.536Z">
+<meta property="article:modified_time" content="2021-03-06T10:13:42.192Z">
 <meta property="article:author" content="Zanple">
 <meta property="article:tag" content="Unity">
 <meta property="article:tag" content="地编">
@@ -156,7 +156,7 @@
             <div class="level-left">
                     <time class="level-item has-text-grey" datetime="2020-09-12T03:44:50.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-09-12</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-13T08:36:57.536Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-13</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T10:13:42.192Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
@@ -169,7 +169,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    5 分钟 读完 (大约 714 个字)
+                    10 分钟 读完 (大约 1453 个字)
                 </span>
                 
                 
@@ -181,14 +181,22 @@
 <hr>
 <h1 id="1-地形系统"><a href="#1-地形系统" class="headerlink" title="1. 地形系统"></a>1. 地形系统</h1><p>地形系统的构建用到了<code>Terrain Tools</code>包，用于改善在Unity中创建地形的工作流程。</p>
 <p>在<code>Terrain Toolbox</code>中设置创建的地形大小点击<code>Create</code>创建地形，可以通过导入外部<code>Heightmap</code>来创建地形。</p>
+<div align=center>
+
 <p><img src="image-20200912165129171.png" alt="Terrain Box"></p>
+</div>
+
 <blockquote>
 <p>在Edit-Shortcuts-Terrain中可以更改创建地形的快捷键，如Select Set Height Tool、Select Smooth Tool等。通过ASD调节笔刷的强度、大小和旋转角度。</p>
 </blockquote>
 <p>使用<code>Raise or Lower Terrain</code>、<code>Set Height</code>、<code>Smooth Height</code>构建基本地形。</p>
 <p>完成地形构建后，通过<code>Create-Terrain Layer</code>创建层，在<code>地形-Paint Texture-Layer</code>中添加图层。为地形绘制贴图。</p>
 <h1 id="2-石头雕刻"><a href="#2-石头雕刻" class="headerlink" title="2. 石头雕刻"></a>2. 石头雕刻</h1><p>使用Zbrush对石头低模进行雕刻，其中用到了卡通风格的<a href="https://pan.baidu.com/s/1LEvg59mFISRcE8d8aZyanw">笔刷</a>(提取码uaqi)。</p>
+<div align=center>
+
 <p><img src="image-20200912195904050.png" alt="卡通笔刷"></p>
+</div>
+
 <h1 id="3-石头贴图"><a href="#3-石头贴图" class="headerlink" title="3. 石头贴图"></a>3. 石头贴图</h1><p>利用Substance Designer制作石头的贴图。首先将高模和低模导入SD中，在SD中烘培<code>AO</code>、Normal(Tangent)、Normal(World)、Curvature、Position图。</p>
 <h2 id="3-1-Normal"><a href="#3-1-Normal" class="headerlink" title="3.1 Normal"></a>3.1 Normal</h2><p>在高模烘培的法线贴图上叠加裂痕、磨损等细节效果。细节效果通过<code>Creased节点</code>得到，裂痕效果通过<code>Cells节点</code>得到，磨损坑洼效果可通过<code>Tile Sampler节点</code>得到。</p>
 <p>石头上的横纹使用<code>Light节点</code>通过<code>世界空间的法线贴图</code>得到石块的遮罩，以此避免石块顶部也出现横纹。</p>
@@ -201,7 +209,92 @@
 <p>Dirt节点：根据烘焙的Curvature、AO、Normal(World)和用户设置生成黑白蒙版，表示在被遮挡和凹陷的边缘和角落出现了污垢。</p>
 <p>Edge Damage节点：根据烘焙的曲率和AO对凸起的凸边缘造成的损坏图和用户设置生成黑白蒙版。</p>
 </blockquote>
+<h2 id="3-3-贴图导入Unity"><a href="#3-3-贴图导入Unity" class="headerlink" title="3.3 贴图导入Unity"></a>3.3 贴图导入Unity</h2><p>在Substance Designer导出贴图时，将<code>Metallic/Smoothness/Occlusion</code>合并在一张贴图内。</p>
+<div align=center>
 
+<p><img src="Snipaste_2020-10-31_16-04-00.jpg" alt=""></p>
+</div>
+
+<p>在石头的Shader中，将<code>Vertex Color</code>的<code>R通道</code>和<code>G通道</code>分别使用不同的Albedo贴图。</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-10-31_16-07-58.jpg" alt="石头效果"></p>
+</div>
+
+<h1 id="4-水Shader制作"><a href="#4-水Shader制作" class="headerlink" title="4. 水Shader制作"></a>4. 水Shader制作</h1><h2 id="4-1-Normal部分"><a href="#4-1-Normal部分" class="headerlink" title="4.1 Normal部分"></a>4.1 Normal部分</h2><div align=center>
+
+<p><img src="Snipaste_2020-10-31_16-52-34.jpg" alt="水的Normal部分"></p>
+</div>
+
+<p>水的Normal部分首先对世界空间的Position进行拆分，由于只是X/Z平面的移动，因此将Position的R/B组合为一个新的二维向量。</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-10-31_16-31-34.jpg" alt="水Normal图"></p>
+</div>
+
+<p>使用Time节点控制移动，将法线贴图以不同的UV大小生成大小波浪叠加的效果。</p>
+<h2 id="4-2-颜色部分"><a href="#4-2-颜色部分" class="headerlink" title="4.2 颜色部分"></a>4.2 颜色部分</h2><p>水在不同深度颜色有所差异，通常在较浅的区域颜色也比较浅，透明度也比较高。</p>
+<h3 id="4-2-1-Alpha"><a href="#4-2-1-Alpha" class="headerlink" title="4.2.1 Alpha"></a>4.2.1 Alpha</h3><div align=center>
+
+<p><img src="Snipaste_2020-10-31_17-04-26.jpg" alt="水颜色的通透颜色"></p>
+</div>
+
+<p>首先用世界空间的Position减去相机的Position，然后与相机的方向进行点积Dot并控制在0~1之间，与加上自定义深度值的结果进行平滑操作。将Scene Depth作为Smoothstep的输入。得到了水面的透明度以体现深度。</p>
+<blockquote>
+<p>Smoothstep节点类似类似于Lerp节点，但Smoothstep不是线性插值。</p>
+<p>Scene Depth节点访问当前Camera深度缓冲区。</p>
+</blockquote>
+<h3 id="4-2-2-焦散效果"><a href="#4-2-2-焦散效果" class="headerlink" title="4.2.2 焦散效果"></a>4.2.2 焦散效果</h3><div align=center>
+
+<p><img src="Snipaste_2020-10-31_17-04-56.jpg" alt="焦散效果"></p>
+</div>
+
+<p>焦散效果的模拟主要用了Voronoi节点，使用之前组合的二维向量与Time节点扭曲运动Voronoi节点，并叠加焦散颜色。</p>
+<h3 id="4-2-3-颜色"><a href="#4-2-3-颜色" class="headerlink" title="4.2.3 颜色"></a>4.2.3 颜色</h3><p>水的颜色再进行一次透明度处理中的操作并使用两个颜色进行插值得到水面的颜色。计算相机与世界空间的距离，加深相机远处的水面颜色。</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-10-31_19-13-38.jpg" alt="水面颜色"></p>
+</div>
+
+<h1 id="5-草Shader制作"><a href="#5-草Shader制作" class="headerlink" title="5.草Shader制作"></a>5.草Shader制作</h1><p>草Shader的制作主要分为更改草模型的顶点位置和材质的颜色。</p>
+<h2 id="5-1-模型部分"><a href="#5-1-模型部分" class="headerlink" title="5.1 模型部分"></a>5.1 模型部分</h2><p>在Maya中创建简单的草模型，并制作LOD。</p>
+<div align=center>
+
+<img src="Snipaste_2020-11-23_22-16-00.jpg" alt="草模型的顶点色" style="zoom:50%;" />
+
+</div>
+
+<p>然后对三个LOD绘制顶点颜色，并更改其顶点方向。</p>
+<div align=center>
+
+<img src="Snipaste_2020-11-23_22-17-21.jpg" alt="草模型顶点方向" style="zoom: 67%;" />
+
+</div>
+
+<h2 id="5-2-Shader部分"><a href="#5-2-Shader部分" class="headerlink" title="5.2 Shader部分"></a>5.2 Shader部分</h2><h3 id="5-2-1-颜色"><a href="#5-2-1-颜色" class="headerlink" title="5.2.1 颜色"></a>5.2.1 颜色</h3><p>颜色主要根据预先制作的渐变图将草顶部和底部的颜色进行插值，然后加上运动的Noise图以模仿风吹过草地的效果。</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-11-24_17-28-29.jpg" alt="草的颜色"></p>
+</div>
+
+<h3 id="5-2-2-Position"><a href="#5-2-2-Position" class="headerlink" title="5.2.2 Position"></a>5.2.2 Position</h3><p>Position由模拟风的效果和角色与草的互动组成。</p>
+<p>风吹草地的摇摆效果与颜色部分类似，通过一张运动的Noise图去改变顶点的位置，并根据顶点色改变摇摆的权重。</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-11-24_18-30-38.jpg" alt="草的运动效果"></p>
+</div>
+
+<p>角色与草的互动效果涉及到草的模型空间到世界空间的转换，然后根据草和角色的距离和方向改变顶点的位置。</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-11-24_18-34-27.jpg" alt="改变顶点位置"></p>
+</div>
+
+<p>效果如下：</p>
+<div align=center>
+
+<p><img src="Snipaste_2020-11-24_19-24-26.jpg" alt="草的效果"></p>
+</div>
         </div>
             
                     <ul class="post-copyright">
@@ -344,7 +437,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            37
+                            43
                         </p>
                     </a>
                 </div>
@@ -356,7 +449,7 @@
                     </p>
                     <a href="/categories">
                         <p class="title has-text-weight-normal">
-                            19
+                            20
                         </p>
                     </a>
                 </div>
@@ -368,7 +461,7 @@
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            43
+                            44
                         </p>
                     </a>
                 </div>
@@ -452,7 +545,55 @@
         <a class="is-flex" href="#3-2-Base-Color">
         <!-- span class="has-mr-6">3.2</span-->
         <span>3.2 Base Color</span>
-        </a></li></ul></li></ul>
+        </a></li><li>
+        <a class="is-flex" href="#3-3-贴图导入Unity">
+        <!-- span class="has-mr-6">3.3</span-->
+        <span>3.3 贴图导入Unity</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#4-水Shader制作">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 水Shader制作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#4-1-Normal部分">
+        <!-- span class="has-mr-6">4.1</span-->
+        <span>4.1 Normal部分</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-颜色部分">
+        <!-- span class="has-mr-6">4.2</span-->
+        <span>4.2 颜色部分</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#4-2-1-Alpha">
+        <!-- span class="has-mr-6">4.2.1</span-->
+        <span>4.2.1 Alpha</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-2-焦散效果">
+        <!-- span class="has-mr-6">4.2.2</span-->
+        <span>4.2.2 焦散效果</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-3-颜色">
+        <!-- span class="has-mr-6">4.2.3</span-->
+        <span>4.2.3 颜色</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#5-草Shader制作">
+        <!-- span class="has-mr-6">5</span-->
+        <span>5.草Shader制作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#5-1-模型部分">
+        <!-- span class="has-mr-6">5.1</span-->
+        <span>5.1 模型部分</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-Shader部分">
+        <!-- span class="has-mr-6">5.2</span-->
+        <span>5.2 Shader部分</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#5-2-1-颜色">
+        <!-- span class="has-mr-6">5.2.1</span-->
+        <span>5.2.1 颜色</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-2-Position">
+        <!-- span class="has-mr-6">5.2.2</span-->
+        <span>5.2.2 Position</span>
+        </a></li></ul></li></ul></li></ul>
             </div>
         </div>
     </div>
@@ -479,7 +620,7 @@
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2020 Zanple&nbsp;
+                &copy; 2021 Zanple&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
                         href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
                 

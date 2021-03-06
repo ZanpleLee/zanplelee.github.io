@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DirectX11入门笔记-01-绘制三角形 - Addendum</title>
+
+
+    <meta name="description" content="在完成Direct3D的初始化后，我们可以运行便可得到一个带有FPS与帧时间的窗口。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectX11入门笔记-01-绘制三角形">
+<meta property="og:url" content="http://www.zanple.top/2021/01/04/directx11-01-triangle/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="在完成Direct3D的初始化后，我们可以运行便可得到一个带有FPS与帧时间的窗口。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/dragon.jpg">
+<meta property="article:published_time" content="2021-01-04T08:12:21.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:48:48.155Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="Direct3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/dragon.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="DirectX11入门笔记-01-绘制三角形" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-01-绘制三角形">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>DirectX11入门笔记-01-绘制三角形
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-01-04T08:12:21.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-04</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:48:48.155Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    20 分钟 读完 (大约 3023 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>在完成Direct3D的初始化后，我们可以运行便可得到一个带有FPS与帧时间的窗口。<a id="more"></a></p>
+<div align=center>
+
+<p><img src="image-1.png" alt="初始化"></p>
+</div>
+
+<blockquote>
+<p>初始化部分分为Win32窗口的创建和Direct3D的初始化。</p>
+<p>Win32部分可参考龙书附录或<a href="https://www.bilibili.com/video/BV1PV411Y7Sb">Win32 API高级编程教程</a>，Direct3D的初始化可参考龙书第四章或<a href="https://www.cnblogs.com/X-Jun/p/9069608.html">X-Jun的博客</a>。</p>
+</blockquote>
+<hr>
+<h1 id="1-DirectX11中的渲染管线"><a href="#1-DirectX11中的渲染管线" class="headerlink" title="1. DirectX11中的渲染管线"></a>1. DirectX11中的渲染管线</h1><p>在开始绘制三角形前，先了解一下DirectX11中的渲染管线：</p>
+<div align=center>
+
+<p><img src="image-2.png" alt="说明绘制管道的功能块的关系图"></p>
+</div>
+
+<ol>
+<li><strong>Input Assembler（输入装配器）</strong>：“输入装配器”阶段使用固定的函数操作从内存中读取顶点。 然后，输入汇编会形成几何基元，并创建管道工作项。 自动生成的顶点标识符、实例标识符 (可用于顶点着色器) ， (几何着色器或像素着色器可用的基元标识符) 启用特定于标识符的处理。 图中的虚线显示特定于标识符的处理流程。</li>
+<li><strong>Vertex Shader（顶点着色器）</strong>：顶点着色器阶段使用一个顶点作为输入，并输出一个顶点。</li>
+<li><strong>Hull Shader（外壳着色器）</strong>：此球面着色器每个修补程序运行一次。 可以将 “球面” 着色器与输入汇编程序提供的修补程序结合使用。 “球面” 着色器可以将构成修补程序的输入控制点转换为输出控制点。 可以对 fixed 函数细化器阶段执行其他设置。 例如，”球面” 着色器可以输出 tess 系数，这是指示进行分割的数量。</li>
+<li><strong>Tessellator（细化器/细分曲面）</strong>：细化器是一个固定函数单元，其操作由 “球面” 着色器中的声明定义。细化器对每个由凸着色器输出的修补程序运行一次。外凸着色器会生成 tess 因素，这些因素是通知细化器多少到进行分割 (生成几何和连接性) 到修补程序域的数字。</li>
+<li><strong>Domain Shader（域着色器）</strong>：每个顶点调用一次域着色器，这是由细化器生成的。每个调用都通过其在泛型域上的坐标进行标识。域着色器的作用是将此坐标转换为有形 (例如，3-d 空间中的一个点) 用于域着色器的下向下传递。 修补程序的每个域着色器调用还会访问所有的 “球面” 着色器输出的共享输入。</li>
+<li><strong>Geometry Shader（几何着色器）</strong>：几何着色器阶段使用一个基元作为输入，输出零个、一个或多个基元。 输出基元包含的数据可能会超出几何着色器的可能数量。 每个操作的输出数据总量 (顶点大小 x 顶点计数) 。</li>
+<li><strong>Stream Output（流输出）</strong>：流输出阶段将(基元)流连接起来，从而将几何图形着色器的输出传递到输出缓冲区。 流输出与几何图形着色器相关联，并且两者同时进行了编程。</li>
+<li><strong>Rasterizer（光栅器）</strong>：光栅器阶段剪辑 (包括自定义剪辑边界) 基元，对基元执行透视划分，实现视区和剪选，执行呈现目标选择，并执行基元设置。</li>
+<li><strong>Pixel Shader（像素着色器）</strong>：“像素着色器”阶段使用一个像素作为输入，并输出同一位置上的一个像素或无像素。 像素着色器无法读取当前渲染器目标。</li>
+<li><strong>Output Merger（输出合并）</strong>：输出合并阶段执行固定的函数呈现-目标混合、深度和模具操作。</li>
+</ol>
+<h1 id="2-三角形绘制"><a href="#2-三角形绘制" class="headerlink" title="2. 三角形绘制"></a>2. 三角形绘制</h1><p>在初始化后完成框架的搭建后，D3DApp与GameTimer这两个类基本就不需要进行修改了。</p>
+<p>项目框架结构如下</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Main</td>
+<td>WinMain函数的入口，程序的主入口</td>
+</tr>
+<tr>
+<td>D3DApp</td>
+<td>Direct3D应用程序框架类</td>
+</tr>
+<tr>
+<td>GameTimer</td>
+<td>游戏计时器类</td>
+</tr>
+<tr>
+<td>GameApp</td>
+<td>游戏应用程序扩展类，游戏逻辑在这里实现，继承自D3DApp类</td>
+</tr>
+</tbody></table>
+<h2 id="2-1-顶点与输入布局"><a href="#2-1-顶点与输入布局" class="headerlink" title="2.1 顶点与输入布局"></a>2.1 顶点与输入布局</h2><p>首先定义顶点的结构体：由位置和颜色信息注册。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VertexPosColor</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		DirectX::XMFLOAT3 pos;</span><br><span class="line">		DirectX::XMFLOAT4 color;</span><br><span class="line">		<span class="keyword">static</span> <span class="keyword">const</span> D3D11_INPUT_ELEMENT_DESC inputLayout[<span class="number">2</span>];</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>定义了顶点结构体之后，我们还需要向Direct3D提供该顶点结构体的描述，使它了解应怎样来处理结构体中的每个成员。用户提供给Direct3D的这种描述被成为<strong>输入布局描述</strong>(input layout description)，这里将输入布局描述中的D3D11_INPUT_ELEMENT_DESC设为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> D3D11_INPUT_ELEMENT_DESC GameApp::VertexPosColor::inputLayout[<span class="number">2</span>] = &#123;</span><br><span class="line">	&#123; <span class="string">"POSITION"</span>, <span class="number">0</span>, DXGI_FORMAT_R32G32B32_FLOAT,<span class="number">0</span>, <span class="number">0</span>, D3D11_INPUT_PER_VERTEX_DATA, <span class="number">0</span>  &#125;,</span><br><span class="line">	&#123; <span class="string">"COLOR"</span>,	<span class="number">0</span>,	DXGI_FORMAT_R32G32B32A32_FLOAT,	<span class="number">0</span>,	<span class="number">12</span>,	D3D11_INPUT_PER_VERTEX_DATA, <span class="number">0</span> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>接着在GameApp::InitResource()中创建三角形顶点：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建三角形顶点</span></span><br><span class="line">	VertexPosColor vertices[] =</span><br><span class="line">	&#123;</span><br><span class="line">		&#123; XMFLOAT3(<span class="number">0.0f</span>, <span class="number">0.5f</span>, <span class="number">0.5f</span>), XMFLOAT4(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">		&#123; XMFLOAT3(<span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.5f</span>), XMFLOAT4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>) &#125;,</span><br><span class="line">		&#123; XMFLOAT3(<span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.5f</span>), XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在创建顶点布局前我们需要获取顶点着色器的编译文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ComPtr&lt;ID3DBlob&gt; pBlob;</span><br><span class="line">D3DReadFileToBlob(<span class="string">L"Shader\\Triangle_VS.cso"</span>, &amp;pBlob);</span><br><span class="line"><span class="comment">//创建顶点布局</span></span><br><span class="line">m_pDevice-&gt;CreateInputLayout(VertexPosColor::inputLayout, ARRAYSIZE(VertexPosColor::inputLayout),</span><br><span class="line">pBlob-&gt;GetBufferPointer(), pBlob-&gt;GetBufferSize(), m_pVertexLayout.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<p>最后我们需要将顶点布局绑定到渲染管线中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绑定顶点布局</span></span><br><span class="line">m_pContext-&gt;IASetInputLayout(m_pVertexLayout.Get());</span><br></pre></td></tr></table></figure>
+
+<p>此外，我们还需要设置顶点的图元拓扑状态：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将基本拓扑设置为三角形列表（每组3个顶点）</span></span><br><span class="line">	m_pContext-&gt;IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);</span><br></pre></td></tr></table></figure>
+
+<p>基本图元拓扑分为多种类型，如下图（可参考<a href="https://docs.microsoft.com/zh-cn/windows/win32/direct3d11/d3d10-graphics-programming-guide-primitive-topologies">官方文档</a>或龙书5.5输入装配器阶段）：</p>
+<div align=center>
+
+<p><img src="image-6.png" alt="基本类型的顶点排序图"></p>
+</div>
+
+<h2 id="2-2-顶点缓冲区"><a href="#2-2-顶点缓冲区" class="headerlink" title="2.2 顶点缓冲区"></a>2.2 顶点缓冲区</h2><p>为了使GPU可以访问顶点数组，就需要把它们放在<strong>缓存区</strong>（buffer）的GPU资源里。此处我们创建存储顶点的缓冲区——顶点缓冲区，在创建缓冲区前我们先创建顶点缓冲区的描述并进行设置：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置顶点缓冲区描述</span></span><br><span class="line">	D3D11_BUFFER_DESC vbd;</span><br><span class="line">	ZeroMemory(&amp;vbd, <span class="keyword">sizeof</span>(vbd));</span><br><span class="line">	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;<span class="comment">//绑定为顶点缓存</span></span><br><span class="line">	vbd.Usage = D3D11_USAGE_IMMUTABLE;</span><br><span class="line">	vbd.ByteWidth = <span class="keyword">sizeof</span> vertices;</span><br><span class="line">	vbd.CPUAccessFlags = <span class="number">0</span>;</span><br><span class="line">	D3D11_SUBRESOURCE_DATA vsd;</span><br><span class="line">	ZeroMemory(&amp;vsd, <span class="keyword">sizeof</span>(vsd));</span><br><span class="line">	vsd.pSysMem = vertices;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建顶点缓冲区</span></span><br><span class="line">	m_pDevice-&gt;CreateBuffer(&amp;vbd, &amp;vsd, m_pVertexBuffer.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<p>同样将顶点缓冲区绑定到渲染管线中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绑定顶点缓冲</span></span><br><span class="line">	m_pContext-&gt;IASetVertexBuffers(<span class="number">0</span>, <span class="number">1</span>, m_pVertexBuffer.GetAddressOf(), &amp;stride, &amp;offset);</span><br></pre></td></tr></table></figure>
+
+<p>在这里需要详细讲述一下<code>D3D11_USAGE</code>枚举类型对应的读写关系：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">CPU读</th>
+<th align="center">CPU写</th>
+<th align="center">GPU读</th>
+<th align="center">GPU写</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D3D11_USAGE_DEFAULT</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td>D3D11_USAGE_IMMUTABLE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>D3D11_USAGE_DYNAMIC</td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>D3D11_USAGE_STAGING</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>对于<code>D3D11_USAGE_DEFAULT</code>类型的缓冲区，应当使用 <code>ID3D11DeviceContext::UpdateSubresource</code>方法来更新缓冲区资源，它的原理是将内存中的某段数据传递到显存中，然后再将该显存中的数据复制到在显存中的缓冲区。这种更新方式我们是无法直接访问缓冲区的内容的。在绘制完成/开始前调用可以比较快地更新显存中的数据。</p>
+<p>而对于<code>D3D11_USAGE_DYNAMIC</code>类型的缓冲区，则应当使用<code>ID3D11DeviceContext::Map</code>和<code>ID3D11DeviceContext::Unmap</code>方法，将显存中的数据映射到内存中，然后修改该片内存的数据，最后将修改好的数据映射回显存中。这种更新方式我们是可以直接获取来自显存的数据的，但代价就是更新的效率会比上面的方式更低一些。</p>
+</blockquote>
+<h2 id="2-3-着色器"><a href="#2-3-着色器" class="headerlink" title="2.3 着色器"></a>2.3 着色器</h2><p>绘制三角形前，我们需要创建两个着色器：顶点着色器和像素着色器。</p>
+<p>在编译着色器前先对Shader文件的属性进行设置：</p>
+<div align=center>
+
+<p><img src="image-3.png" alt="确保着色器的类型为创建的着色器类型"></p>
+</div>
+
+<p>并更改着色器的输出文件：</p>
+<div align=center>
+
+<p><img src="image-5.png" alt="着色器的输出文件"></p>
+</div>
+
+<p>另外，可以安装Visual Studio的HLSL插件实现着色器代码的高亮等：</p>
+<div align=center>
+
+<p><img src="image-4.png" alt="HLSL插件"></p>
+</div>
+
+<h3 id="2-3-1-顶点着色器"><a href="#2-3-1-顶点着色器" class="headerlink" title="2.3.1 顶点着色器"></a>2.3.1 顶点着色器</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VSOut</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	float3 color : Color;</span><br><span class="line">	float4 pos : SV_Position;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">cbuffer CBuf</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//标明这个矩阵是按行排列的，缺点是GPU计算行矩阵的速度比列矩阵慢</span></span><br><span class="line">	<span class="comment">//CPU和GPU对矩阵的排列方式不一样，正确的做法应该是将其转置</span></span><br><span class="line">	row_major matrix transform; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">VSOut <span class="title">main</span><span class="params">(float2 pos : POSITION, float3 color : COLOR)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	VSOut vso;</span><br><span class="line">	vso.color = color;</span><br><span class="line">	<span class="keyword">return</span> vso;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-像素着色器"><a href="#2-3-2-像素着色器" class="headerlink" title="2.3.2 像素着色器"></a>2.3.2 像素着色器</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">float4 <span class="title">main</span><span class="params">(float3 color : Color)</span> : SV_TARGET <span class="comment">//像素着色器无需指定每个像素的位置</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> float4(color, <span class="number">1.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-3-着色器语义"><a href="#2-3-3-着色器语义" class="headerlink" title="2.3.3 着色器语义"></a>2.3.3 着色器语义</h3><p>上述着色器用到了几个HLSL的语义：</p>
+<table>
+<thead>
+<tr>
+<th>语义名</th>
+<th>具体含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POSITION</td>
+<td>描述该变量是一个坐标点</td>
+</tr>
+<tr>
+<td>SV_POSITION</td>
+<td>说明该顶点的位置在从顶点着色器输出后，后续的着色器都不能改变它的值，作为光栅化时最终确定的像素位置</td>
+</tr>
+<tr>
+<td>COLOR</td>
+<td>描述该变量是一个颜色</td>
+</tr>
+<tr>
+<td>SV_Target</td>
+<td>说明输出的颜色值将会直接保存到渲染目标视图的后备缓冲区对应位置</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-4-着色器的创建和绑定"><a href="#2-3-4-着色器的创建和绑定" class="headerlink" title="2.3.4 着色器的创建和绑定"></a>2.3.4 着色器的创建和绑定</h3><p>完成Shader文件后需要在GameApp中进行创建与绑定：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ComPtr&lt;ID3DBlob&gt; pBlob;</span><br><span class="line">	<span class="comment">//创建顶点着色器</span></span><br><span class="line">	D3DReadFileToBlob(<span class="string">L"Shader\\Triangle_VS.cso"</span>, &amp;pBlob);</span><br><span class="line">	m_pDevice-&gt;CreateVertexShader(pBlob-&gt;GetBufferPointer(), pBlob-&gt;GetBufferSize(), <span class="literal">nullptr</span>, m_pVertexShader.GetAddressOf());</span><br><span class="line">	<span class="comment">//创建像素着色器</span></span><br><span class="line">	D3DReadFileToBlob(<span class="string">L"Shader\\Triangle_PS.cso"</span>, &amp;pBlob);</span><br><span class="line">	m_pDevice-&gt;CreatePixelShader(pBlob-&gt;GetBufferPointer(), pBlob-&gt;GetBufferSize(), <span class="literal">nullptr</span>, m_pPixelShader.GetAddressOf());</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绑定着色器</span></span><br><span class="line">	m_pContext-&gt;VSSetShader(m_pVertexShader.Get(), <span class="literal">nullptr</span>, <span class="number">0</span>);</span><br><span class="line">	m_pContext-&gt;PSSetShader(m_pPixelShader.Get(), <span class="literal">nullptr</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>至此，完成三角形的绘制。</p>
+<div align=center>
+
+<p><img src="image-7.png" alt="三角形的绘制"></p>
+</div>
+
+<h1 id="3-多边形的绘制（拓展）"><a href="#3-多边形的绘制（拓展）" class="headerlink" title="3. 多边形的绘制（拓展）"></a>3. 多边形的绘制（拓展）</h1><div align=center>
+
+<p><img src="image-8.png" alt="多边形"></p>
+</div>
+
+<p>如果需要绘制上图这样一个多边形，先将其拆分为多个三角形。</p>
+<div align=center>
+
+<p><img src="image-9.png" alt="多边形拆分"></p>
+</div>
+
+<p>对于这样一个由多个三角形组成的多边形，如果按照上面画三角形的思路：将每一个三角形的顶点存储到顶点缓存中，再对每一个三角形进行绘制。这样虽然也能够绘制出多边形，但是有很多重复的顶点。</p>
+<div align=center>
+
+<p><img src="image-10.png" alt="重复顶点"></p>
+</div>
+
+<p>因此引入索引的概念，对于上面这个多边形，我们只存储其外圈6个顶点。并根据每个顶点的存储顺序创建索引，并根据索引来绘制每个三角形。</p>
+<div align=center>
+
+<p><img src="C:%5CUsers%5CZanple%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104235449127.png" alt="多边形索引"></p>
+</div>
+
+<p>与顶点相似，为了使GPU可以访问索引数组，构建一个存储索引的缓冲区——索引缓冲区，并创建一个索引缓冲区描述并将其绑定到渲染流水线上。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//索引数组</span></span><br><span class="line">DWORD indices[] = &#123;</span><br><span class="line">	<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,</span><br><span class="line">	<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>,</span><br><span class="line">	<span class="number">0</span>,<span class="number">4</span>,<span class="number">1</span>,</span><br><span class="line">	<span class="number">2</span>,<span class="number">1</span>,<span class="number">5</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//设置索引缓冲区描述</span></span><br><span class="line">D3D11_BUFFER_DESC ibd;</span><br><span class="line">ZeroMemory(&amp;ibd, <span class="keyword">sizeof</span>(ibd));</span><br><span class="line">ibd.Usage = D3D11_USAGE_IMMUTABLE;</span><br><span class="line">ibd.ByteWidth = <span class="keyword">sizeof</span> indices;</span><br><span class="line">ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;</span><br><span class="line">ibd.CPUAccessFlags = <span class="number">0</span>;</span><br><span class="line"><span class="comment">//新建索引缓冲区</span></span><br><span class="line">vsd.pSysMem = indices;</span><br><span class="line">m_pDevice-&gt;CreateBuffer(&amp;ibd, &amp;vsd, m_pIndexBuffer.GetAddressOf());</span><br><span class="line"><span class="comment">//绑定索引缓冲</span></span><br><span class="line">m_pContext-&gt;IASetIndexBuffer(m_pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>再将绘制函数改为索引绘制即可：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绘制多边形</span></span><br><span class="line">m_pContext-&gt;DrawIndexed(<span class="number">12</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<div align=center>
+
+<p><img src="image-11.png" alt="绘制多边形"></p>
+</div>
+
+<hr>
+<p>参考：</p>
+<p>1.<a href="https://www.cnblogs.com/X-Jun/p/9031959.html">DirectX11 With Windows SDK–02 顶点/像素着色器的创建、顶点缓冲区</a></p>
+<p>2.<a href="https://www.youtube.com/channel/UCsyHonfwHi4fLb2lkq0DEAA">Beginner C++ Game Programming Tutorial 0 DirectX</a></p>
+<p>3.《DirectX 12 3D游戏开发实战 第4章》</p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/01/04/directx11-01-triangle/">DirectX11入门笔记-01-绘制三角形</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/01/04/directx11-01-triangle/">http://www.zanple.top/2021/01/04/directx11-01-triangle/</a></li>
+                    <li><strong>发布时间：</strong>2021-01-04</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/01/05/directx11-02-cube/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">DirectX11入门笔记-02-绘制正方体</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/10/01/gaming-texture/">
+                <span class="level-item">游戏资源常见贴图类型</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-DirectX11中的渲染管线">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. DirectX11中的渲染管线</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-三角形绘制">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 三角形绘制</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-顶点与输入布局">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 顶点与输入布局</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-顶点缓冲区">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 顶点缓冲区</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-着色器">
+        <!-- span class="has-mr-6">2.3</span-->
+        <span>2.3 着色器</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-3-1-顶点着色器">
+        <!-- span class="has-mr-6">2.3.1</span-->
+        <span>2.3.1 顶点着色器</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-2-像素着色器">
+        <!-- span class="has-mr-6">2.3.2</span-->
+        <span>2.3.2 像素着色器</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-3-着色器语义">
+        <!-- span class="has-mr-6">2.3.3</span-->
+        <span>2.3.3 着色器语义</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-4-着色器的创建和绑定">
+        <!-- span class="has-mr-6">2.3.4</span-->
+        <span>2.3.4 着色器的创建和绑定</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#3-多边形的绘制（拓展）">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 多边形的绘制（拓展）</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="DirectX11入门笔记-01-绘制三角形" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

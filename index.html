@@ -131,28 +131,28 @@
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/10/01/gaming-texture/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/gaming-texture.jpg" alt="游戏资源常见贴图类型">
+        <a href="/2021/01/18/directx11-06-texture/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-06-纹理贴图">
         </a>
     </div>
     
     <div class="card-content article ">
             <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
                     
-                        <a class="has-link-black-ter" href="/2020/10/01/gaming-texture/"><i class="fas fa-angle-double-right"></i>游戏资源常见贴图类型</a>
+                        <a class="has-link-black-ter" href="/2021/01/18/directx11-06-texture/"><i class="fas fa-angle-double-right"></i>DirectX11入门笔记-06-纹理贴图</a>
                     
                 </h1>
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2020-10-01T08:10:37.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-10-01</time>
+                    <time class="level-item has-text-grey" datetime="2021-01-18T13:25:16.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-18</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-10-01T08:45:26.451Z"><i class="far fa-calendar-check">&nbsp;</i>2020-10-01</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:54:25.579Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
                         <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/%E6%B8%B8%E6%88%8F%E7%BE%8E%E6%9C%AF/">游戏美术</a>
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                 </div>
                 
                 
@@ -160,7 +160,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    41 分钟 读完 (大约 6077 个字)
+                    14 分钟 读完 (大约 2033 个字)
                 </span>
                 
                 
@@ -168,7 +168,8 @@
         </div>
         
         <div class="content">
-            <p>游戏模型制作中用到了很多贴图类型，通过不同类型贴图的组合使用以达到最终需要得到的模型效果。最常见的类型有<strong>Diffuse</strong>、<strong>Emissive</strong>、<strong>Normal</strong>、<strong>Opacity</strong>、<strong>Specular</strong>、<strong>Roughness</strong>。游戏制作中根据项目资产的需要使用不同的贴图类型。
+            <p>上一节中实现了摄像机与游戏类，但现在游戏中的物体还没有贴图材质。纹理贴图就是这样一种将图像数据映射到网格三角形上的技术，可以使我们为场景增添更多细节，令它更具真实感。一个纹理可以当作<strong>渲染目标</strong>（即Direct3D中的渲染到纹理技术），又能把它作为<strong>着色器资源</strong>（即在着色器中对该纹理进行采样），但是不能同时“身兼数职”。 </p>
+<p>为场景中的物体添加贴图，我们需要引入<em>DDSTextureLoader</em>与<em>WICTextureLoader</em>这两个库，前者用来加载.dds格式的贴图，后者则为通用贴图加载。
         </div>
             
         
@@ -179,13 +180,13 @@
                         
                         <div class="level-item is-size-7 is-uppercase">
                             <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                            <a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E7%BE%8E%E6%9C%AF/" rel="tag">美术</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                            <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
                         </div>
                         
                     </div>
             <div class="level-start">
                 <div class="level-item">
-                        <a class="button is-size-7 is-light" href="/2020/10/01/gaming-texture/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
+                        <a class="button is-size-7 is-light" href="/2021/01/18/directx11-06-texture/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
                 </div>
             </div>
         </div>
@@ -205,28 +206,28 @@
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/09/13/graphic-debugger-intro/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/graphic-debugger-intro.jpg" alt="Graphic Debugger工具简单入门">
+        <a href="/2021/01/09/directx11-05-camera/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-05-摄像机类与游戏对象类">
         </a>
     </div>
     
     <div class="card-content article ">
             <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
                     
-                        <a class="has-link-black-ter" href="/2020/09/13/graphic-debugger-intro/"><i class="fas fa-angle-double-right"></i>Graphic Debugger工具简单入门</a>
+                        <a class="has-link-black-ter" href="/2021/01/09/directx11-05-camera/"><i class="fas fa-angle-double-right"></i>DirectX11入门笔记-05-摄像机类与游戏对象类</a>
                     
                 </h1>
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2020-09-13T10:42:50.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-09-13</time>
+                    <time class="level-item has-text-grey" datetime="2021-01-09T06:17:25.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-09</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-16T16:21:26.231Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-17</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:53:35.093Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
                         <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">性能分析</a>
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                 </div>
                 
                 
@@ -234,7 +235,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    4 分钟 读完 (大约 639 个字)
+                    17 分钟 读完 (大约 2520 个字)
                 </span>
                 
                 
@@ -242,7 +243,7 @@
         </div>
         
         <div class="content">
-            <p>游戏制作学习过程中无论是对自己的游戏进行分析，还是学习其他游戏用到的先进的制作方法和工艺流程，进行渲染调试都必不可少。
+            <p>这一节中将实现第一人称摄像机与第三人称摄像机建立Camera类，同时将摄像机的空间与游戏对象中涉及到的位移，建立Transform类。随着场景中的物体不断增加，为了尽可能方便地去管理每一个物体实现了GameObject类。
         </div>
             
         
@@ -253,13 +254,13 @@
                         
                         <div class="level-item is-size-7 is-uppercase">
                             <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                            <a class="has-link-grey -link" href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" rel="tag">性能分析</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>
+                            <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
                         </div>
                         
                     </div>
             <div class="level-start">
                 <div class="level-item">
-                        <a class="button is-size-7 is-light" href="/2020/09/13/graphic-debugger-intro/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
+                        <a class="button is-size-7 is-light" href="/2021/01/09/directx11-05-camera/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
                 </div>
             </div>
         </div>
@@ -279,28 +280,28 @@
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/09/12/unity-hylia-island/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/unity-hylia-island.jpg" alt="Unity卡通地编-Hylia小岛(完善中)">
+        <a href="/2021/01/07/directx11-04-light/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-04-光照与光栅化">
         </a>
     </div>
     
     <div class="card-content article ">
             <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
                     
-                        <a class="has-link-black-ter" href="/2020/09/12/unity-hylia-island/"><i class="fas fa-angle-double-right"></i>Unity卡通地编-Hylia小岛(完善中)</a>
+                        <a class="has-link-black-ter" href="/2021/01/07/directx11-04-light/"><i class="fas fa-angle-double-right"></i>DirectX11入门笔记-04-光照与光栅化</a>
                     
                 </h1>
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2020-09-12T03:44:50.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-09-12</time>
+                    <time class="level-item has-text-grey" datetime="2021-01-07T07:15:25.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-07</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-13T08:36:57.536Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-13</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:53:11.637Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
                         <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/Unity/">Unity</a>
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                 </div>
                 
                 
@@ -308,7 +309,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    5 分钟 读完 (大约 714 个字)
+                    28 分钟 读完 (大约 4266 个字)
                 </span>
                 
                 
@@ -316,7 +317,7 @@
         </div>
         
         <div class="content">
-            <p>跟着猴子老师学习的一个Unity卡通地编的制作。使用Unity的LWRP轻量级渲染管线制作，通过Substance Designer，Zbrush，Maya，Photoshop来辅助完成模型贴图部分。材质部分涉及水和互动草的Shader制作，利用GPU的特性来快速实例像旷野之息一样的草坪。使用Houdini来制作树的叶子，给物件做LOD优化。
+            <p>在上一节中，我们绘制出了各种几何体。但这些几何体的所有面都是相同的颜色，看起来像是一个2D平面。
         </div>
             
         
@@ -327,13 +328,13 @@
                         
                         <div class="level-item is-size-7 is-uppercase">
                             <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                            <a class="has-link-grey -link" href="/tags/Unity/" rel="tag">Unity</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E5%9C%B0%E7%BC%96/" rel="tag">地编</a>
+                            <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
                         </div>
                         
                     </div>
             <div class="level-start">
                 <div class="level-item">
-                        <a class="button is-size-7 is-light" href="/2020/09/12/unity-hylia-island/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
+                        <a class="button is-size-7 is-light" href="/2021/01/07/directx11-04-light/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
                 </div>
             </div>
         </div>
@@ -353,28 +354,28 @@
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/09/05/sd-fabric/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/sd-fabric.jpg" alt="Substance Designer-布料纹理">
+        <a href="/2021/01/06/directx11-03-geometry/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-03-不同形状的几何体">
         </a>
     </div>
     
     <div class="card-content article ">
             <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
                     
-                        <a class="has-link-black-ter" href="/2020/09/05/sd-fabric/"><i class="fas fa-angle-double-right"></i>Substance Designer-布料纹理</a>
+                        <a class="has-link-black-ter" href="/2021/01/06/directx11-03-geometry/"><i class="fas fa-angle-double-right"></i>DirectX11入门笔记-03-不同形状的几何体</a>
                     
                 </h1>
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2020-09-05T06:12:03.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-09-05</time>
+                    <time class="level-item has-text-grey" datetime="2021-01-06T09:12:45.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-06</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-05T15:50:01.306Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-05</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:51:40.804Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
                         <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/Substance-Designer/">Substance Designer</a>
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                 </div>
                 
                 
@@ -382,7 +383,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    几秒 读完 (大约 30 个字)
+                    22 分钟 读完 (大约 3279 个字)
                 </span>
                 
                 
@@ -390,7 +391,7 @@
         </div>
         
         <div class="content">
-            <p>利用Substance Designer制作的几个布料纹理。
+            <p>在上一节中我们在GameApp类中创建了立方体，并设置了其顶点索引等数据。绘制一个物体需要设置多种参数，例如绑定顶点缓冲区和索引缓冲区、绑定与物体有关的常量数据、设定图元类型以及指定参数。但随着场景中所绘制的物体数量和种类逐渐增多，如椭球体、球体、柱体等，我们便需要创建一个类来生成这些简单的几何体。
         </div>
             
         
@@ -401,13 +402,13 @@
                         
                         <div class="level-item is-size-7 is-uppercase">
                             <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                            <a class="has-link-grey -link" href="/tags/Substance-Designer/" rel="tag">Substance Designer</a>,&nbsp;<a class="has-link-grey -link" href="/tags/works/" rel="tag">works</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E7%A8%8B%E5%BA%8F%E5%8C%96/" rel="tag">程序化</a>
+                            <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
                         </div>
                         
                     </div>
             <div class="level-start">
                 <div class="level-item">
-                        <a class="button is-size-7 is-light" href="/2020/09/05/sd-fabric/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
+                        <a class="button is-size-7 is-light" href="/2021/01/06/directx11-03-geometry/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
                 </div>
             </div>
         </div>
@@ -427,28 +428,28 @@
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/07/04/sd-embroidery/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/sd-embroidery.jpg" alt="Substance Designer-刺绣效果">
+        <a href="/2021/01/05/directx11-02-cube/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-02-绘制正方体">
         </a>
     </div>
     
     <div class="card-content article ">
             <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
                     
-                        <a class="has-link-black-ter" href="/2020/07/04/sd-embroidery/"><i class="fas fa-angle-double-right"></i>Substance Designer-刺绣效果</a>
+                        <a class="has-link-black-ter" href="/2021/01/05/directx11-02-cube/"><i class="fas fa-angle-double-right"></i>DirectX11入门笔记-02-绘制正方体</a>
                     
                 </h1>
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2020-07-04T13:30:03.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-07-04</time>
+                    <time class="level-item has-text-grey" datetime="2021-01-04T16:25:10.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-05</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-05T15:49:45.424Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-05</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:50:28.291Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
                         <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/Substance-Designer/">Substance Designer</a>
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                 </div>
                 
                 
@@ -456,7 +457,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    4 分钟 读完 (大约 532 个字)
+                    17 分钟 读完 (大约 2608 个字)
                 </span>
                 
                 
@@ -464,7 +465,7 @@
         </div>
         
         <div class="content">
-            <p>利用Substance Designer制作的一个刺绣效果（参考了Pauline Boiteux的《Advanced Pattern &amp; Fabric Creation in Substance Designer》制作流程以及整体的制作思路）。
+            <p>上一节中我们已经绘制出了2D的多边形，本节则从最简单的几何体——立方体的绘制开始
         </div>
             
         
@@ -475,13 +476,13 @@
                         
                         <div class="level-item is-size-7 is-uppercase">
                             <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                            <a class="has-link-grey -link" href="/tags/Substance-Designer/" rel="tag">Substance Designer</a>,&nbsp;<a class="has-link-grey -link" href="/tags/works/" rel="tag">works</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E7%A8%8B%E5%BA%8F%E5%8C%96/" rel="tag">程序化</a>
+                            <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
                         </div>
                         
                     </div>
             <div class="level-start">
                 <div class="level-item">
-                        <a class="button is-size-7 is-light" href="/2020/07/04/sd-embroidery/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
+                        <a class="button is-size-7 is-light" href="/2021/01/05/directx11-02-cube/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
                 </div>
             </div>
         </div>
@@ -501,28 +502,28 @@
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/05/13/unity-coviddefend/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/unity-coviddefend.png" alt="Unity小游戏-新冠入侵">
+        <a href="/2021/01/04/directx11-01-triangle/" class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-01-绘制三角形">
         </a>
     </div>
     
     <div class="card-content article ">
             <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
                     
-                        <a class="has-link-black-ter" href="/2020/05/13/unity-coviddefend/"><i class="fas fa-angle-double-right"></i>Unity小游戏-新冠入侵</a>
+                        <a class="has-link-black-ter" href="/2021/01/04/directx11-01-triangle/"><i class="fas fa-angle-double-right"></i>DirectX11入门笔记-01-绘制三角形</a>
                     
                 </h1>
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2020-05-13T04:49:10.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-05-13</time>
+                    <time class="level-item has-text-grey" datetime="2021-01-04T08:12:21.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-04</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-09-05T08:17:37.385Z"><i class="far fa-calendar-check">&nbsp;</i>2020-09-05</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:48:48.155Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
                 
                 
                 <div class="level-item">
                         <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/Unity/">Unity</a>
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                 </div>
                 
                 
@@ -530,7 +531,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    40 分钟 读完 (大约 5997 个字)
+                    20 分钟 读完 (大约 3023 个字)
                 </span>
                 
                 
@@ -538,8 +539,7 @@
         </div>
         
         <div class="content">
-            <blockquote>
-<p>利用Unity独立开发的一个塔防类的小游戏~
+            <p>在完成Direct3D的初始化后，我们可以运行便可得到一个带有FPS与帧时间的窗口。
         </div>
             
         
@@ -550,13 +550,13 @@
                         
                         <div class="level-item is-size-7 is-uppercase">
                             <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                            <a class="has-link-grey -link" href="/tags/Unity/" rel="tag">Unity</a>,&nbsp;<a class="has-link-grey -link" href="/tags/works/" rel="tag">works</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag">游戏</a>
+                            <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
                         </div>
                         
                     </div>
             <div class="level-start">
                 <div class="level-item">
-                        <a class="button is-size-7 is-light" href="/2020/05/13/unity-coviddefend/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
+                        <a class="button is-size-7 is-light" href="/2021/01/04/directx11-01-triangle/#more"><i class="fas fa-book-reader has-text-grey"></i>&nbsp;&nbsp;阅读更多</a>
                 </div>
             </div>
         </div>
@@ -590,7 +590,7 @@
             
             <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
             
-            <li><a class="pagination-link has-text-black-ter" href="/page/7/">7</a></li>
+            <li><a class="pagination-link has-text-black-ter" href="/page/8/">8</a></li>
             
         </ul>
     </nav>
@@ -640,7 +640,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            37
+                            43
                         </p>
                     </a>
                 </div>
@@ -652,7 +652,7 @@
                     </p>
                     <a href="/categories">
                         <p class="title has-text-weight-normal">
-                            19
+                            20
                         </p>
                     </a>
                 </div>
@@ -664,7 +664,7 @@
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            43
+                            44
                         </p>
                     </a>
                 </div>
@@ -769,6 +769,14 @@
             </span>
             <span class="level-end">
                 <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Direct3D/">
+            <span class="level-start">
+                <span class="level-item">Direct3D</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/Java/">
@@ -893,7 +901,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/3ds-Max/" style="font-size: 14.29px;">3ds Max</a> <a href="/tags/ASP/" style="font-size: 10px;">ASP</a> <a href="/tags/ActionScript/" style="font-size: 10px;">ActionScript</a> <a href="/tags/Android/" style="font-size: 11.43px;">Android</a> <a href="/tags/C/" style="font-size: 14.29px;">C</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/C4D/" style="font-size: 11.43px;">C4D</a> <a href="/tags/GLSL/" style="font-size: 10px;">GLSL</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Java/" style="font-size: 15.71px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Maya/" style="font-size: 10px;">Maya</a> <a href="/tags/Octane/" style="font-size: 10px;">Octane</a> <a href="/tags/Shader/" style="font-size: 12.86px;">Shader</a> <a href="/tags/Substance-Designer/" style="font-size: 11.43px;">Substance Designer</a> <a href="/tags/UI/" style="font-size: 12.86px;">UI</a> <a href="/tags/Unity/" style="font-size: 17.14px;">Unity</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/Web/" style="font-size: 11.43px;">Web</a> <a href="/tags/ZBrush/" style="font-size: 10px;">ZBrush</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/logo%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">logo设计</a> <a href="/tags/works/" style="font-size: 20px;">works</a> <a href="/tags/%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">交互设计</a> <a href="/tags/%E5%8A%A8%E7%94%BB/" style="font-size: 10px;">动画</a> <a href="/tags/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">原型设计</a> <a href="/tags/%E5%9C%B0%E7%BC%96/" style="font-size: 10px;">地编</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 10px;">大创</a> <a href="/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 15.71px;">建模</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 10px;">性能分析</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%B7%E6%8A%A5%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">海报设计</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 18.57px;">游戏</a> <a href="/tags/%E7%9F%AD%E7%89%87/" style="font-size: 11.43px;">短片</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%8C%96/" style="font-size: 11.43px;">程序化</a> <a href="/tags/%E7%B4%A0%E6%8F%8F/" style="font-size: 10px;">素描</a> <a href="/tags/%E7%BE%8E%E6%9C%AF/" style="font-size: 10px;">美术</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 15.71px;">计算机图形学</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 14.29px;">设计</a>
+        <a href="/tags/3ds-Max/" style="font-size: 13.75px;">3ds Max</a> <a href="/tags/ASP/" style="font-size: 10px;">ASP</a> <a href="/tags/ActionScript/" style="font-size: 10px;">ActionScript</a> <a href="/tags/Android/" style="font-size: 11.25px;">Android</a> <a href="/tags/C/" style="font-size: 13.75px;">C</a> <a href="/tags/C/" style="font-size: 16.25px;">C++</a> <a href="/tags/C4D/" style="font-size: 11.25px;">C4D</a> <a href="/tags/Direct3D/" style="font-size: 15px;">Direct3D</a> <a href="/tags/GLSL/" style="font-size: 10px;">GLSL</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Maya/" style="font-size: 10px;">Maya</a> <a href="/tags/Octane/" style="font-size: 10px;">Octane</a> <a href="/tags/Shader/" style="font-size: 12.5px;">Shader</a> <a href="/tags/Substance-Designer/" style="font-size: 11.25px;">Substance Designer</a> <a href="/tags/UI/" style="font-size: 12.5px;">UI</a> <a href="/tags/Unity/" style="font-size: 16.25px;">Unity</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/Web/" style="font-size: 11.25px;">Web</a> <a href="/tags/ZBrush/" style="font-size: 10px;">ZBrush</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/logo%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">logo设计</a> <a href="/tags/works/" style="font-size: 20px;">works</a> <a href="/tags/%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">交互设计</a> <a href="/tags/%E5%8A%A8%E7%94%BB/" style="font-size: 10px;">动画</a> <a href="/tags/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">原型设计</a> <a href="/tags/%E5%9C%B0%E7%BC%96/" style="font-size: 10px;">地编</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">多线程</a> <a href="/tags/%E5%A4%A7%E5%88%9B/" style="font-size: 10px;">大创</a> <a href="/tags/%E5%BB%BA%E6%A8%A1/" style="font-size: 15px;">建模</a> <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" style="font-size: 10px;">性能分析</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/tags/%E6%B5%B7%E6%8A%A5%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">海报设计</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 17.5px;">游戏</a> <a href="/tags/%E7%9F%AD%E7%89%87/" style="font-size: 11.25px;">短片</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%8C%96/" style="font-size: 11.25px;">程序化</a> <a href="/tags/%E7%B4%A0%E6%8F%8F/" style="font-size: 10px;">素描</a> <a href="/tags/%E7%BE%8E%E6%9C%AF/" style="font-size: 10px;">美术</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" style="font-size: 18.75px;">计算机图形学</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">计算机网络</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 13.75px;">设计</a>
     </div>
 </div>
     
@@ -908,18 +916,18 @@
         
         <article class="media">
             
-            <a href="/2020/10/01/gaming-texture/" class="media-left">
+            <a href="/2021/01/18/directx11-06-texture/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/gaming-texture.jpg" alt="游戏资源常见贴图类型">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-06-纹理贴图">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-01T08:10:37.000Z">2020-10-01</time></div>
-                    <a href="/2020/10/01/gaming-texture/" class="title has-link-black-ter is-size-6 has-text-weight-normal">游戏资源常见贴图类型</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-18T13:25:16.000Z">2021-01-18</time></div>
+                    <a href="/2021/01/18/directx11-06-texture/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-06-纹理贴图</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/%E6%B8%B8%E6%88%8F%E7%BE%8E%E6%9C%AF/">游戏美术</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -927,18 +935,18 @@
         
         <article class="media">
             
-            <a href="/2020/09/13/graphic-debugger-intro/" class="media-left">
+            <a href="/2021/01/09/directx11-05-camera/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/graphic-debugger-intro.jpg" alt="Graphic Debugger工具简单入门">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-05-摄像机类与游戏对象类">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-13T10:42:50.000Z">2020-09-13</time></div>
-                    <a href="/2020/09/13/graphic-debugger-intro/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Graphic Debugger工具简单入门</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-09T06:17:25.000Z">2021-01-09</time></div>
+                    <a href="/2021/01/09/directx11-05-camera/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-05-摄像机类与游戏对象类</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">性能分析</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -946,18 +954,18 @@
         
         <article class="media">
             
-            <a href="/2020/09/12/unity-hylia-island/" class="media-left">
+            <a href="/2021/01/07/directx11-04-light/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/unity-hylia-island.jpg" alt="Unity卡通地编-Hylia小岛(完善中)">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-04-光照与光栅化">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-12T03:44:50.000Z">2020-09-12</time></div>
-                    <a href="/2020/09/12/unity-hylia-island/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Unity卡通地编-Hylia小岛(完善中)</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-07T07:15:25.000Z">2021-01-07</time></div>
+                    <a href="/2021/01/07/directx11-04-light/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-04-光照与光栅化</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Unity/">Unity</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -965,18 +973,18 @@
         
         <article class="media">
             
-            <a href="/2020/09/05/sd-fabric/" class="media-left">
+            <a href="/2021/01/06/directx11-03-geometry/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/sd-fabric.jpg" alt="Substance Designer-布料纹理">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-03-不同形状的几何体">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-05T06:12:03.000Z">2020-09-05</time></div>
-                    <a href="/2020/09/05/sd-fabric/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Substance Designer-布料纹理</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-06T09:12:45.000Z">2021-01-06</time></div>
+                    <a href="/2021/01/06/directx11-03-geometry/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-03-不同形状的几何体</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Substance-Designer/">Substance Designer</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -984,18 +992,18 @@
         
         <article class="media">
             
-            <a href="/2020/07/04/sd-embroidery/" class="media-left">
+            <a href="/2021/01/05/directx11-02-cube/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/sd-embroidery.jpg" alt="Substance Designer-刺绣效果">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-02-绘制正方体">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-04T13:30:03.000Z">2020-07-04</time></div>
-                    <a href="/2020/07/04/sd-embroidery/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Substance Designer-刺绣效果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-04T16:25:10.000Z">2021-01-05</time></div>
+                    <a href="/2021/01/05/directx11-02-cube/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-02-绘制正方体</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Substance-Designer/">Substance Designer</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -1011,6 +1019,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/10/">
@@ -1250,7 +1269,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/C/">
                         <span class="tag">C++</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">7</span>
                     </a>
                 </div>
                 
@@ -1258,6 +1277,13 @@
                     <a class="tags has-addons" href="/tags/C4D/">
                         <span class="tag">C4D</span>
                         <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Direct3D/">
+                        <span class="tag">Direct3D</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 
@@ -1495,7 +1521,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">
                         <span class="tag">计算机图形学</span>
-                        <span class="tag is-grey">6</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -1537,18 +1563,18 @@
         
         <article class="media">
             
-            <a href="/2020/10/01/gaming-texture/" class="media-left">
+            <a href="/2021/01/18/directx11-06-texture/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/gaming-texture.jpg" alt="游戏资源常见贴图类型">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-06-纹理贴图">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-10-01T08:10:37.000Z">2020-10-01</time></div>
-                    <a href="/2020/10/01/gaming-texture/" class="title has-link-black-ter is-size-6 has-text-weight-normal">游戏资源常见贴图类型</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-18T13:25:16.000Z">2021-01-18</time></div>
+                    <a href="/2021/01/18/directx11-06-texture/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-06-纹理贴图</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/%E6%B8%B8%E6%88%8F%E7%BE%8E%E6%9C%AF/">游戏美术</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -1556,18 +1582,18 @@
         
         <article class="media">
             
-            <a href="/2020/09/13/graphic-debugger-intro/" class="media-left">
+            <a href="/2021/01/09/directx11-05-camera/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/graphic-debugger-intro.jpg" alt="Graphic Debugger工具简单入门">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-05-摄像机类与游戏对象类">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-13T10:42:50.000Z">2020-09-13</time></div>
-                    <a href="/2020/09/13/graphic-debugger-intro/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Graphic Debugger工具简单入门</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-09T06:17:25.000Z">2021-01-09</time></div>
+                    <a href="/2021/01/09/directx11-05-camera/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-05-摄像机类与游戏对象类</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">性能分析</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -1575,18 +1601,18 @@
         
         <article class="media">
             
-            <a href="/2020/09/12/unity-hylia-island/" class="media-left">
+            <a href="/2021/01/07/directx11-04-light/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/unity-hylia-island.jpg" alt="Unity卡通地编-Hylia小岛(完善中)">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-04-光照与光栅化">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-12T03:44:50.000Z">2020-09-12</time></div>
-                    <a href="/2020/09/12/unity-hylia-island/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Unity卡通地编-Hylia小岛(完善中)</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-07T07:15:25.000Z">2021-01-07</time></div>
+                    <a href="/2021/01/07/directx11-04-light/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-04-光照与光栅化</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Unity/">Unity</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -1594,18 +1620,18 @@
         
         <article class="media">
             
-            <a href="/2020/09/05/sd-fabric/" class="media-left">
+            <a href="/2021/01/06/directx11-03-geometry/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/sd-fabric.jpg" alt="Substance Designer-布料纹理">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-03-不同形状的几何体">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-09-05T06:12:03.000Z">2020-09-05</time></div>
-                    <a href="/2020/09/05/sd-fabric/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Substance Designer-布料纹理</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-06T09:12:45.000Z">2021-01-06</time></div>
+                    <a href="/2021/01/06/directx11-03-geometry/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-03-不同形状的几何体</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Substance-Designer/">Substance Designer</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -1613,18 +1639,18 @@
         
         <article class="media">
             
-            <a href="/2020/07/04/sd-embroidery/" class="media-left">
+            <a href="/2021/01/05/directx11-02-cube/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/sd-embroidery.jpg" alt="Substance Designer-刺绣效果">
+                    <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-02-绘制正方体">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-07-04T13:30:03.000Z">2020-07-04</time></div>
-                    <a href="/2020/07/04/sd-embroidery/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Substance Designer-刺绣效果</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-01-04T16:25:10.000Z">2021-01-05</time></div>
+                    <a href="/2021/01/05/directx11-02-cube/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DirectX11入门笔记-02-绘制正方体</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Substance-Designer/">Substance Designer</a>
+                        <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
                     </p>
                 </div>
             </div>
@@ -1640,6 +1666,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2021/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2021</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/10/">
@@ -1879,7 +1916,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/C/">
                         <span class="tag">C++</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">7</span>
                     </a>
                 </div>
                 
@@ -1887,6 +1924,13 @@
                     <a class="tags has-addons" href="/tags/C4D/">
                         <span class="tag">C4D</span>
                         <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Direct3D/">
+                        <span class="tag">Direct3D</span>
+                        <span class="tag is-grey">6</span>
                     </a>
                 </div>
                 
@@ -2124,7 +2168,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">
                         <span class="tag">计算机图形学</span>
-                        <span class="tag is-grey">6</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -2163,7 +2207,7 @@
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2020 Zanple&nbsp;
+                &copy; 2021 Zanple&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
                         href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
                 

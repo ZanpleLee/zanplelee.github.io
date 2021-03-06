@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DirectX11入门笔记-05-摄像机类与游戏对象类 - Addendum</title>
+
+
+    <meta name="description" content="这一节中将实现第一人称摄像机与第三人称摄像机建立Camera类，同时将摄像机的空间与游戏对象中涉及到的位移，建立Transform类。随着场景中的物体不断增加，为了尽可能方便地去管理每一个物体实现了GameObject类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectX11入门笔记-05-摄像机类与游戏对象类">
+<meta property="og:url" content="http://www.zanple.top/2021/01/09/directx11-05-camera/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="这一节中将实现第一人称摄像机与第三人称摄像机建立Camera类，同时将摄像机的空间与游戏对象中涉及到的位移，建立Transform类。随着场景中的物体不断增加，为了尽可能方便地去管理每一个物体实现了GameObject类。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/dragon.jpg">
+<meta property="article:published_time" content="2021-01-09T06:17:25.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:53:35.093Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="Direct3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/dragon.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="DirectX11入门笔记-05-摄像机类与游戏对象类" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-05-摄像机类与游戏对象类">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>DirectX11入门笔记-05-摄像机类与游戏对象类
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-01-09T06:17:25.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-09</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:53:35.093Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    17 分钟 读完 (大约 2520 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>这一节中将实现第一人称摄像机与第三人称摄像机建立Camera类，同时将摄像机的空间与游戏对象中涉及到的位移，建立Transform类。随着场景中的物体不断增加，为了尽可能方便地去管理每一个物体实现了GameObject类。<a id="more"></a></p>
+<hr>
+<h1 id="1-Transform类"><a href="#1-Transform类" class="headerlink" title="1. Transform类"></a>1. Transform类</h1><h2 id="1-1-观察空间变换"><a href="#1-1-观察空间变换" class="headerlink" title="1.1 观察空间变换"></a>1.1 观察空间变换</h2><div align=center>
+
+<img src="Fig15-1.jpg" alt="摄像机坐标系。摄像机在自己专属的坐标系中，位于坐标系原点并沿着z轴正方向观察" style="zoom:33%;" />
+
+</div>
+
+<p>如上图所示，<strong>观察空间</strong>附属于摄像机的坐标系。在此空间中，摄像机位于坐标系的原点并沿着z轴正方向观察，x轴指向摄像机右侧，y轴指向摄像机的正上方。从世界空间至观察空间的坐标变换称为观察变换，对应的矩阵称为<strong>观察矩阵</strong>。</p>
+<p>如果<strong><em>Q</em></strong>=(Qx,Qy,Qz,1)、<strong><em>u</em></strong>=(ux,uy,uz,0)、<strong><em>v</em></strong>=(vx,vy,vz,0)且<strong><em>w</em></strong>=(wx,wy,wz,0)分别表示观察空间中的原点、<strong><em>x</em></strong>轴、<strong><em>y</em></strong>轴与<strong><em>z</em></strong>轴相对于世界空间的齐次坐标，并且物体的xyz缩放比例都为1，则<strong>从观察空间至世界空间</strong>的坐标比变换矩阵为：<br>$$<br>W=\left[\begin{array}{llll}<br>u_{x} &amp; u_{y} &amp; u_{z} &amp; 0 \<br>v_{x} &amp; v_{y} &amp; v_{z} &amp; 0 \<br>w_{x} &amp; w_{y} &amp; w_{z} &amp; 0 \<br>Q_{x} &amp; Q_{y} &amp; Q_{z} &amp; 1<br>\end{array}\right]<br>$$<br>然而现在我们需要做的是从世界坐标系转换到观察空间坐标系，如果把摄像机看做物体的话，实际上观察空间坐标系就是摄像机物体的局部坐标系(右方向为X轴，上方向为Y轴，目视方向为Z轴）。因此我们可利用<strong><em>W</em></strong>的逆矩阵将坐标<strong>从世界空间变换到观察空间</strong>，则<strong>观察矩阵</strong>为：<br>$$<br>V=\left[\begin{array}{cccc}<br>u_{x} &amp; v_{x} &amp; w_{x} &amp; 0 \<br>u_{y} &amp; v_{y} &amp; w_{y} &amp; 0 \<br>u_{z} &amp; v_{z} &amp; w_{z} &amp; 0 \<br>-Q \cdot u &amp; -Q \cdot v &amp; -Q \cdot w &amp; 1<br>\end{array}\right]<br>$$</p>
+<h2 id="1-2-世界变换的复合"><a href="#1-2-世界变换的复合" class="headerlink" title="1.2 世界变换的复合"></a>1.2 <a href="https://www.cnblogs.com/X-Jun/p/9316048.html">世界变换的复合</a></h2><p>假设在初始化阶段，物体经历了初始旋转变换和平移变换，则此时的变换矩阵为<br>$$<br>\mathbf{W_{0}=R_{0} T_{0}}<br>$$<br>若每一帧都产生缩放、旋转和位移，把当前帧的缩放、旋转和位移矩阵分别记为<strong><em>Sn</em></strong>、<strong><em>Rn</em></strong>和<strong><em>Tn</em></strong>，有的人会认为当前帧的世界变换为：<br>$$<br>\mathbf{W_{n}=W_{n-1}S_{n}R_{n}T_{n}}<br>$$<br>然而这种复合变换可能会导致异常的变换，在前面的变换一章我们就举了一个例子。归根结底在于矩阵乘法不满足交换律，<strong>且缩放操作如果不先进行（前面还有旋转或平移）的话会导致物体产生畸变。</strong>所以要先让缩放进行：<br>$$<br>\mathbf{W_{n}=S_{0}S_{1}…S_{n}…}<br>$$<br>此时旋转和平移操作就可以自行指定顺序了。如果先平移再旋转，离开原点的物体会绕原点旋转。如果先旋转再平移，就是先改变物体的朝向再放到指定的位置上。</p>
+<p>通常对物体修改旋转是基于原点位置的旋转，因此它的世界变换复合为：<br>$$<br>\mathbf{W_{n}=S_{0}S_{1}…S_{n}R_{0}R_{1}…R_{n}T_{0}T_{1}…T_{n}}<br>$$<br>而如果涉及到具有父子关系物体的世界变换，则会更复杂一些。以Unity的为例，设父级物体的缩放矩阵、旋转矩阵和位移矩阵分别为<strong><em>S0</em></strong>、<strong><em>R0</em></strong>和<strong><em>T0</em></strong>，子一级物体的缩放矩阵、旋转矩阵和位移矩阵为<strong><em>S1</em></strong>、<strong><em>R1</em></strong>和<strong><em>T1</em></strong>。那么子N级物体的世界变换复合为：<br>$$<br>\mathbf{W_{n}=S_{0}S_{1}…S_{n}R_{n}T_{n}R_{n-1}T_{n-1}…R_{0}T_{0}}<br>$$</p>
+<h2 id="1-3-Transform类的实现"><a href="#1-3-Transform类的实现" class="headerlink" title="1.3 Transform类的实现"></a>1.3 Transform类的实现</h2><p>根据上面的复合形式，我们可以将<code>缩放</code>、<code>旋转</code>和<code>平移</code>部分拆开来分别更新，其中缩放和平移部分都可以使用一个向量来保存，然后缩放矩阵的连乘相当于缩放向量的分量乘法，平移矩阵的连乘相当于平移向量的分量加法。</p>
+<p>至于旋转矩阵的表示形式有三种：<code>旋转四元数</code>、<code>基于特定的坐标轴顺序进行旋转的三个旋转欧拉角</code>、<code>三个相互正交的坐标轴向量</code>。这三种表示形式是可以相互转换的。由于到目前旋转四元数还没涉及，因此等学到四元数之后就可以用它替换欧拉角存储了。</p>
+<p>在DirectXMath中，存在这样一系列旋转矩阵构造函数，采用的是Roll-Pitch-Yaw的旋转形式，实际上说的就是先绕Z轴旋转，再绕X轴旋转，最后再绕Y轴旋转。选择这样的旋转顺序，首先考虑到的是要最大限度避免万向节死锁的出现，而物体+Z轴竖直朝上或朝下的情况都是非常少见的。</p>
+<p>Transform类的定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Transform</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Transform() = <span class="keyword">default</span>;</span><br><span class="line">	Transform(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; scale, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; rotation, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; <span class="built_in">position</span>);</span><br><span class="line">	~Transform() = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">	Transform(<span class="keyword">const</span> Transform&amp;) = <span class="keyword">default</span>;</span><br><span class="line">	Transform&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Transform&amp;) = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">	Transform(Transform&amp;&amp;) = <span class="keyword">default</span>;</span><br><span class="line">	Transform&amp; <span class="keyword">operator</span>=(Transform&amp;&amp;) = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取对象欧拉角</span></span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetRotation</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMVECTOR <span class="title">GetRotationXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取对象位置</span></span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetPosition</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMVECTOR <span class="title">GetPositionXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取基向量</span></span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetRightAxis</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMVECTOR <span class="title">GetRightAxisXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetUpAxis</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMVECTOR <span class="title">GetUpAxisXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetForwardAxis</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMVECTOR <span class="title">GetForwardAxisXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取世界变换矩阵及逆世界变换矩阵</span></span><br><span class="line">	<span class="function">DirectX::XMMATRIX <span class="title">GetLocalToWorldMatrixXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMMATRIX <span class="title">GetWorldToLocalMatrixXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置对象欧拉角</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetRotation</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; eulerAnglesInRadian)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetRotation</span><span class="params">(<span class="keyword">float</span> x, <span class="keyword">float</span> y, <span class="keyword">float</span> z)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置对象位置</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetPosition</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; <span class="built_in">position</span>)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetPosition</span><span class="params">(<span class="keyword">float</span> x, <span class="keyword">float</span> y, <span class="keyword">float</span> z)</span></span>;</span><br><span class="line">	<span class="comment">//旋转位置</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">RotatePos</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; <span class="built_in">point</span>, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; axis, <span class="keyword">float</span> delta)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//沿着某一方向平移</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Translate</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; direction, <span class="keyword">float</span> magnitude)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//观察某一点</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">LookAt</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; target, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; up = &#123; <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span> &#125;)</span></span>;</span><br><span class="line">	<span class="comment">//沿着某一方向观察</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">LookTo</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; direction, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; up = &#123; <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span> &#125;)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="comment">//从旋转矩阵获取旋转欧拉角</span></span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetEulerAnglesFromRotationMatrix</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT4X4&amp; rotationMatrix)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	DirectX::XMFLOAT3 m_Scale = &#123; <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span> &#125;;				<span class="comment">//缩放</span></span><br><span class="line">	DirectX::XMFLOAT3 m_Rotation = &#123;&#125;;								<span class="comment">//旋转欧拉角</span></span><br><span class="line">	DirectX::XMFLOAT3 m_Position = &#123;&#125;;								<span class="comment">//位置</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>部分实现为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Transform::RotatePos</span><span class="params">(<span class="keyword">const</span> XMFLOAT3&amp; <span class="built_in">point</span>, <span class="keyword">const</span> XMFLOAT3&amp; axis, <span class="keyword">float</span> delta)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//读取数据</span></span><br><span class="line">	XMVECTOR rotationVec = XMLoadFloat3(&amp;m_Rotation);</span><br><span class="line">	XMVECTOR positionVec = XMLoadFloat3(&amp;m_Position);</span><br><span class="line">	XMVECTOR centerVec = XMLoadFloat3(&amp;<span class="built_in">point</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//以point作为原点进行旋转</span></span><br><span class="line">	<span class="comment">//根据已有的数据将算出旋转平移矩阵</span></span><br><span class="line">	XMMATRIX RT = XMMatrixRotationRollPitchYawFromVector(rotationVec) * XMMatrixTranslationFromVector(positionVec);</span><br><span class="line">	<span class="comment">//将旋转中心平移到原点</span></span><br><span class="line">	RT *= XMMatrixTranslationFromVector(-centerVec);</span><br><span class="line">	<span class="comment">//旋转轴</span></span><br><span class="line">	RT *= XMMatrixRotationAxis(XMLoadFloat3(&amp;axis), delta);</span><br><span class="line">	<span class="comment">//旋转完成后平移回原来位置</span></span><br><span class="line">	RT *= XMMatrixTranslationFromVector(centerVec);</span><br><span class="line">	XMStoreFloat3(&amp;m_Position, RT.r[<span class="number">3</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Transform::Translate</span><span class="params">(<span class="keyword">const</span> XMFLOAT3&amp; direction, <span class="keyword">float</span> magnitude)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	XMVECTOR directionVec = XMVector3Normalize(XMLoadFloat3(&amp;direction));</span><br><span class="line">	XMVECTOR newPosition = XMVectorMultiplyAdd(XMVectorReplicate(magnitude), directionVec, XMLoadFloat3(&amp;m_Position));</span><br><span class="line">	XMStoreFloat3(&amp;m_Position, newPosition);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Transform::LookAt</span><span class="params">(<span class="keyword">const</span> XMFLOAT3&amp; target, <span class="keyword">const</span> XMFLOAT3&amp; up)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	XMMATRIX View = XMMatrixLookAtLH(XMLoadFloat3(&amp;m_Position), XMLoadFloat3(&amp;target), XMLoadFloat3(&amp;up));</span><br><span class="line">	XMMATRIX InvView = XMMatrixInverse(<span class="literal">nullptr</span>, View);</span><br><span class="line">	XMFLOAT4X4 rotMatrix;</span><br><span class="line">	XMStoreFloat4x4(&amp;rotMatrix, InvView);</span><br><span class="line">	m_Rotation = GetEulerAnglesFromRotationMatrix(rotMatrix);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Transform::LookTo</span><span class="params">(<span class="keyword">const</span> XMFLOAT3&amp; direction, <span class="keyword">const</span> XMFLOAT3&amp; up)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	XMMATRIX View = XMMatrixLookToLH(XMLoadFloat3(&amp;m_Position), XMLoadFloat3(&amp;direction), XMLoadFloat3(&amp;up));</span><br><span class="line">	XMMATRIX InvView = XMMatrixInverse(<span class="literal">nullptr</span>, View);</span><br><span class="line">	XMFLOAT4X4 rotMatrix;</span><br><span class="line">	XMStoreFloat4x4(&amp;rotMatrix, InvView);</span><br><span class="line">	m_Rotation = GetEulerAnglesFromRotationMatrix(rotMatrix);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">XMFLOAT3 <span class="title">Transform::GetEulerAnglesFromRotationMatrix</span><span class="params">(<span class="keyword">const</span> XMFLOAT4X4&amp; rotationMatrix)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//通过旋转矩阵反求欧拉角</span></span><br><span class="line">	<span class="keyword">float</span> c = sqrtf(<span class="number">1.0f</span> - rotationMatrix(<span class="number">2</span>, <span class="number">1</span>) * rotationMatrix(<span class="number">2</span>, <span class="number">1</span>));</span><br><span class="line">	<span class="comment">//防止r[2][1]出现大于1的情况</span></span><br><span class="line">	<span class="keyword">if</span> (isnan(c))</span><br><span class="line">		c = <span class="number">0.0f</span>;</span><br><span class="line">	XMFLOAT3 rotation;</span><br><span class="line">	rotation.z = atan2f(rotationMatrix(<span class="number">0</span>, <span class="number">1</span>), rotationMatrix(<span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">	rotation.x = atan2f(-rotationMatrix(<span class="number">2</span>, <span class="number">1</span>), c);</span><br><span class="line">	rotation.y = atan2f(rotationMatrix(<span class="number">2</span>, <span class="number">0</span>), rotationMatrix(<span class="number">2</span>, <span class="number">2</span>));</span><br><span class="line">	<span class="keyword">return</span> rotation;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-摄像机类"><a href="#2-摄像机类" class="headerlink" title="2. 摄像机类"></a>2. 摄像机类</h1><p>摄像机类基于Transform实现 ，定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Camera</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Camera() = <span class="keyword">default</span>;</span><br><span class="line">	<span class="keyword">virtual</span> ~Camera() = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取摄像机位置</span></span><br><span class="line">	<span class="function">DirectX::XMVECTOR <span class="title">GetPositionXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetPosition</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取矩阵</span></span><br><span class="line">	<span class="function">DirectX::XMMATRIX <span class="title">GetViewXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMMATRIX <span class="title">GetProjXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function">DirectX::XMMATRIX <span class="title">GetViewProjXM</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取视口</span></span><br><span class="line">	<span class="function">D3D11_VIEWPORT <span class="title">GetViewPort</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置视锥体</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetFrustum</span><span class="params">(<span class="keyword">float</span> fovY, <span class="keyword">float</span> aspect, <span class="keyword">float</span> nearZ, <span class="keyword">float</span> farZ)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置视口</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetViewPort</span><span class="params">(<span class="keyword">const</span> D3D11_VIEWPORT&amp; viewPort)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetViewPort</span><span class="params">(<span class="keyword">float</span> topLeftX, <span class="keyword">float</span> topLeftY, <span class="keyword">float</span> <span class="built_in">width</span>, <span class="keyword">float</span> <span class="built_in">height</span>, <span class="keyword">float</span> minDepth = <span class="number">0.0f</span>, <span class="keyword">float</span> maxDepth = <span class="number">1.0f</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	Transform m_Transform = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//视锥体属性</span></span><br><span class="line">	<span class="keyword">float</span> m_NearZ = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="keyword">float</span> m_FarZ = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="keyword">float</span> m_Aspect = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="keyword">float</span> m_FovY = <span class="number">0.0f</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//当前视口</span></span><br><span class="line">	D3D11_VIEWPORT m_ViewPort = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-1-第一人称摄像机"><a href="#2-1-第一人称摄像机" class="headerlink" title="2.1 第一人称摄像机"></a>2.1 第一人称摄像机</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstPersonCamera</span> :</span> <span class="keyword">public</span> Camera</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	FirstPersonCamera() = <span class="keyword">default</span>;</span><br><span class="line">	~FirstPersonCamera() <span class="keyword">override</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置摄像机位置</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetPosition</span><span class="params">(<span class="keyword">float</span> x, <span class="keyword">float</span> y, <span class="keyword">float</span> z)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetPosition</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; pos)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置摄像机的朝向</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">LookAt</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; pos, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; target, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; up)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">LookTo</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; pos, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; to, <span class="keyword">const</span> DirectX::XMFLOAT3&amp; up)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//将相机进行旋转</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Pitch</span><span class="params">(<span class="keyword">float</span> rad)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">RotateY</span><span class="params">(<span class="keyword">float</span> rad)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-第三人称摄像机"><a href="#2-2-第三人称摄像机" class="headerlink" title="2.2 第三人称摄像机"></a>2.2 第三人称摄像机</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThirdPersonCamera</span> :</span> <span class="keyword">public</span> Camera</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ThirdPersonCamera() = <span class="keyword">default</span>;</span><br><span class="line">	~ThirdPersonCamera() <span class="keyword">override</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取当前跟踪目标位置与距离</span></span><br><span class="line">	<span class="function">DirectX::XMFLOAT3 <span class="title">GetTargetPosition</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">float</span> <span class="title">GetDistance</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">	<span class="comment">//拉近物体</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Approach</span><span class="params">(<span class="keyword">float</span> dist)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//绕目标旋转</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">RotateX</span><span class="params">(<span class="keyword">float</span> rad)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">RotateY</span><span class="params">(<span class="keyword">float</span> rad)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetRotationX</span><span class="params">(<span class="keyword">float</span> rad)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetRotationY</span><span class="params">(<span class="keyword">float</span> rad)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//设置跟踪目标的位置与距离</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetTarget</span><span class="params">(<span class="keyword">const</span> DirectX::XMFLOAT3&amp; target)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetDistance</span><span class="params">(<span class="keyword">float</span> dist)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetDistanceMinMax</span><span class="params">(<span class="keyword">float</span> minDist, <span class="keyword">float</span> maxDist)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	DirectX::XMFLOAT3 m_Target = &#123;&#125;;</span><br><span class="line">	<span class="keyword">float</span> m_Distance = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="comment">//最小允许距离与最大允许距离</span></span><br><span class="line">	<span class="keyword">float</span> m_MinDist = <span class="number">0.0f</span>, m_MaxDist = <span class="number">0.0f</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-游戏对象类"><a href="#3-游戏对象类" class="headerlink" title="3. 游戏对象类"></a>3. 游戏对象类</h1><p>在上文中我们将几个不同的变换矩阵都放到了同一个常量缓冲区中，但其实并不是每个矩阵都会每帧进行更新。因此这里将不同矩阵放到不同的常量缓冲区中。每个物体的worldMatrix都会不一样，所以每绘制一个物体都要刷新一遍，而摄像机的viewMatrix只要每帧刷新一遍即可，projMatrix则根据屏幕的大小有没有改变来刷新。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CBChangesEveryDrawing</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectX::XMMATRIX world;</span><br><span class="line">	DirectX::XMMATRIX worldInvTranspose;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CBChangesEveryFrame</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectX::XMMATRIX view;</span><br><span class="line">	DirectX::XMFLOAT4 eyePos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CBChangesOnResize</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectX::XMMATRIX proj;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CBChangesRarely</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DirectionalLight dirLight;</span><br><span class="line">	Material material;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>将创建顶点缓冲区与索引缓冲区的操作封装：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">VertexType</span>, <span class="title">class</span> <span class="title">IndexType</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">GameApp</span>:</span>:GameObject::SetBuffer(ID3D11Device* device, <span class="keyword">const</span> Geometry::MeshData&lt;VertexType, IndexType&gt;&amp; meshData)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//……主要是创建顶点缓冲区描述、顶点缓冲区；索引缓冲区描述、索引缓冲区</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将绘制索引的操作封装：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> GameApp::GameObject::Draw(ID3D11DeviceContext* deviceContext)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//……更新经常被更改的常量缓冲区部分，更改较少的更新则留在InitResource中，InitResource为初始化资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考：</p>
+<p>1.《DirectX 12 3D游戏开发实战 第7章》</p>
+<p>2.<a href="https://www.cnblogs.com/X-Jun/p/9316048.html">DirectX11 With Windows SDK–10 基于Transform的摄像机类与GameObject类</a></p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/01/09/directx11-05-camera/">DirectX11入门笔记-05-摄像机类与游戏对象类</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/01/09/directx11-05-camera/">http://www.zanple.top/2021/01/09/directx11-05-camera/</a></li>
+                    <li><strong>发布时间：</strong>2021-01-09</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/01/18/directx11-06-texture/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">DirectX11入门笔记-06-纹理贴图</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/07/directx11-04-light/">
+                <span class="level-item">DirectX11入门笔记-04-光照与光栅化</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-Transform类">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. Transform类</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-观察空间变换">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 观察空间变换</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-世界变换的复合">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 世界变换的复合</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-3-Transform类的实现">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 Transform类的实现</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-摄像机类">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 摄像机类</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-第一人称摄像机">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 第一人称摄像机</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-第三人称摄像机">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 第三人称摄像机</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-游戏对象类">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 游戏对象类</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="DirectX11入门笔记-05-摄像机类与游戏对象类" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

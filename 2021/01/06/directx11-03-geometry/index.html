@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DirectX11入门笔记-03-不同形状的几何体 - Addendum</title>
+
+
+    <meta name="description" content="在上一节中我们在GameApp类中创建了立方体，并设置了其顶点索引等数据。绘制一个物体需要设置多种参数，例如绑定顶点缓冲区和索引缓冲区、绑定与物体有关的常量数据、设定图元类型以及指定参数。但随着场景中所绘制的物体数量和种类逐渐增多，如椭球体、球体、柱体等，我们便需要创建一个类来生成这些简单的几何体。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectX11入门笔记-03-不同形状的几何体">
+<meta property="og:url" content="http://www.zanple.top/2021/01/06/directx11-03-geometry/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="在上一节中我们在GameApp类中创建了立方体，并设置了其顶点索引等数据。绘制一个物体需要设置多种参数，例如绑定顶点缓冲区和索引缓冲区、绑定与物体有关的常量数据、设定图元类型以及指定参数。但随着场景中所绘制的物体数量和种类逐渐增多，如椭球体、球体、柱体等，我们便需要创建一个类来生成这些简单的几何体。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/dragon.jpg">
+<meta property="article:published_time" content="2021-01-06T09:12:45.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:51:40.804Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="计算机图形学">
+<meta property="article:tag" content="Direct3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/dragon.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="DirectX11入门笔记-03-不同形状的几何体" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/dragon.jpg" alt="DirectX11入门笔记-03-不同形状的几何体">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>DirectX11入门笔记-03-不同形状的几何体
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-01-06T09:12:45.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-01-06</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-06T09:51:40.804Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-06</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Direct3D/">Direct3D</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    22 分钟 读完 (大约 3279 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>在上一节中我们在GameApp类中创建了立方体，并设置了其顶点索引等数据。绘制一个物体需要设置多种参数，例如绑定顶点缓冲区和索引缓冲区、绑定与物体有关的常量数据、设定图元类型以及指定参数。但随着场景中所绘制的物体数量和种类逐渐增多，如椭球体、球体、柱体等，我们便需要创建一个类来生成这些简单的几何体。<a id="more"></a></p>
+<hr>
+<h1 id="1-Geometry类生成几何体"><a href="#1-Geometry类生成几何体" class="headerlink" title="1. Geometry类生成几何体"></a>1. Geometry类生成几何体</h1><p>因此我们将程序性几何体的生成代码放入Geometry类中。Geometry类是一个工具类，用于生成如栅格、球体、柱体以及长方体这类简单的几何体。此类将数据生成在系统内存中，因此我们需要将这些数据复制到顶点缓冲区和索引缓冲区内。</p>
+<p>首先我们创建Geometry与Vertex类，将之前在GameApp中关于顶点布局的部分放入Vertex类，并实现Geometry类来生成简单的几何体。</p>
+<h2 id="1-1-创建立方体"><a href="#1-1-创建立方体" class="headerlink" title="1.1 创建立方体"></a>1.1 创建立方体</h2><p>立方体的创建与上一节类似，将立方体的每个面分为两个三角面，不同的是，立方体的每个顶点都对应则三个平面，因此每个顶点都有三个对应的法向量。</p>
+<div align=center>
+
+<p><img src="image-1.png" alt="立方体顶点"></p>
+</div>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">VertexType</span>, <span class="title">class</span> <span class="title">IndexType</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">MeshData</span>&lt;VertexType, IndexType&gt; <span class="title">CreateBox</span>(<span class="title">float</span> <span class="title">width</span>, <span class="title">float</span> <span class="title">height</span>, <span class="title">float</span> <span class="title">depth</span>, <span class="title">const</span> <span class="title">DirectX</span>:</span>:XMFLOAT4&amp; color)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> DirectX;</span><br><span class="line">	MeshData&lt;VertexType, IndexType&gt; meshData;</span><br><span class="line">	meshData.vertexVec.resize(<span class="number">24</span>);</span><br><span class="line"></span><br><span class="line">	Internal::VertexData vertexDataArr[<span class="number">24</span>];</span><br><span class="line">	<span class="keyword">float</span> w2 = <span class="built_in">width</span> / <span class="number">2</span>, h2 = <span class="built_in">height</span> / <span class="number">2</span>, d2 = depth / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//右面(+X面)</span></span><br><span class="line">	vertexDataArr[<span class="number">0</span>].pos = XMFLOAT3(w2, -h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">1</span>].pos = XMFLOAT3(w2, h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">2</span>].pos = XMFLOAT3(w2, h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">3</span>].pos = XMFLOAT3(w2, -h2, d2);</span><br><span class="line">	<span class="comment">//左面(-X面)</span></span><br><span class="line">	vertexDataArr[<span class="number">4</span>].pos = XMFLOAT3(-w2, -h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">5</span>].pos = XMFLOAT3(-w2, h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">6</span>].pos = XMFLOAT3(-w2, h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">7</span>].pos = XMFLOAT3(-w2, -h2, -d2);</span><br><span class="line">	<span class="comment">//顶面(+Y面)</span></span><br><span class="line">	vertexDataArr[<span class="number">8</span>].pos = XMFLOAT3(-w2, h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">9</span>].pos = XMFLOAT3(-w2, h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">10</span>].pos = XMFLOAT3(w2, h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">11</span>].pos = XMFLOAT3(w2, h2, -d2);</span><br><span class="line">	<span class="comment">//底面(-Y面)</span></span><br><span class="line">	vertexDataArr[<span class="number">12</span>].pos = XMFLOAT3(w2, -h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">13</span>].pos = XMFLOAT3(w2, -h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">14</span>].pos = XMFLOAT3(-w2, -h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">15</span>].pos = XMFLOAT3(-w2, -h2, -d2);</span><br><span class="line">	<span class="comment">//背面(+Z面)</span></span><br><span class="line">	vertexDataArr[<span class="number">16</span>].pos = XMFLOAT3(w2, -h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">17</span>].pos = XMFLOAT3(w2, h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">18</span>].pos = XMFLOAT3(-w2, h2, d2);</span><br><span class="line">	vertexDataArr[<span class="number">19</span>].pos = XMFLOAT3(-w2, -h2, d2);</span><br><span class="line">	<span class="comment">//正面(-Z面)</span></span><br><span class="line">	vertexDataArr[<span class="number">20</span>].pos = XMFLOAT3(-w2, -h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">21</span>].pos = XMFLOAT3(-w2, h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">22</span>].pos = XMFLOAT3(w2, h2, -d2);</span><br><span class="line">	vertexDataArr[<span class="number">23</span>].pos = XMFLOAT3(w2, -h2, -d2);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//右面(+X面)</span></span><br><span class="line">		vertexDataArr[i].normal = XMFLOAT3(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">		vertexDataArr[i].tangent = XMFLOAT4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i].color = color;</span><br><span class="line">		<span class="comment">//左面(-X面)</span></span><br><span class="line">		vertexDataArr[i + <span class="number">4</span>].normal = XMFLOAT3(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">4</span>].tangent = XMFLOAT4(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">4</span>].color = color;</span><br><span class="line">		<span class="comment">//顶面(+Y面)</span></span><br><span class="line">		vertexDataArr[i + <span class="number">8</span>].normal = XMFLOAT3(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">8</span>].tangent = XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">8</span>].color = color;</span><br><span class="line">		<span class="comment">//底面(-Y面)</span></span><br><span class="line">		vertexDataArr[i + <span class="number">12</span>].normal = XMFLOAT3(<span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">12</span>].tangent = XMFLOAT4(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">12</span>].color = color;</span><br><span class="line">		<span class="comment">//背面(+Z面)</span></span><br><span class="line">		vertexDataArr[i + <span class="number">16</span>].normal = XMFLOAT3(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">16</span>].tangent = XMFLOAT4(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">16</span>].color = color;</span><br><span class="line">		<span class="comment">//正面(-Z面)</span></span><br><span class="line">		vertexDataArr[i + <span class="number">20</span>].normal = XMFLOAT3(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">-1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">20</span>].tangent = XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i + <span class="number">20</span>].color = color;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt; <span class="number">6</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		vertexDataArr[i * <span class="number">4</span>].tex = XMFLOAT2(<span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">		vertexDataArr[i * <span class="number">4</span> + <span class="number">1</span>].tex = XMFLOAT2(<span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">		vertexDataArr[i * <span class="number">4</span> + <span class="number">2</span>].tex = XMFLOAT2(<span class="number">1.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">		vertexDataArr[i * <span class="number">4</span> + <span class="number">3</span>].tex = XMFLOAT2(<span class="number">1.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt; <span class="number">24</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		Internal::InsertVertexElement(meshData.vertexVec[i], vertexDataArr[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	meshData.indexVec = &#123;</span><br><span class="line">		<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>,		<span class="comment">//右面(+X面)</span></span><br><span class="line">		<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">4</span>,		<span class="comment">//左面(-X面)</span></span><br><span class="line">		<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">8</span>,	<span class="comment">//顶面(+Y面)</span></span><br><span class="line">		<span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">12</span>,	<span class="comment">//底面(-Y面)</span></span><br><span class="line">		<span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">16</span>, <span class="comment">//背面(+Z面)</span></span><br><span class="line">		<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">20</span>	<span class="comment">//正面(-Z面)</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> meshData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-创建柱体"><a href="#1-2-创建柱体" class="headerlink" title="1.2 创建柱体"></a>1.2 创建柱体</h2><p>在定义一个柱体时，需要指定其顶、底面半径，高度，切片数量（slice count，即将截面分割的块数），以及堆叠层数（stack count，即横向切割的层数），如图所示。</p>
+<div align=center>
+
+<p><img src="image-2.png" alt="切片数量和堆叠层控制着构成圆台的三角形密集程度，三角形越多则所绘图形越接近预定的几何体。因为创建的顶面半径和底面半径可以是不同的，因此也可以创建出锥体"></p>
+</div>
+
+<p>我们将柱体的构成分为侧面几何体，顶面几何体与底面几何体三部分。</p>
+<h3 id="1-2-1-柱体的侧面几何体"><a href="#1-2-1-柱体的侧面几何体" class="headerlink" title="1.2.1 柱体的侧面几何体"></a>1.2.1 柱体的侧面几何体</h3><p>我们要生成的是中心（即1/2高度处截面的中心点）位于<code>原点</code>，且旋转轴平行于<code>y轴</code>的圆台。从上图中可以看出，圆台的所有顶点都列于其各层侧面的环上。共有<code>stackCount+1</code>环，而每个环上的顶点数量都为<code>sliceCount</code>。相邻环的半径差为<code>△r=(topRadius-buttomRadius)/stackCount</code>。如果从底面上的环开始用索引<code>0</code>来表示，那么第<code>i</code>环的半径就是<code>ri=bottomRadius+i△r</code>，且第<code>i</code>环的高度值为<code>hi=(-h/2)+i△h</code>（可见，1/2高度以下为负值，1/2高度以上为正值），其中<code>△h</code>是每层的高度，<code>h</code>为圆台的高度。由此可见，生成圆台的<strong>基本思路是遍历每个环，并生成列于环上的各个顶点。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">VertexType</span>, <span class="title">class</span> <span class="title">IndexType</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">MeshData</span>&lt;VertexType, IndexType&gt; <span class="title">CreateCylinderNoCap</span>(<span class="title">float</span> <span class="title">radius</span>, <span class="title">float</span> <span class="title">height</span>, <span class="title">UINT</span> <span class="title">slices</span>, <span class="title">UINT</span> <span class="title">stacks</span>,</span></span><br><span class="line"><span class="class">	<span class="title">float</span> <span class="title">texU</span>, <span class="title">float</span> <span class="title">texV</span>, <span class="title">const</span> <span class="title">DirectX</span>:</span>:XMFLOAT4&amp; color)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> DirectX;</span><br><span class="line"></span><br><span class="line">	MeshData&lt;VertexType, IndexType&gt; meshData;</span><br><span class="line">	UINT vertexCount = (slices + <span class="number">1</span>) * (stacks + <span class="number">1</span>);</span><br><span class="line">	UINT indexCount = <span class="number">6</span> * slices * stacks;</span><br><span class="line">	meshData.vertexVec.resize(vertexCount);</span><br><span class="line">	meshData.indexVec.resize(indexCount);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">float</span> h2 = <span class="built_in">height</span> / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">float</span> theta = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="keyword">float</span> per_theta = XM_2PI / slices;</span><br><span class="line">	<span class="comment">//构建堆叠层</span></span><br><span class="line">	<span class="keyword">float</span> stackHeight = <span class="built_in">height</span> / stacks;</span><br><span class="line"></span><br><span class="line">	Internal::VertexData vertexData;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//从底面开始，由下至上计算每个堆叠层环上的顶点坐标</span></span><br><span class="line">	UINT vIndex = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt; stacks + <span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">float</span> y = -h2 + i * stackHeight;</span><br><span class="line">		<span class="comment">//当前层顶点</span></span><br><span class="line">		<span class="keyword">for</span> (UINT j = <span class="number">0</span>; j &lt;= slices; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			theta = j * per_theta;</span><br><span class="line">			<span class="keyword">float</span> u = theta / XM_2PI;</span><br><span class="line">			<span class="keyword">float</span> v = <span class="number">1.0f</span> - (<span class="keyword">float</span>)i / stacks;</span><br><span class="line">			vertexData = &#123; XMFLOAT3(radius * cosf(theta), y, radius * sinf(theta)), XMFLOAT3(cosf(theta), <span class="number">0.0f</span>, sinf(theta)),</span><br><span class="line">				XMFLOAT4(-sinf(theta), <span class="number">0.0f</span>, cosf(theta), <span class="number">1.0f</span>), color, XMFLOAT2(u * texU, v * texV) &#125;;</span><br><span class="line">			Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> meshData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div align=center>
+
+<img src="image-3.png" alt="柱面" style="zoom: 50%;" />
+
+</div>
+
+<p>构建完顶点则需要将其放入索引中。由上图可知，由每个分层以及切片分割出的侧面块都是一个四边形（由两个三角形构成）。而以第<code>i</code>层与第<code>j</code>块切片所确定下来的侧面块中的两个三角形的索引分别为：<br>$$<br>\begin{array}{l}<br>\Delta A B C=(i \cdot n+j,(i+1) \cdot n+j,(i+1) \cdot n+j+1) \<br>\Delta A C D=(i \cdot n+j,(i+1) \cdot n+j+1, i \cdot n+j+1)<br>\end{array}<br>$$<br>其中，<code>n</code>是每个环上的顶点数量。因此，求取圆台侧面块上的所有三角形索引的<strong>主要思路是：便利每个堆叠层和每个切片，并运用上述公式进行计算。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算每个侧面块中的三角形索引</span></span><br><span class="line">UINT iIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt; stacks; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span> (UINT j = <span class="number">0</span>; j &lt; slices; ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//+1是希望让每环的第一个顶点和最后一个顶点重合，这是因为它们的纹理坐标并不相同</span></span><br><span class="line">		meshData.indexVec[iIndex++] = i * (slices + <span class="number">1</span>) + j;</span><br><span class="line">		meshData.indexVec[iIndex++] = (i + <span class="number">1</span>) * (slices + <span class="number">1</span>) + j;</span><br><span class="line">		meshData.indexVec[iIndex++] = (i + <span class="number">1</span>) * (slices + <span class="number">1</span>) + j + <span class="number">1</span>;</span><br><span class="line">		meshData.indexVec[iIndex++] = i * (slices + <span class="number">1</span>) + j;</span><br><span class="line">		meshData.indexVec[iIndex++] = (i + <span class="number">1</span>) * (slices + <span class="number">1</span>) + j + <span class="number">1</span>;</span><br><span class="line">		meshData.indexVec[iIndex++] = i * (slices + <span class="number">1</span>) + j + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-2-柱面的端面几何体"><a href="#1-2-2-柱面的端面几何体" class="headerlink" title="1.2.2 柱面的端面几何体"></a>1.2.2 柱面的端面几何体</h3><p>生成圆台端面的几何体，相当于在其顶面和底面的截面上切割出多个三角形，使之逼近一个圆形。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">VertexType</span>, <span class="title">class</span> <span class="title">IndexType</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">MeshData</span>&lt;VertexType, IndexType&gt; <span class="title">CreateCylinder</span>(<span class="title">float</span> <span class="title">radius</span>, <span class="title">float</span> <span class="title">height</span>, <span class="title">UINT</span> <span class="title">slices</span>, <span class="title">UINT</span> <span class="title">stacks</span>,</span></span><br><span class="line"><span class="class">	<span class="title">float</span> <span class="title">texU</span>, <span class="title">float</span> <span class="title">texV</span>, <span class="title">const</span> <span class="title">DirectX</span>:</span>:XMFLOAT4&amp; color)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> DirectX;</span><br><span class="line">	<span class="keyword">auto</span> meshData = CreateCylinderNoCap&lt;VertexType, IndexType&gt;(radius, <span class="built_in">height</span>, slices, stacks, texU, texV, color);</span><br><span class="line">	UINT vertexCount = (slices + <span class="number">1</span>) * (stacks + <span class="number">3</span>) + <span class="number">2</span>;</span><br><span class="line">	UINT indexCount = <span class="number">6</span> * slices * (stacks + <span class="number">1</span>);</span><br><span class="line">	meshData.vertexVec.resize(vertexCount);</span><br><span class="line">	meshData.indexVec.resize(indexCount);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">float</span> h2 = <span class="built_in">height</span> / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">float</span> theta = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="keyword">float</span> per_theta = XM_2PI / slices;</span><br><span class="line"></span><br><span class="line">	IndexType vIndex = (slices + <span class="number">1</span>) * (stacks + <span class="number">1</span>), iIndex = <span class="number">6</span> * slices * stacks;</span><br><span class="line">	IndexType offset = vIndex;</span><br><span class="line">	Internal::VertexData vertexData;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入顶端圆心</span></span><br><span class="line">	vertexData = &#123; XMFLOAT3(<span class="number">0.0f</span>, h2, <span class="number">0.0f</span>), XMFLOAT3(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">		XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), color, XMFLOAT2(<span class="number">0.5f</span>, <span class="number">0.5f</span>) &#125;;</span><br><span class="line">	Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line">		</span><br><span class="line">	<span class="comment">//使圆台端面环上的首尾顶点重合，因为这两个顶点的纹理坐标和法线是不同的</span></span><br><span class="line">	<span class="comment">//放入顶端圆上各点</span></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt;= slices; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//根据圆台的高度使顶面纹理坐标的范围缩小</span></span><br><span class="line">		theta = i * per_theta;</span><br><span class="line">		<span class="keyword">float</span> u = cosf(theta) * radius / <span class="built_in">height</span> + <span class="number">0.5f</span>;</span><br><span class="line">		<span class="keyword">float</span> v = sinf(theta) * radius / <span class="built_in">height</span> + <span class="number">0.5f</span>;</span><br><span class="line">		vertexData = &#123; XMFLOAT3(radius * cosf(theta), h2, radius * sinf(theta)), XMFLOAT3(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">		XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), color, XMFLOAT2(u, v) &#125;;</span><br><span class="line">	Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入底端圆心</span></span><br><span class="line">	vertexData = &#123; XMFLOAT3(<span class="number">0.0f</span>, -h2, <span class="number">0.0f</span>), XMFLOAT3(<span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">		XMFLOAT4(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), color, XMFLOAT2(<span class="number">0.5f</span>, <span class="number">0.5f</span>) &#125;;</span><br><span class="line">	Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入底部圆上各点</span></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt;= slices; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		theta = i * per_theta;</span><br><span class="line">		<span class="keyword">float</span> u = cosf(theta) * radius / <span class="built_in">height</span> + <span class="number">0.5f</span>;</span><br><span class="line">		<span class="keyword">float</span> v = sinf(theta) * radius / <span class="built_in">height</span> + <span class="number">0.5f</span>;</span><br><span class="line">		vertexData = &#123; XMFLOAT3(radius * cosf(theta), -h2, radius * sinf(theta)), XMFLOAT3(<span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">			XMFLOAT4(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), color, XMFLOAT2(u, v) &#125;;</span><br><span class="line">		Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入顶部三角形索引</span></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">1</span>; i &lt;= slices; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		meshData.indexVec[iIndex++] = offset;</span><br><span class="line">		meshData.indexVec[iIndex++] = offset + i % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">		meshData.indexVec[iIndex++] = offset + i;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入底部三角形索引</span></span><br><span class="line">	offset += slices + <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">1</span>; i &lt;= slices; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		meshData.indexVec[iIndex++] = offset;</span><br><span class="line">		meshData.indexVec[iIndex++] = offset + i;</span><br><span class="line">		meshData.indexVec[iIndex++] = offset + i % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> meshData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-创建球体"><a href="#1-3-创建球体" class="headerlink" title="1.3 创建球体"></a>1.3 创建球体</h2><div align=center>
+
+<img src="image-4.png" alt="柱体的切片与分层实现也同样可以应用到球体上，借此来控制球体的曲面细分级别" style="zoom:33%;" />
+
+</div>
+
+<p>定义一个球体需要指定其半径、切片数量以及堆叠层数，如上图所示。除了每个环上的半径是依三角函数非线性变化，生成球体的算法与生成圆台的算法非常接近。此外，若采用<strong>不等比缩放世界</strong>变换，即可将球体转换为<strong>椭球体</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">VertexType</span>, <span class="title">class</span> <span class="title">IndexType</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">MeshData</span>&lt;VertexType, IndexType&gt; <span class="title">CreateSphere</span>(<span class="title">float</span> <span class="title">radius</span>, <span class="title">UINT</span> <span class="title">levels</span>, <span class="title">UINT</span> <span class="title">slices</span>, <span class="title">const</span> <span class="title">DirectX</span>:</span>:XMFLOAT4&amp; color)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> DirectX;</span><br><span class="line">	MeshData&lt;VertexType, IndexType&gt; meshData;</span><br><span class="line">	UINT vertexCount = <span class="number">2</span> + (levels - <span class="number">1</span>) * (slices + <span class="number">1</span>);</span><br><span class="line">	UINT indexCount = <span class="number">6</span> * (levels - <span class="number">1</span>) * slices;</span><br><span class="line">	meshData.vertexVec.resize(vertexCount);</span><br><span class="line">	meshData.indexVec.resize(indexCount);</span><br><span class="line"></span><br><span class="line">	Internal::VertexData vertexData;</span><br><span class="line">	IndexType vIndex = <span class="number">0</span>, iIndex = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">float</span> phi = <span class="number">0.0f</span>, theta = <span class="number">0.0f</span>;</span><br><span class="line">	<span class="keyword">float</span> per_phi = XM_PI / levels;</span><br><span class="line">	<span class="keyword">float</span> per_theta = XM_2PI / slices;</span><br><span class="line">	<span class="keyword">float</span> x, y, z;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入顶端点</span></span><br><span class="line">	vertexData = &#123; XMFLOAT3(<span class="number">0.0f</span>, radius, <span class="number">0.0f</span>), XMFLOAT3(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>), XMFLOAT4(<span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), color, XMFLOAT2(<span class="number">0.0f</span>, <span class="number">0.0f</span>) &#125;;</span><br><span class="line">	Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">1</span>; i &lt; levels; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		phi = per_phi * i;</span><br><span class="line">		<span class="comment">//需要slices + 1个顶点是因为 起点和终点需为同一点，但纹理坐标值不一致</span></span><br><span class="line">		<span class="keyword">for</span> (UINT j = <span class="number">0</span>; j &lt;= slices; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			theta = per_theta * j;</span><br><span class="line">			x = radius * sinf(phi) * cosf(theta);</span><br><span class="line">			y = radius * cosf(phi);</span><br><span class="line">			z = radius * sinf(phi) * sinf(theta);</span><br><span class="line">			<span class="comment">//计算出局部坐标、法向量、Tangent向量和纹理坐标</span></span><br><span class="line">			XMFLOAT3 pos = XMFLOAT3(x, y, z), normal;</span><br><span class="line">			XMStoreFloat3(&amp;normal, XMVector3Normalize(XMLoadFloat3(&amp;pos)));</span><br><span class="line">			vertexData = &#123; pos, normal, XMFLOAT4(-sinf(theta), <span class="number">0.0f</span>, cosf(theta), <span class="number">1.0f</span>), color, XMFLOAT2(theta / XM_2PI, phi / XM_PI) &#125;;</span><br><span class="line">			Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入底端点</span></span><br><span class="line">	vertexData = &#123; XMFLOAT3(<span class="number">0.0f</span>, -radius, <span class="number">0.0f</span>), XMFLOAT3(<span class="number">0.0f</span>, <span class="number">-1.0f</span>, <span class="number">0.0f</span>),</span><br><span class="line">		XMFLOAT4(<span class="number">-1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>), color, XMFLOAT2(<span class="number">0.0f</span>, <span class="number">1.0f</span>) &#125;;</span><br><span class="line">	Internal::InsertVertexElement(meshData.vertexVec[vIndex++], vertexData);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//放入索引</span></span><br><span class="line">	<span class="keyword">if</span> (levels &gt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (UINT j = <span class="number">1</span>; j &lt;= slices; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			meshData.indexVec[iIndex++] = <span class="number">0</span>;</span><br><span class="line">			meshData.indexVec[iIndex++] = j % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">			meshData.indexVec[iIndex++] = j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">1</span>; i &lt; levels - <span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (UINT j = <span class="number">1</span>; j &lt;= slices; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			meshData.indexVec[iIndex++] = (i - <span class="number">1</span>) * (slices + <span class="number">1</span>) + j;</span><br><span class="line">			meshData.indexVec[iIndex++] = (i - <span class="number">1</span>) * (slices + <span class="number">1</span>) + j % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">			meshData.indexVec[iIndex++] = i * (slices + <span class="number">1</span>) + j % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">			meshData.indexVec[iIndex++] = i * (slices + <span class="number">1</span>) + j % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">			meshData.indexVec[iIndex++] = i * (slices + <span class="number">1</span>) + j;</span><br><span class="line">			meshData.indexVec[iIndex++] = (i - <span class="number">1</span>) * (slices + <span class="number">1</span>) + j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//逐渐放入索引</span></span><br><span class="line">	<span class="keyword">if</span> (levels &gt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (UINT j = <span class="number">1</span>; j &lt;= slices; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			meshData.indexVec[iIndex++] = (levels - <span class="number">2</span>) * (slices + <span class="number">1</span>) + j;</span><br><span class="line">			meshData.indexVec[iIndex++] = (levels - <span class="number">2</span>) * (slices + <span class="number">1</span>) + j % (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">			meshData.indexVec[iIndex++] = (levels - <span class="number">1</span>) * (slices + <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> meshData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但这种方法生成的球体的三角形面积并不相同，这在某些情境中并非我们所愿。</p>
+<h3 id="1-3-1-创建几何球体网络"><a href="#1-3-1-创建几何球体网络" class="headerlink" title="1.3.1 创建几何球体网络"></a>1.3.1 创建几何球体网络</h3><p>相对上面的方法来创建球体而言，我们还可以利用面积相同且边长相等的三角形来逼近球体，如图所示。</p>
+<div align=center>
+
+<img src="image-5.png" alt="通过反复细分并将新生成的顶点重新投影到球面上，便可以近似地表示一个几何球体" style="zoom: 50%;" />
+
+</div>
+
+<p>为了生成几何球体，我们以一个正二十面体作为基础，细分其上的三角形，再根据给定的半径向球面投影新生成的顶点。反复重复这个过程，便可以提高该几何球体的曲面细分程度。</p>
+<div align=center>
+
+<img src="image-6.png" alt="将一个三角形细分为4个等面积小三角形的过程" style="zoom: 67%;" />
+
+</div>
+
+<p>如上图所示，我们可以将一个三角形细分为<code>4个</code>大小相等的小三角形。不难发现，新生成的顶点都位于原始三角形边上的中点。先将定点投影到单位球面上，在利用<code>r</code>进行标量乘法：<br>$$<br>\mathbf{v}^{\prime}=r \frac{\mathbf{v}}{|\mathbf{v}|}<br>$$<br>即可把新顶点都投影到半径为<code>r</code>的球体上。</p>
+<h1 id="2-绘制几何体"><a href="#2-绘制几何体" class="headerlink" title="2.绘制几何体"></a>2.绘制几何体</h1><p>在GameApp中include Geometry类后，创建一个绘制物体的索引数组大小<code>m_IndexCount</code>，在初始化资源函数中将原先绘制立方体部分换成：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化网格模型</span></span><br><span class="line"><span class="keyword">auto</span> meshData = Geometry::CreateBox&lt;VertexPosColor&gt;();</span><br><span class="line">ResetMesh(meshData);</span><br></pre></td></tr></table></figure>
+
+<p>此外，添加一个重新设置要使用的模型的方法<code>ResetMesh</code>，用于重新设置要使用的模型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">GameApp::ResetMesh</span><span class="params">(<span class="keyword">const</span> Geometry::MeshData&lt;VertexPosColor&gt;&amp; meshData)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//释放旧资源</span></span><br><span class="line">	m_pVertexBuffer.Reset();</span><br><span class="line">	m_pIndexBuffer.Reset();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置顶点缓冲区描述</span></span><br><span class="line">	D3D11_BUFFER_DESC vbd;</span><br><span class="line">	ZeroMemory(&amp;vbd, <span class="keyword">sizeof</span>(vbd));</span><br><span class="line">	vbd.Usage = D3D11_USAGE_IMMUTABLE;</span><br><span class="line">	vbd.ByteWidth = (UINT)meshData.vertexVec.<span class="built_in">size</span>() * <span class="keyword">sizeof</span>(VertexPosColor);</span><br><span class="line">	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;</span><br><span class="line">	vbd.CPUAccessFlags = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//新建顶点缓冲区</span></span><br><span class="line">	D3D11_SUBRESOURCE_DATA InitData;</span><br><span class="line">	ZeroMemory(&amp;InitData, <span class="keyword">sizeof</span>(InitData));</span><br><span class="line">	InitData.pSysMem = meshData.vertexVec.data();</span><br><span class="line">	m_pDevice-&gt;CreateBuffer(&amp;vbd, &amp;InitData, m_pVertexBuffer.GetAddressOf());</span><br><span class="line"></span><br><span class="line">	<span class="comment">//输入装配阶段的顶点缓冲区设置</span></span><br><span class="line">	UINT stride = <span class="keyword">sizeof</span>(VertexPosColor);	<span class="comment">//跨越字节数</span></span><br><span class="line">	UINT offset = <span class="number">0</span>;						<span class="comment">//起始偏移量</span></span><br><span class="line"></span><br><span class="line">	m_pContext-&gt;IASetVertexBuffers(<span class="number">0</span>, <span class="number">1</span>, m_pVertexBuffer.GetAddressOf(), &amp;stride, &amp;offset);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//设置索引缓冲区描述</span></span><br><span class="line">	m_IndexCount = (UINT)meshData.indexVec.<span class="built_in">size</span>();</span><br><span class="line">	D3D11_BUFFER_DESC ibd;</span><br><span class="line">	ZeroMemory(&amp;ibd, <span class="keyword">sizeof</span>(ibd));</span><br><span class="line">	ibd.Usage = D3D11_USAGE_IMMUTABLE;</span><br><span class="line">	ibd.ByteWidth = m_IndexCount * <span class="keyword">sizeof</span>(DWORD);</span><br><span class="line">	ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;</span><br><span class="line">	ibd.CPUAccessFlags = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//新建索引缓冲区</span></span><br><span class="line">	InitData.pSysMem = meshData.indexVec.data();</span><br><span class="line">	m_pDevice-&gt;CreateBuffer(&amp;ibd, &amp;InitData, m_pIndexBuffer.GetAddressOf());</span><br><span class="line">	<span class="comment">//输入装配阶段的索引缓冲区设置</span></span><br><span class="line">	m_pContext-&gt;IASetIndexBuffer(m_pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更改键盘的按键状态：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 键盘切换模型类型</span></span><br><span class="line"><span class="keyword">if</span> (m_KeyboardTracker.IsKeyPressed(<span class="built_in">Keyboard</span>::D1))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> meshData = Geometry::CreateBox&lt;VertexPosColor&gt;();</span><br><span class="line">	ResetMesh(meshData);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (m_KeyboardTracker.IsKeyPressed(<span class="built_in">Keyboard</span>::D2))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> meshData = Geometry::CreateSphere&lt;VertexPosColor&gt;();</span><br><span class="line">	ResetMesh(meshData);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (m_KeyboardTracker.IsKeyPressed(<span class="built_in">Keyboard</span>::D3))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> meshData = Geometry::CreateCylinder&lt;VertexPosColor&gt;();</span><br><span class="line">	ResetMesh(meshData);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (m_KeyboardTracker.IsKeyPressed(<span class="built_in">Keyboard</span>::D4))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> meshData = Geometry::CreateCone&lt;VertexPosColor&gt;();</span><br><span class="line">	ResetMesh(meshData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后通过索引绘制的方法便可以绘制出几何体了。</p>
+<div align=center>
+
+<p><img src="gif-1.gif" alt="绘制出的几何体"></p>
+</div>
+
+<hr>
+<p>参考：</p>
+<p>1.《DirectX 12 3D游戏开发实战 第7章》</p>
+<p>2.<a href="https://www.cnblogs.com/X-Jun/p/9095615.html">DirectX11 With Windows SDK–07 添加光照与常用几何模型、光栅化状态</a></p>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/01/06/directx11-03-geometry/">DirectX11入门笔记-03-不同形状的几何体</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/01/06/directx11-03-geometry/">http://www.zanple.top/2021/01/06/directx11-03-geometry/</a></li>
+                    <li><strong>发布时间：</strong>2021-01-06</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C++</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Direct3D/" rel="tag">Direct3D</a>,&nbsp;<a class="has-link-grey -link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag">计算机图形学</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/01/07/directx11-04-light/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">DirectX11入门笔记-04-光照与光栅化</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/05/directx11-02-cube/">
+                <span class="level-item">DirectX11入门笔记-02-绘制正方体</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            43
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-Geometry类生成几何体">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. Geometry类生成几何体</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-创建立方体">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 创建立方体</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-创建柱体">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 创建柱体</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-2-1-柱体的侧面几何体">
+        <!-- span class="has-mr-6">1.2.1</span-->
+        <span>1.2.1 柱体的侧面几何体</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-2-柱面的端面几何体">
+        <!-- span class="has-mr-6">1.2.2</span-->
+        <span>1.2.2 柱面的端面几何体</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#1-3-创建球体">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 创建球体</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-3-1-创建几何球体网络">
+        <!-- span class="has-mr-6">1.3.1</span-->
+        <span>1.3.1 创建几何球体网络</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#2-绘制几何体">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2.绘制几何体</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="DirectX11入门笔记-03-不同形状的几何体" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
