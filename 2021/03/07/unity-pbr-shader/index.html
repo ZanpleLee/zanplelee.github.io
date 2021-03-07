@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>在Unity中实现PBR着色器 - Addendum</title>
+
+
+    <meta name="description" content="在对《Unity Shader入门精要》和PBR知识的学习后，对Unity 3D标准着色器Standard的部分源码进行了学习，尝试在Unity中写一个效果与Standard第一个SubShader类似的PBR着色器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Unity中实现PBR着色器">
+<meta property="og:url" content="http://www.zanple.top/2021/03/07/unity-pbr-shader/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="在对《Unity Shader入门精要》和PBR知识的学习后，对Unity 3D标准着色器Standard的部分源码进行了学习，尝试在Unity中写一个效果与Standard第一个SubShader类似的PBR着色器。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/pbr-car.jpg">
+<meta property="article:published_time" content="2021-03-07T09:06:18.000Z">
+<meta property="article:modified_time" content="2021-03-07T09:54:00.454Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="Shader">
+<meta property="article:tag" content="Game">
+<meta property="article:tag" content="PBR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/pbr-car.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="在Unity中实现PBR着色器" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/pbr-car.jpg" alt="在Unity中实现PBR着色器">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>在Unity中实现PBR着色器
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-03-07T09:06:18.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-03-07</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-07T09:54:00.454Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-07</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Shader/">Shader</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    22 分钟 读完 (大约 3278 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>在对《Unity Shader入门精要》和PBR知识的学习后，对Unity 3D标准着色器Standard的部分源码进行了学习，尝试在Unity中写一个效果与Standard第一个SubShader类似的PBR着色器。<a id="more"></a></p>
+<hr>
+<h1 id="1-基础概念"><a href="#1-基础概念" class="headerlink" title="1. 基础概念"></a>1. 基础概念</h1><p>基于物理的渲染中有两个重要的概念：<strong>微表面</strong>与<strong>辐照度</strong>。</p>
+<h2 id="1-1-微表面模型"><a href="#1-1-微表面模型" class="headerlink" title="1.1 微表面模型"></a>1.1 微表面模型</h2><div align=center>
+
+<p><img src="image01.png" alt="微表面模型"></p>
+</div>
+
+<p>普通的光照模型假设要进行光照计算的区域是一个光滑的平面，表面的方向可以用一个单一的法向量来定义。而基于微表面的光照模型则认为要进行光照计算的区域是由无数个微小表面组成的粗糙区域。由于这些微表面已经微小到无法逐像素地进行区分，因此我们假设由一个粗糙度参数，然后用统计学的方法来概略的估算微表面的粗糙程度。<strong>基于这样一个平面的粗糙度来计算出某个向量的方向与微表面平均取向方向一致的概率。</strong></p>
+<p>基于微表面光照模型的物理渲染遵循能量守恒定律，即一个不自发光的表面，其出射光线的能量永远不能超过入射光线的能量。为了遵守能量守恒定律，我们需要对漫反射光和镜面反射光之间做出明确的区分。当一束光线碰撞到一个表面的时候，它就会分离成一个折射部分和一个反射部分。反射部分就是会直接反射开来而不会进入平面的那部分光线，这就是我们所说的镜面光照。而折射部分就是余下的会进入表面并被吸收的那部分光线，这也就是我们所说的漫反射光照。</p>
+<h2 id="1-2-辐照度"><a href="#1-2-辐照度" class="headerlink" title="1.2 辐照度"></a>1.2 辐照度</h2><p>辐照度学建立在几何光学的基础上，即辐射是以直线传播的，不考虑电磁波干扰、衍射等性质。关于辐照度有几个重要的概念：</p>
+<ul>
+<li><strong>辐射通量(Radiant flux)</strong>：辐射通量<em>Φ</em>表示的是一个光源所输出的能量。</li>
+<li><strong>辐射率(Radiance)</strong>：辐射率表示的是一个区域平面上光线的总量。</li>
+<li><strong>辐照度(Irradiance)</strong>：辐照度表示所有投射到点<em>P</em>上的光线的总和。</li>
+<li><strong>辐射强度(Radiant Intensity)</strong>：辐射强度表示的是在单位球面上，一个光源向每单位立体角所投送的辐射通量。</li>
+</ul>
+<h2 id="1-3-BRDF"><a href="#1-3-BRDF" class="headerlink" title="1.3 BRDF"></a>1.3 BRDF</h2><p>双向反射分布函数接受入射（光）方向<em>ωi</em>，出射（观察）方向<em>ωo</em>，平面法线<em>n</em>以及一个用来表示微平面粗糙程度的参数<em>a</em>作为函数的输入参数。BRDF可以近似的求出每束光线对一个给定了材质属性的平面上最终反射出来的光线所作出的贡献程度。</p>
+<p>目前有很好几种BRDF都能近似的得出物体表面对于光的反应，但是几乎所有实时渲染管线使用的都是一种被称为Cook-Torrance BRDF模型。Cook-Torrance BRDF兼有漫反射和镜面反射两个部分：<br>$$<br>f_r = k_d f_{lambert} +  k_s f_{cook-torrance}<br>$$<br>这里的<em>kd</em>是早先提到过的入射光线中被折射部分的能量所占的比率，而<em>ks</em>是被反射部分的比率。BRDF的左侧表示的是漫反射部分，右侧则表示镜面反射部分。</p>
+<h1 id="2-直接光照"><a href="#2-直接光照" class="headerlink" title="2. 直接光照"></a>2. 直接光照</h1><h2 id="2-1-直接光漫反射"><a href="#2-1-直接光漫反射" class="headerlink" title="2.1 直接光漫反射"></a>2.1 直接光漫反射</h2><p>$$<br>f_{d i f f}(l, v)=\frac{\text { base Color }}{\pi}\left(1+\left(F_{D 90}-1\right)(1-n \cdot l)^{5}\right)\left(1+\left(F_{D 90}-1\right)(1-n \cdot v)^{5}\right) \<br>$$</p>
+<p>其中，<br>$$<br>F_{D 90}=0.5+2 \text { roughness }(\boldsymbol{h} \cdot l)^{2}<br>$$<br>首先是直接光的漫反射部分，直接光的漫反射使用和Unity一样的Disney漫反射项（与Disney的原始公式有所区别，这里的ComputeDisneyDiffuseTerm中传入的是感性粗糙度），再与光源项和遮蔽项相乘便可得到直接光的漫反射结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">float3 LightTerm &#x3D; _LightColor0.rgb * UNITY_PI * NdotL;</span><br><span class="line">half ShadowTerm &#x3D; SHADOW_ATTENUATION(i);</span><br><span class="line"></span><br><span class="line">half3 AlbedoColor &#x3D; BaseColor * (1.0f - Metallic);</span><br><span class="line">half  DisneyDiffuse &#x3D; ComputeDisneyDiffuseTerm</span><br><span class="line">(NdotV, NdotL, LdotH, PerceptualRoughness);</span><br><span class="line">half3 DiffuseTerm &#x3D; AlbedoColor * DisneyDiffuse * UNITY_INV_PI;</span><br><span class="line"></span><br><span class="line">half3 directDiffuse &#x3D; DiffuseTerm * LightTerm * ShadowTerm;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-直接光镜面反射"><a href="#2-2-直接光镜面反射" class="headerlink" title="2.2 直接光镜面反射"></a>2.2 直接光镜面反射</h2><p>$$<br>f_{cook-torrance} = \frac{DFG}{4(\omega_o \cdot n)(\omega_i \cdot n)}<br>$$</p>
+<p>镜面反射则要复杂些，最主要的则是上面三项：<br>$$<br>NDF_{GGX TR}(n, h, \alpha) = \frac{\alpha^2}{\pi((n \cdot h)^2 (\alpha^2 - 1) + 1)^2}<br>$$<br>D项：法线分布函数，估算在受到表面粗糙度的影响下，取向方向与中间向量一致的微平面的数量。使用的是基于GGX的公式。<br>$$<br>F_{Schlick}(h, v, F_0) = F_0 + (1 - F_0) ( 1 - (h \cdot v))^5<br>$$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">half D &#x3D; ComputeGGXTerm(NdotH, Roughness);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;计算法线分布函数</span><br><span class="line">inline half ComputeGGXTerm(half nh,half roughness)</span><br><span class="line">&#123;</span><br><span class="line">	half a2 &#x3D; roughness * roughness;</span><br><span class="line">	half d &#x3D; (a2 - 1.0f) * nh * nh + 1.0f;</span><br><span class="line">	return a2 * UNITY_INV_PI &#x2F; (d * d + 1e-5f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>F项：菲涅尔反射，描述了会有多少光来参与镜面反射。即在不同的表面角下表面所反射的光线所占的比率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">half3 F &#x3D; ComputeFresnelTerm(SpecularColor,VdotH);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;计算菲涅尔</span><br><span class="line">inline half3 ComputeFresnelTerm(half3 F0,half cosA)</span><br><span class="line">&#123;</span><br><span class="line">	return F0 + (1 - F0) * pow(1 - cosA, 5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div align=center>
+
+<p><img src="image02.png" alt="微平面间相互遮蔽"></p>
+</div>
+$$
+G_{SchlickGGX}(n, v, k) = \frac{n \cdot v}{(n \cdot v)(1 - k) + k }
+$$
+G项：几何函数，描述了微平面自成阴影的属性。当一个平面相对比较粗糙的时候，平面表面上的微平面有可能挡住其他的微平面从而减少表面所反射的光线。在实现上，将G项与镜面反射的分母合并为V项计算。这里的ComputeSmithJointGGXVisibilityTerm使用了一个近似简化版本：
+$$
+\left\{\begin{array}{l}
+V=\left(\boldsymbol{n} \cdot \omega_{\mathrm{i}}\right)[(\boldsymbol{n} \cdot \boldsymbol{v})(1-\text { roughness })+\text { roughness }] \\
+L=(\boldsymbol{n} \cdot \boldsymbol{v})\left[\left(\boldsymbol{n} \cdot \omega_{\mathrm{i}}\right)(1-\text { roughness })+\text { roughness }\right] \\
+G=\frac{1}{2(V+L+\varepsilon)}
+\end{array}\right.
+$$
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">half V &#x3D; ComputeSmithJointGGXVisibilityTerm(NdotL, NdotV, Roughness);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;计算Smith-Joint阴影遮掩函数，返回的是除以镜面反射项分母的可见性项V</span><br><span class="line">inline half ComputeSmithJointGGXVisibilityTerm(half nl,half nv,half roughness)</span><br><span class="line">&#123;</span><br><span class="line">	half a2 &#x3D; roughness;</span><br><span class="line">	half lambdaV &#x3D; nl * (nv * (1 - a2) + a2);</span><br><span class="line">	half lambdaL &#x3D; nv * (nl * (1 - a2) + a2);</span><br><span class="line">	return 0.5f&#x2F;(lambdaV + lambdaL + 1e-5f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到镜面反射项后，与漫反射类似，再与光源项和遮蔽项相乘便可得到直接光的镜面反射结果。</p>
+<h1 id="3-间接光照"><a href="#3-间接光照" class="headerlink" title="3. 间接光照"></a>3. 间接光照</h1><h2 id="3-1-间接光漫反射"><a href="#3-1-间接光漫反射" class="headerlink" title="3.1 间接光漫反射"></a>3.1 间接光漫反射</h2><div align=center>
+
+<img src="image03.png" alt="环境立方体贴图" style="zoom:80%;" />
+
+</div>
+
+<p>间接光漫反射部分使用一个环境立方体贴图及其生成的辐照度图，使用任何一个向量对立方体贴图进行采样，就可以获取该方向上的场景辐照度。将该强度与漫反射率、遮蔽项相乘，再加上烘培好的光照贴图部分即可得到间接光的漫反射部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;天光，三阶球谐函数</span><br><span class="line">half3 skyLightComplex &#x3D; ShadeSH9(float4(worldNormal, 1));</span><br><span class="line">half3 skyLight &#x3D; skyLightComplex * AlbedoColor;</span><br><span class="line">skyLight &#x3D; skyLight * occlusion;</span><br><span class="line">&#x2F;&#x2F;采样烘焙的光照贴图</span><br><span class="line">half3 bakedColor &#x3D; half3(0,0,0);</span><br><span class="line">#if defined(LIGHTMAP_ON)</span><br><span class="line">half4 bakedColorTex &#x3D; UNITY_SAMPLE_TEX2D(unity_Lightmap, data.lightmapUV.xy);</span><br><span class="line">&#x2F;&#x2F;光照贴图存储的是HDR颜色，所以要将其解码为RGB颜色</span><br><span class="line">bakedColor &#x3D; DecodeLightmap(bakedColorTex);</span><br><span class="line">#endif</span><br><span class="line">&#x2F;&#x2F;间接光漫反射结果</span><br><span class="line">half3 indirectDiffuse &#x3D; skyLight + bakedColor;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-间接光镜面反射"><a href="#3-2-间接光镜面反射" class="headerlink" title="3.2 间接光镜面反射"></a>3.2 间接光镜面反射</h2><div align=center>
+
+<img src="image04.png" alt="预过滤的环境贴图在其 5 个 mipmap 级别中存储 5 个不同粗糙度值的预卷积结果" style="zoom:80%;" />
+
+</div>
+
+<p>间接光镜面反射则是根据物体材质的表面粗糙度、遮蔽系数等参数计算物体材质对周围环境内容的反射，即计算物体之间的间接光照效果作为间接光的镜面反射值。通过IBL技术根据当前材质表面的粗糙程度来选择不同的mipmap等级的纹理贴图，以达到随着材质表面粗糙度的增加而反射图案变得越来越模糊的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;采样反射探针</span><br><span class="line">inline half3 SamplerReflectProbe(UNITY_ARGS_TEXCUBE(tex),half3 refDir,half roughness,half4 hdr)</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;根据粗糙度选择不同的mipmap等级</span><br><span class="line">	half MipRoughness &#x3D; roughness * (1.7 - 0.7 * roughness);</span><br><span class="line">	half mip           &#x3D; MipRoughness * UNITY_SPECCUBE_LOD_STEPS;</span><br><span class="line">	half4 rgbm         &#x3D; UNITY_SAMPLE_TEXCUBE_LOD(tex,refDir,mip);</span><br><span class="line">	&#x2F;&#x2F;采样的纹素是一个HDR值，需要将其解码得到RGB值</span><br><span class="line">	return DecodeHDR(rgbm,hdr);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;间接光镜面反射</span><br><span class="line">half3 colorIBL &#x3D; 0;</span><br><span class="line">&#x2F;&#x2F;采样反射探针，得到环境光反射贴图</span><br><span class="line">half3 colorIBL1 &#x3D;SamplerReflectProbe</span><br><span class="line">(UNITY_PASS_TEXCUBE(unity_SpecCube0),refDir,PerceptualRoughness,unity_SpecCube0_HDR);;</span><br><span class="line">&#x2F;&#x2F;对多个反射探针进行插值</span><br><span class="line">UNITY_BRANCH</span><br><span class="line">if(unity_SpecCube0_BoxMin.w &lt; 0.99999)</span><br><span class="line">&#123;</span><br><span class="line">half3 colorIBL2 &#x3D;SamplerReflectProbe</span><br><span class="line">(UNITY_PASS_TEXCUBE_SAMPLER(unity_SpecCube1,unity_SpecCube0),refDir,PerceptualRoughness,unity_SpecCube1_HDR);</span><br><span class="line">colorIBL &#x3D; lerp(colorIBL2,colorIBL1,unity_SpecCube0_BoxMin.w);&#x2F;&#x2F;插值平滑过渡</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">	colorIBL &#x3D; colorIBL1;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;计算掠射角时反射率</span><br><span class="line">half F90 &#x3D; saturate((1 - Roughness) + (1 - (1.0f - Metallic)));</span><br><span class="line">&#x2F;&#x2F;间接光镜面反射结果</span><br><span class="line">half3 indirectSpecular &#x3D; colorIBL * ComputeFresnelLerp(SpecularColor, F90, NdotV) * occlusion;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-一些细节"><a href="#4-一些细节" class="headerlink" title="4. 一些细节"></a>4. 一些细节</h1><h2 id="4-1-多光源计算"><a href="#4-1-多光源计算" class="headerlink" title="4.1 多光源计算"></a>4.1 多光源计算</h2><p>多光源的计算只要新增一个Pass，在第二个Pass中计算额外的光源即可。由于我们已经在第一个Pass中计算了平行光和间接光照，因此在第二个Pass中我们只要计算会衰减的点光源和聚光灯。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;其他光源</span><br><span class="line">half3 lightDir;</span><br><span class="line">#ifdef USING_DIRECTIONAL_LIGHT  </span><br><span class="line">lightDir &#x3D; normalize(_WorldSpaceLightPos0.xyz);</span><br><span class="line">#else  </span><br><span class="line">lightDir &#x3D; normalize(_WorldSpaceLightPos0.xyz - worldPos.xyz);</span><br><span class="line">#endif</span><br><span class="line">UNITY_LIGHT_ATTENUATION(atten, i, worldPos); &#x2F;&#x2F;光源衰减</span><br><span class="line">……</span><br><span class="line">half3 FinalColorAdd &#x3D; (directDiffuse + directSpecular) * atten;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-自发光与雾效"><a href="#4-2-自发光与雾效" class="headerlink" title="4.2 自发光与雾效"></a>4.2 自发光与雾效</h2><p>自发光部分暂不考虑物体自发光对其他物体的影响，因此只需要声明一个自发光变量emission然后在光照结果中加上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">half3 FinalColor &#x3D; </span><br><span class="line">directDiffuse + directSpecular + indirectDiffuse + indirectSpecular + emission;</span><br></pre></td></tr></table></figure>
+
+<p>雾效则需指定根据雾的类型展开对应的shader cariant，然后声明片元着色器中用到的雾化坐标并填充，在计算完其他光照结果后再进行雾效的计算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#pragma multi_compile_fog    &#x2F;&#x2F;该指令依据雾的类型展开对应的shader cariant</span><br><span class="line">……</span><br><span class="line">UNITY_FOG_COORDS(6)           &#x2F;&#x2F;声明本片元用到的雾化坐标</span><br><span class="line">UNITY_TRANSFER_FOG(o,o.pos); &#x2F;&#x2F;填充雾效所需要的参数</span><br><span class="line">……</span><br><span class="line">UNITY_APPLY_FOG(i.fogCoord, FinalColor.rgb);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-视差贴图"><a href="#4-3-视差贴图" class="headerlink" title="4.3 视差贴图"></a>4.3 视差贴图</h2><p>视差贴图根据储存在纹理中的数据对平面的特定区域的顶点的高度进行位移，视差贴图技术使用视线与物体相交检测的思想。因为视差贴图对uv坐标进行了偏移，因此要将这块内容放在处理其他贴图之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;TtoO0存储切线空间的矩阵</span><br><span class="line">o.TtoO0 &#x3D; float3x3(v.tangent.xyz, objectBinormal, v.normal);</span><br><span class="line">float3 worldPos &#x3D; float3(i.TtoW0.w,i.TtoW1.w,i.TtoW2.w);&#x2F;&#x2F;世界坐标</span><br><span class="line">half3 viewDir &#x3D; normalize(UnityWorldSpaceViewDir(worldPos));&#x2F;&#x2F;世界空间下的观察方向</span><br><span class="line">half3 objViewDir &#x3D; normalize(mul(unity_WorldToObject, viewDir)); &#x2F;&#x2F;模型空间下的观察方向</span><br><span class="line">half3 tanViewDir &#x3D;normalize( mul(i.TtoO0, objViewDir)); &#x2F;&#x2F;切线空间下的观察方向</span><br><span class="line">half height &#x3D; tex2D(_ParallaxMap, i.uv).r;                         </span><br><span class="line">i.uv +&#x3D; ParallaxOffset(height,_ParallaxStrength,tanViewDir);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-4-反射探针的插值"><a href="#4-4-反射探针的插值" class="headerlink" title="4.4 反射探针的插值"></a>4.4 反射探针的插值</h2><p>我们通过IBL对反射探针的纹理进行采样，而当物体在两个反射探针之间移动时则需要对两个反射探针进行插值以达到平滑过渡的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;对多个反射探针进行插值</span><br><span class="line">UNITY_BRANCH</span><br><span class="line">if(unity_SpecCube0_BoxMin.w &lt; 0.99999)</span><br><span class="line">&#123;</span><br><span class="line">	half3 colorIBL2 &#x3D; SamplerReflectProbe</span><br><span class="line">(UNITY_PASS_TEXCUBE_SAMPLER(unity_SpecCube1,unity_SpecCube0),refDir,PerceptualRoughness,unity_SpecCube1_HDR);</span><br><span class="line">	colorIBL &#x3D; lerp(colorIBL2,colorIBL1,unity_SpecCube0_BoxMin.w);&#x2F;&#x2F;插值平滑过渡</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">	colorIBL &#x3D; colorIBL1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-对比验证"><a href="#5-对比验证" class="headerlink" title="5. 对比验证"></a>5. 对比验证</h1><h2 id="5-1-基本对比"><a href="#5-1-基本对比" class="headerlink" title="5.1 基本对比"></a>5.1 基本对比</h2><p><img src="image05.png" alt="基本对比"></p>
+<h2 id="5-2-多光源"><a href="#5-2-多光源" class="headerlink" title="5.2 多光源"></a>5.2 多光源</h2><div align=center>
+
+<img src="image06.png" alt="多光源" style="zoom:50%;" />
+
+</div>
+
+<h2 id="5-3-雾效"><a href="#5-3-雾效" class="headerlink" title="5.3 雾效"></a>5.3 雾效</h2><p><img src="image07.png" alt="雾效"></p>
+<h2 id="5-4-探针插值"><a href="#5-4-探针插值" class="headerlink" title="5.4 探针插值"></a>5.4 探针插值</h2><p><img src="image08.png" alt="探针插值"></p>
+<h2 id="5-5-视差贴图"><a href="#5-5-视差贴图" class="headerlink" title="5.5 视差贴图"></a>5.5 视差贴图</h2><p><img src="image09.png" alt="视差贴图"></p>
+<h2 id="5-6-综合对比"><a href="#5-6-综合对比" class="headerlink" title="5.6 综合对比"></a>5.6 综合对比</h2><p><img src="image11.png" alt=""></p>
+<p><img src="image10.png" alt=""></p>
+<h1 id="6-Demo制作"><a href="#6-Demo制作" class="headerlink" title="6. Demo制作"></a>6. Demo制作</h1><p>在完成Shader的制作后，在Unity里搭建一个场景来体现实现的PBRShader的一些特性并进行验证。<br>在Unity中利用使用了PBR流程的模型与贴图搭建了一个汽车驾驶的小游戏，同时使用多种光源、反射探针、天空盒、自发光、雾效与烘培好的光照贴图。对场景中的各物件使用自定PBR着色器来验证着色器的正确效果。</p>
+<p><img src="%E6%88%AA%E5%9B%BE.jpg" alt="截图"></p>
+<hr>
+<p>参考：</p>
+<ol>
+<li>《Unity Shader入门精要》</li>
+<li>《Unity3D内江着色器源码剖析》</li>
+<li>The PBR Guide part 1[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part-1-zh]</a></li>
+<li>The PBR Guide part 2[<a href="https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]">https://academy.substance3d.com/courses/the-pbr-guide-part2-zh]</a></li>
+<li>LearnOpenGL-PBR-理论[<a href="https://learnopengl-cn.github.io/07%20PBR/01%20Theory/]">https://learnopengl-cn.github.io/07%20PBR/01%20Theory/]</a></li>
+<li>LearnOpenGL-PBR-光照[<a href="https://learnopengl-cn.github.io/07%20PBR/02%20Lighting/]">https://learnopengl-cn.github.io/07%20PBR/02%20Lighting/]</a></li>
+<li>LearnOpenGL-PBR-IBL-漫反射辐照[<a href="https://learnopengl-cn.github.io/07%20PBR/03%20IBL/01%20Diffuse%20irradiance/]">https://learnopengl-cn.github.io/07%20PBR/03%20IBL/01%20Diffuse%20irradiance/]</a></li>
+<li>LearnOpenGL-PBR-IBL-镜面IBL[<a href="https://learnopengl-cn.github.io/07%20PBR/03%20IBL/02%20Specular%20IBL/]">https://learnopengl-cn.github.io/07%20PBR/03%20IBL/02%20Specular%20IBL/]</a></li>
+<li>原核生物都能看懂的PBR-江流[<a href="https://zhuanlan.zhihu.com/p/349854976]">https://zhuanlan.zhihu.com/p/349854976]</a></li>
+<li>草履虫都能看懂的PBR讲解（迫真）-云影[<a href="https://zhuanlan.zhihu.com/p/137013668]">https://zhuanlan.zhihu.com/p/137013668]</a></li>
+<li>猴子都能看懂的PBR-flashyiyi[<a href="https://zhuanlan.zhihu.com/p/33464301]">https://zhuanlan.zhihu.com/p/33464301]</a></li>
+<li>【基于物理的渲染（PBR）白皮书】（一） 开篇：PBR核心知识体系总结与概览-毛星云[<a href="https://zhuanlan.zhihu.com/p/53086060]">https://zhuanlan.zhihu.com/p/53086060]</a></li>
+<li>如何在Unity中造一个PBR Shader轮子-宋开心[<a href="https://zhuanlan.zhihu.com/p/68025039]">https://zhuanlan.zhihu.com/p/68025039]</a></li>
+<li>【学习笔记】Unity PBR的实现-稻草人[<a href="https://zhuanlan.zhihu.com/p/60972473]">https://zhuanlan.zhihu.com/p/60972473]</a></li>
+<li>unity build-in管线中的PBR材质Shader分析研究-郭大钦[<a href="https://blog.csdn.net/qq_23936433/article/details/108507640?utm_source=app]">https://blog.csdn.net/qq_23936433/article/details/108507640?utm_source=app]</a></li>
+<li><a href="https://nicosq.gitee.io/nicosqblog/">https://nicosq.gitee.io/nicosqblog/</a></li>
+</ol>
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/03/07/unity-pbr-shader/">在Unity中实现PBR着色器</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/03/07/unity-pbr-shader/">http://www.zanple.top/2021/03/07/unity-pbr-shader/</a></li>
+                    <li><strong>发布时间：</strong>2021-03-07</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Game/" rel="tag">Game</a>,&nbsp;<a class="has-link-grey -link" href="/tags/PBR/" rel="tag">PBR</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Shader/" rel="tag">Shader</a>,&nbsp;<a class="has-link-grey -link" href="/tags/Unity/" rel="tag">Unity</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/18/directx11-06-texture/">
+                <span class="level-item">DirectX11入门笔记-06-纹理贴图</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            44
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            20
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            45
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-基础概念">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 基础概念</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-1-微表面模型">
+        <!-- span class="has-mr-6">1.1</span-->
+        <span>1.1 微表面模型</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-2-辐照度">
+        <!-- span class="has-mr-6">1.2</span-->
+        <span>1.2 辐照度</span>
+        </a></li><li>
+        <a class="is-flex" href="#1-3-BRDF">
+        <!-- span class="has-mr-6">1.3</span-->
+        <span>1.3 BRDF</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-直接光照">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 直接光照</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#2-1-直接光漫反射">
+        <!-- span class="has-mr-6">2.1</span-->
+        <span>2.1 直接光漫反射</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-2-直接光镜面反射">
+        <!-- span class="has-mr-6">2.2</span-->
+        <span>2.2 直接光镜面反射</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#3-间接光照">
+        <!-- span class="has-mr-6">3</span-->
+        <span>3. 间接光照</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#3-1-间接光漫反射">
+        <!-- span class="has-mr-6">3.1</span-->
+        <span>3.1 间接光漫反射</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-2-间接光镜面反射">
+        <!-- span class="has-mr-6">3.2</span-->
+        <span>3.2 间接光镜面反射</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#4-一些细节">
+        <!-- span class="has-mr-6">4</span-->
+        <span>4. 一些细节</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#4-1-多光源计算">
+        <!-- span class="has-mr-6">4.1</span-->
+        <span>4.1 多光源计算</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-2-自发光与雾效">
+        <!-- span class="has-mr-6">4.2</span-->
+        <span>4.2 自发光与雾效</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-3-视差贴图">
+        <!-- span class="has-mr-6">4.3</span-->
+        <span>4.3 视差贴图</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-4-反射探针的插值">
+        <!-- span class="has-mr-6">4.4</span-->
+        <span>4.4 反射探针的插值</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#5-对比验证">
+        <!-- span class="has-mr-6">5</span-->
+        <span>5. 对比验证</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#5-1-基本对比">
+        <!-- span class="has-mr-6">5.1</span-->
+        <span>5.1 基本对比</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-2-多光源">
+        <!-- span class="has-mr-6">5.2</span-->
+        <span>5.2 多光源</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-3-雾效">
+        <!-- span class="has-mr-6">5.3</span-->
+        <span>5.3 雾效</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-4-探针插值">
+        <!-- span class="has-mr-6">5.4</span-->
+        <span>5.4 探针插值</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-5-视差贴图">
+        <!-- span class="has-mr-6">5.5</span-->
+        <span>5.5 视差贴图</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-6-综合对比">
+        <!-- span class="has-mr-6">5.6</span-->
+        <span>5.6 综合对比</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#6-Demo制作">
+        <!-- span class="has-mr-6">6</span-->
+        <span>6. Demo制作</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="在Unity中实现PBR着色器" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
