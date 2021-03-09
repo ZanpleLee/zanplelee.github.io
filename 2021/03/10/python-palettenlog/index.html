@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Python-调色盘生成与日志提取 - Addendum</title>
+
+
+    <meta name="description" content="简单记录一下最近写的两个Python的脚本。一个是基于ColorThief 颜色分析及Python实现，对需要处理的图片生成带有调色盘的图片；另一个是对GMiner的日志文件进行提取并计算需要得到的信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-调色盘生成与日志提取">
+<meta property="og:url" content="http://www.zanple.top/2021/03/10/python-palettenlog/index.html">
+<meta property="og:site_name" content="Addendum">
+<meta property="og:description" content="简单记录一下最近写的两个Python的脚本。一个是基于ColorThief 颜色分析及Python实现，对需要处理的图片生成带有调色盘的图片；另一个是对GMiner的日志文件进行提取并计算需要得到的信息。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.zanple.top/gallery/python-palettenlog.jpg">
+<meta property="article:published_time" content="2021-03-09T16:03:33.000Z">
+<meta property="article:modified_time" content="2021-03-09T16:42:03.936Z">
+<meta property="article:author" content="Zanple">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.zanple.top/gallery/python-palettenlog.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Addendum" type="application/atom+xml">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Python-调色盘生成与日志提取" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ZanpleLee/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/gallery/python-palettenlog.jpg" alt="Python-调色盘生成与日志提取">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+            <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+                    
+                        <i class="fas fa-angle-double-right"></i>Python-调色盘生成与日志提取
+                    
+                </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-03-09T16:03:33.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2021-03-10</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-09T16:42:03.936Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-10</time>
+                
+                
+                <div class="level-item">
+                        <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                        <i class="far fa-clock"></i>&nbsp;
+                    
+                    
+                    6 分钟 读完 (大约 940 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>简单记录一下最近写的两个Python的脚本。一个是基于<a href="https://github.com/fengsp/color-thief-py">ColorThief</a> 颜色分析及Python实现，对需要处理的图片生成带有调色盘的图片；另一个是对GMiner的日志文件进行提取并计算需要得到的信息。<a id="more"></a></p>
+<h1 id="1-调色盘生成"><a href="#1-调色盘生成" class="headerlink" title="1. 调色盘生成"></a>1. 调色盘生成</h1><div align=center>
+
+<img src="image01.jpg" alt="调色盘生成" style="zoom:50%;" />
+
+</div>
+
+<p>调色盘生成的目的是对输入的图片（左图）进行颜色处理，生成带有调色盘的新图片（右图）。</p>
+<p><strong>基本思路为：利用ColorThief对图片的颜色进行提取并排序，再使用PIL生成指定大小的空白图片，将原图与提取的颜色粘贴到空白图片上，最后进行图片的储存。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageOps, ImageDraw</span><br><span class="line"><span class="keyword">from</span> colorthief <span class="keyword">import</span> ColorThief</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IMGProcessor</span>:</span></span><br><span class="line"></span><br><span class="line">    PALETTE_NUM = <span class="number">7</span> <span class="comment">#调色盘数量</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#亮度排序    </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">brightsort</span><span class="params">(self, color)</span>:</span></span><br><span class="line">        img_bright = <span class="number">0.2126</span> * color[<span class="number">0</span>] + <span class="number">0.7125</span> * color[<span class="number">1</span>] + <span class="number">0.0722</span> * color[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">return</span> img_bright</span><br><span class="line"></span><br><span class="line">    <span class="comment">#根据图片大小设置边缘宽度</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">borderwidth</span><span class="params">(self, img_ow)</span>:</span></span><br><span class="line">        img_border = int(img_ow * <span class="number">0.014</span>)</span><br><span class="line">        <span class="keyword">return</span> img_border</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process</span><span class="params">(self, ori_path)</span>:</span></span><br><span class="line">        <span class="comment">#路径处理</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">not</span> os.path.isabs(ori_path)): <span class="comment">#输入地址为相对地址</span></span><br><span class="line">            abs_path = os.path.abspath(ori_path) <span class="comment">#将相对地址改为绝对地址</span></span><br><span class="line">        <span class="keyword">else</span>: <span class="comment">#输入的地址为绝对地址</span></span><br><span class="line">            abs_path = ori_path</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            file_list = os.listdir(abs_path) <span class="comment">#获取文件列表</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            print(<span class="string">'路径错误!'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'路径读取成功...'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> img_index <span class="keyword">in</span> file_list:</span><br><span class="line">            print(<span class="string">'正在处理图片'</span> + img_index + <span class="string">'中...'</span>)</span><br><span class="line">            img_path = os.path.join(abs_path, img_index) <span class="comment">#创建图片路径</span></span><br><span class="line">            img = Image.open(img_path)</span><br><span class="line">            img_name, img_format = os.path.splitext(img_index) <span class="comment">#获取图片名和格式</span></span><br><span class="line"></span><br><span class="line">            img_ow = img.size[<span class="number">0</span>] <span class="comment">#获取图片源宽度</span></span><br><span class="line">            img_oh = img.size[<span class="number">1</span>] <span class="comment">#获取图片源高度</span></span><br><span class="line"></span><br><span class="line">            border_width = self.borderwidth(img_ow) <span class="comment">#计算边缘宽度</span></span><br><span class="line"></span><br><span class="line">            box_size = (img_ow - (self.PALETTE_NUM - <span class="number">1</span>) * border_width) / self.PALETTE_NUM <span class="comment">#计算方块大小</span></span><br><span class="line"></span><br><span class="line">            img_nw = int (img_ow + border_width * <span class="number">2</span>) <span class="comment">#计算处理后的图片宽度</span></span><br><span class="line">            img_nh = int (img_oh + box_size + border_width * <span class="number">3</span>) <span class="comment">#计算处理后的图片高度</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">#绘制处理后的图片</span></span><br><span class="line">            img_new = Image.new(<span class="string">'RGB'</span>, (img_nw, img_nh), <span class="string">"white"</span>)</span><br><span class="line">            img_new.paste(img, (border_width, border_width))</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#提取颜色，储存为数组palette</span></span><br><span class="line">            color_thief = ColorThief(img_path)</span><br><span class="line">            palette = color_thief.get_palette(color_count = self.PALETTE_NUM, quality=<span class="number">1</span>)</span><br><span class="line">            </span><br><span class="line">            palette.sort(key = self.brightsort) <span class="comment">#根据亮度排序</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">#绘制色彩方块</span></span><br><span class="line">            i = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> color <span class="keyword">in</span> palette:</span><br><span class="line">                palette_box = Image.new(<span class="string">'RGB'</span>, (int(box_size), int(box_size)), color)</span><br><span class="line">                img_new.paste(palette_box, (int(border_width + (i*box_size + i*border_width)), int(border_width + img_oh + border_width)))</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">#保存图片</span></span><br><span class="line">            img_new.save(os.path.join(abs_path, img_name + <span class="string">'_palette'</span> + img_format))</span><br><span class="line">            print(<span class="string">"图片"</span> + img_index + <span class="string">'处理完成'</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-日志提取"><a href="#2-日志提取" class="headerlink" title="2. 日志提取"></a>2. 日志提取</h1><p>日志提取的目的是对GMiner生成的日志文件进行特定内容的提取，计算出运行的总时长、耗电量以及电费。</p>
+<p>首先更改日志的生成规则，使其按照日期时间生成日志的文件名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%date:~0,4%%date:~5,2%%date:~8,2%_%time:~0,2%%time:~3,2%%time:~6,2%_log.txt</span><br></pre></td></tr></table></figure>
+
+<div align=center>
+
+<p><img src="image02.png" alt="日志提取内容"></p>
+</div>
+
+<p>如上图所示，在日志文件中，需要提取的内容为Uptime后面的时间与Electricity后面的耗电量。通过搜索Uptime所在的行并进行文本分割，再将每个文本的最后一个有效值进行计算（同时过滤小于10kb的无效日志）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">filepathfolder = <span class="string">"F:/GMinerLog"</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    file_list = os.listdir(filepathfolder)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">'Wrong Path!'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'Path found, Caculating...'</span>)</span><br><span class="line"></span><br><span class="line">totalday = <span class="number">0</span></span><br><span class="line">totalhour = <span class="number">0</span></span><br><span class="line">totalmin = <span class="number">0</span></span><br><span class="line">totalele = <span class="number">0.000</span></span><br><span class="line">limitsize = <span class="number">10000</span></span><br><span class="line">elefee = <span class="number">0.7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> log_index <span class="keyword">in</span> file_list:</span><br><span class="line">    filename = os.path.join(filepathfolder, log_index)</span><br><span class="line">    <span class="keyword">if</span> os.stat(filename).st_size &gt; limitsize:</span><br><span class="line">        lines = open(filename, <span class="string">"r"</span>,encoding=<span class="string">"UTF-8"</span>,errors=<span class="string">"ignore"</span>).readlines()</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'Uptime'</span> <span class="keyword">in</span> line:</span><br><span class="line">                result = line</span><br><span class="line">        temptime = result.split(<span class="string">'Uptime: '</span>)[<span class="number">1</span>]</span><br><span class="line">        keytime = temptime.split(<span class="string">' Shares'</span>)[<span class="number">0</span>]</span><br><span class="line">        day = keytime.split(<span class="string">'d'</span>)[<span class="number">0</span>]</span><br><span class="line">        time = keytime.split(<span class="string">'d '</span>)[<span class="number">1</span>]</span><br><span class="line">        hour = time.split(<span class="string">':'</span>)[<span class="number">0</span>]</span><br><span class="line">        minutes = time.split(<span class="string">':'</span>)[<span class="number">1</span>]</span><br><span class="line">        totalday += int(day)</span><br><span class="line">        totalhour += int(hour)</span><br><span class="line">        totalmin += int(minutes)</span><br><span class="line">        tempele = result.split(<span class="string">'Electricity: '</span>)[<span class="number">1</span>]</span><br><span class="line">        keyele = tempele.split(<span class="string">'kWh'</span>)[<span class="number">0</span>]</span><br><span class="line">        totalele += float(keyele)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> totalmin &gt; <span class="number">60</span>:</span><br><span class="line">    totalhour += <span class="number">1</span></span><br><span class="line">    totalmin -= <span class="number">60</span></span><br><span class="line">totalhour += totalday * <span class="number">24</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"Total Time: %dhour %dmin."</span> %(totalhour, totalmin))</span><br><span class="line">print(<span class="string">"Total Electricity: %.3fkWh."</span> %(totalele))</span><br><span class="line">print(<span class="string">"Total Electricity Fee: %.3fRMB."</span> %(totalele*elefee))</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+            
+                    <ul class="post-copyright">
+                    <li><strong>本文标题：</strong><a href="http://www.zanple.top/2021/03/10/python-palettenlog/">Python-调色盘生成与日志提取</a></li>
+                    <li><strong>本文作者：</strong><a href="http://www.zanple.top">Zanple</a></li>
+                    <li><strong>本文链接：</strong><a href="http://www.zanple.top/2021/03/10/python-palettenlog/">http://www.zanple.top/2021/03/10/python-palettenlog/</a></li>
+                    <li><strong>发布时间：</strong>2021-03-10</li>
+                    <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+                    </li>
+                    </ul>
+                
+        
+            <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                        <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Python/" rel="tag">Python</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/03/07/unity-pbr-shader/">
+                <span class="level-item">在Unity中实现PBR着色器</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'vnCU1DBATElvGAC8uHCfuJCS-gzGzoHsz',
+        app_key: 'neteGEzdBfz0C9UPU5tHdP7H',
+        placeholder: '欢迎留下评论呀~'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/photo.png" alt="Zanple">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Zanple
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Student
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Guangzhou,Guangdong</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            45
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            21
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            46
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://zhihu.com/people/zanple/" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Zhihu" href="https://zhihu.com/people/zanple/">
+                
+                <i class="fab fa-zhihu"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="ArtStation" href="https://www.artstation.com/zanple/">
+                
+                <i class="fab fa-artstation"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Bilibili" href="https://space.bilibili.com/293017566">
+                
+                <i class="fab fa-bimobject"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/ZanpleLee/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-调色盘生成">
+        <!-- span class="has-mr-6">1</span-->
+        <span>1. 调色盘生成</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-日志提取">
+        <!-- span class="has-mr-6">2</span-->
+        <span>2. 日志提取</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Python-调色盘生成与日志提取" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2021 Zanple&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                <br> 
+                <a class="has-link-black-ter-2 -link" href="http://beian.miit.gov.cn/" target="_blank">粤ICP备20031956号</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'http://www.zanple.top',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
