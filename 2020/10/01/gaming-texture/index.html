@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.zanple.top/gallery/gaming-texture.jpg">
 <meta property="article:published_time" content="2020-10-01T08:10:37.000Z">
-<meta property="article:modified_time" content="2021-03-04T04:48:01.359Z">
+<meta property="article:modified_time" content="2021-03-24T06:06:51.314Z">
 <meta property="article:author" content="Zanple">
 <meta property="article:tag" content="游戏">
 <meta property="article:tag" content="计算机图形学">
@@ -157,7 +157,7 @@
             <div class="level-left">
                     <time class="level-item has-text-grey" datetime="2020-10-01T08:10:37.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-10-01</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-04T04:48:01.359Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-04</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-24T06:06:51.314Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-24</time>
                 
                 
                 <div class="level-item">
@@ -170,7 +170,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    44 分钟 读完 (大约 6528 个字)
+                    44 分钟 读完 (大约 6628 个字)
                 </span>
                 
                 
@@ -251,6 +251,12 @@
 <h3 id="2-3-3-Vector-Displacement"><a href="#2-3-3-Vector-Displacement" class="headerlink" title="2.3.3 Vector Displacement"></a>2.3.3 Vector Displacement</h3><p><strong>Vector Displacement Map</strong>（矢量置换贴图）是高度贴图的扩展，与传统Displacement（置换贴图）不同的是矢量置换贴图记录了模型上各点的高度和方向信息，并储存为16/32位浮点颜色信息。</p>
 <p><img src="VectorDisp02.jpg" alt="矢量置换贴图与传统置换贴图"></p>
 <p>传统的置换贴图使用的是低模的UV坐标，贴图记录了高模和低模之间的差异。而矢量置换贴图在使用类似映射方法的同时，而另一个模型最近的顶点之间的距离，还能在空间中移动顶点。因此也能记录复杂的凹面下（如蘑菇、耳朵等）的顶点信息，将雕刻细节从一个模型转移到另一个模型。</p>
+<p>以<a href="https://80.lv/articles/case-study-vector-displacement-mapping-in-real-time/">这个蘑菇</a>为例：传统的置换贴图只能做到改变其高度，但是用矢量置换贴图可以实现更接近原始造型的效果。</p>
+<div align=center>
+
+<p><img src="5f2bc0000e15a.gif" alt="矢量置换贴图与传统置换贴图的区别"></p>
+</div>
+
 <h1 id="3-反射贴图"><a href="#3-反射贴图" class="headerlink" title="3. 反射贴图"></a>3. 反射贴图</h1><p>与颜色贴图中的Diffuse和Base Color一样，反射贴图中根据工作流的不同也有不一样的贴图类型。</p>
 <h2 id="3-1-Metal-Roughness"><a href="#3-1-Metal-Roughness" class="headerlink" title="3.1 Metal - Roughness"></a>3.1 Metal - Roughness</h2><p><img src="MetRoug.jpg" alt="金属/粗糙度工作流"></p>
 <p>在<em>金属/粗糙度</em>工作流中，使用的反射贴图为<strong>Metallic</strong>和<strong>Roughness</strong>。</p>
@@ -399,6 +405,7 @@
 <li>180701 UE4 Flowmap Fields Visualizer[<a href="https://www.youtube.com/watch?v=frfcRzuw6OM]">https://www.youtube.com/watch?v=frfcRzuw6OM]</a></li>
 <li>Theory[<a href="https://link.zhihu.com/?target=https%3A//learnopengl.com/PBR/Theory">https://learnopengl.com/PBR/Theory</a>]</li>
 <li>Lighting[<a href="https://link.zhihu.com/?target=https%3A//learnopengl.com/PBR/Lighting">https://learnopengl.com/PBR/Lighting</a>]</li>
+<li>Case Study: Vector Displacement Mapping in Real-Time[<a href="https://80.lv/articles/case-study-vector-displacement-mapping-in-real-time/]">https://80.lv/articles/case-study-vector-displacement-mapping-in-real-time/]</a></li>
 </ol>
 
         </div>
