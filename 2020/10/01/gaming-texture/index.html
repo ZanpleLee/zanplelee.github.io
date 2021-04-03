@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.zanple.top/gallery/gaming-texture.jpg">
 <meta property="article:published_time" content="2020-10-01T08:10:37.000Z">
-<meta property="article:modified_time" content="2021-03-24T06:06:51.314Z">
+<meta property="article:modified_time" content="2021-04-03T04:26:22.722Z">
 <meta property="article:author" content="Zanple">
 <meta property="article:tag" content="游戏">
 <meta property="article:tag" content="计算机图形学">
@@ -157,7 +157,7 @@
             <div class="level-left">
                     <time class="level-item has-text-grey" datetime="2020-10-01T08:10:37.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2020-10-01</time>
                 
-                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-03-24T06:06:51.314Z"><i class="far fa-calendar-check">&nbsp;</i>2021-03-24</time>
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2021-04-03T04:26:22.722Z"><i class="far fa-calendar-check">&nbsp;</i>2021-04-03</time>
                 
                 
                 <div class="level-item">
@@ -170,7 +170,7 @@
                         <i class="far fa-clock"></i>&nbsp;
                     
                     
-                    44 分钟 读完 (大约 6628 个字)
+                    1 小时 读完 (大约 6979 个字)
                 </span>
                 
                 
@@ -215,7 +215,7 @@
 <blockquote>
 <p>Substance Painter、Substance Designer导出的Height高度图等同于Bump凹凸贴图，而不是Displacement置换贴图的信息。</p>
 </blockquote>
-<h2 id="2-2-Normal"><a href="#2-2-Normal" class="headerlink" title="2.2 Normal"></a>2.2 Normal</h2><p><strong>Normal Map</strong>（法线贴图）是凹凸映射技术的另一种应用。法线贴图包含角度信息而不包含任何高度信息，其R、G、B三个通道储存的信息表示了斜面的方向和陡峭程度。</p>
+<h2 id="2-2-Normal"><a href="#2-2-Normal" class="headerlink" title="2.2 Normal"></a>2.2 Normal</h2><p><strong>Normal Map</strong>（法线贴图）是凹凸映射技术的另一种应用。法线贴图包含角度信息而不包含任何高度信息，其R、G、B三个通道储存的信息表示了斜面的方向和陡峭程度。使用法线贴图和高度贴图可以确保光照和位移是一致的，能够带来更真实的效果。</p>
 <p><img src="softedge.jpg" alt="法线贴图与凹凸贴图对比"></p>
 <p>这一特征使得我们可以使用法线贴图储存的角度信息来柔化尖锐的边缘（仅使用Bump高度信息无法做到这一点，因为只有高度信息无法知道边缘应该沿着哪个方向弯曲）。柔化边缘不仅可以让物体看起来更真实，还能进一步突出物体的形状（尤其是在游戏对象在屏幕上占比较小的时候）。</p>
 <p><img src="3normal.jpg" alt="不同空间下的法线贴图"></p>
@@ -240,15 +240,39 @@
 
 <p>置换贴图也常作为高度图来生成地形，并结合凹凸贴图实现丰富的地形效果。</p>
 <h3 id="2-3-1-Parallax-Map"><a href="#2-3-1-Parallax-Map" class="headerlink" title="2.3.1 Parallax Map"></a>2.3.1 Parallax Map</h3><p>置换贴图的另一个用途是作为<strong>Parallax Map</strong>（视差贴图，也称为Virtual Displacement Map虚拟置换贴图）使用。</p>
-<p>![视差贴图效果](Comparison Parallax.png)</p>
-<p>视差贴图是一种更高级的技术，能够提供比凹凸贴图更多的深度。视差贴图通过偏移每个像素的纹理坐标以达到更好的视觉表现，但仍不如性能开销更大的<strong>Relief Map</strong>（浮雕贴图）。</p>
-<h3 id="2-3-2-Relief-Map"><a href="#2-3-2-Relief-Map" class="headerlink" title="2.3.2 Relief Map"></a>2.3.2 Relief Map</h3><p><strong>Relief Map</strong>（浮雕贴图，也称为Parallax Occlusion Map视差遮挡贴图）能够实现比视差贴图更深的凹凸深度，并能实现自阴影和遮挡效果。</p>
+<div align=center>
+
+<p><img src="ComparisonParallax.png" alt="视差贴图效果"></p>
+</div>
+
+<p>视差贴图是一种更高级的技术，能够提供比凹凸贴图更多的深度。</p>
+<div align=center>
+
+<p><img src="parallax_mapping_issues.png" alt="视差贴图存在的问题"></p>
+</div>
+
+<p>视差贴图通过偏移每个像素的纹理坐标以达到更好的视觉表现，但在某些视角仍存在陡峭部分不正确与不支持自遮蔽的问题，效果仍不如性能开销更大的视差贴图技术。</p>
+<h3 id="2-3-2-Steep-Parallax-Map"><a href="#2-3-2-Steep-Parallax-Map" class="headerlink" title="2.3.2 Steep Parallax Map"></a>2.3.2 Steep Parallax Map</h3><p><strong>Steep Parallax Map</strong>（陡峭视差贴图/映射）是视差贴图的改进版。通过增加采样数量来提高准确性（普通视差贴图仅使用一个样本），因此在陡峭高度变化较大的地方也能显示出正确效果。</p>
+<div align=center>
+
+<img src="parallax_mapping_steep_parallax_mapping.png" alt="陡峭视差贴图" style="zoom:67%;" />
+
+</div>
+
+<p>但陡峭视差贴图同样有自己的问题，因为这个技术是基于有限的样本数量，因此我们可以在陡峭变化大的地方看到明显的锯齿效果及断层。对此，目前两种常用的解决方案为<strong>Relief Map</strong>（浮雕贴图）和<strong>Parallax Occlusion Map</strong>（视差遮蔽贴图）。</p>
+<h3 id="2-3-3-Parallax-Occlusion-Map"><a href="#2-3-3-Parallax-Occlusion-Map" class="headerlink" title="2.3.3 Parallax Occlusion Map"></a>2.3.3 Parallax Occlusion Map</h3><p><strong>Parallax Occlusion Map</strong>（视差遮蔽贴图/映射）与陡峭视差贴图的原理基本相同，但在不同的样本之间进行了线性插值，因此能在一定程度上解决陡峭视差贴图存在的问题。</p>
+<div align=center>
+
+<p><img src="parallax_mapping_parallax_occlusion_mapping.png" alt="视差遮蔽贴图"></p>
+</div>
+
+<h3 id="2-3-4-Relief-Map"><a href="#2-3-4-Relief-Map" class="headerlink" title="2.3.4 Relief Map"></a>2.3.4 Relief Map</h3><p><strong>Relief Map</strong>（浮雕贴图）能够实现比陡峭视差贴图更深的凹凸深度，并能实现很好的自阴影和遮挡效果，但其性能开销也比陡峭视差贴图高。</p>
 <div align=center>
 
 <p><img src="CrysisParallax.jpg" alt="孤岛危机中的浮雕映射效果"></p>
 </div>
 
-<h3 id="2-3-3-Vector-Displacement"><a href="#2-3-3-Vector-Displacement" class="headerlink" title="2.3.3 Vector Displacement"></a>2.3.3 Vector Displacement</h3><p><strong>Vector Displacement Map</strong>（矢量置换贴图）是高度贴图的扩展，与传统Displacement（置换贴图）不同的是矢量置换贴图记录了模型上各点的高度和方向信息，并储存为16/32位浮点颜色信息。</p>
+<h3 id="2-3-5Vector-Displacement"><a href="#2-3-5Vector-Displacement" class="headerlink" title="2.3.5Vector Displacement"></a>2.3.5Vector Displacement</h3><p><strong>Vector Displacement Map</strong>（矢量置换贴图）是高度贴图的扩展，与传统Displacement（置换贴图）不同的是矢量置换贴图记录了模型上各点的高度和方向信息，并储存为16/32位浮点颜色信息。</p>
 <p><img src="VectorDisp02.jpg" alt="矢量置换贴图与传统置换贴图"></p>
 <p>传统的置换贴图使用的是低模的UV坐标，贴图记录了高模和低模之间的差异。而矢量置换贴图在使用类似映射方法的同时，而另一个模型最近的顶点之间的距离，还能在空间中移动顶点。因此也能记录复杂的凹面下（如蘑菇、耳朵等）的顶点信息，将雕刻细节从一个模型转移到另一个模型。</p>
 <p>以<a href="https://80.lv/articles/case-study-vector-displacement-mapping-in-real-time/">这个蘑菇</a>为例：传统的置换贴图只能做到改变其高度，但是用矢量置换贴图可以实现更接近原始造型的效果。</p>
@@ -405,6 +429,7 @@
 <li>180701 UE4 Flowmap Fields Visualizer[<a href="https://www.youtube.com/watch?v=frfcRzuw6OM]">https://www.youtube.com/watch?v=frfcRzuw6OM]</a></li>
 <li>Theory[<a href="https://link.zhihu.com/?target=https%3A//learnopengl.com/PBR/Theory">https://learnopengl.com/PBR/Theory</a>]</li>
 <li>Lighting[<a href="https://link.zhihu.com/?target=https%3A//learnopengl.com/PBR/Lighting">https://learnopengl.com/PBR/Lighting</a>]</li>
+<li>Parallax Mapping[<a href="https://learnopengl.com/Advanced-Lighting/Parallax-Mapping]">https://learnopengl.com/Advanced-Lighting/Parallax-Mapping]</a></li>
 <li>Case Study: Vector Displacement Mapping in Real-Time[<a href="https://80.lv/articles/case-study-vector-displacement-mapping-in-real-time/]">https://80.lv/articles/case-study-vector-displacement-mapping-in-real-time/]</a></li>
 </ol>
 
@@ -691,13 +716,21 @@
         <!-- span class="has-mr-6">2.3.1</span-->
         <span>2.3.1 Parallax Map</span>
         </a></li><li>
-        <a class="is-flex" href="#2-3-2-Relief-Map">
+        <a class="is-flex" href="#2-3-2-Steep-Parallax-Map">
         <!-- span class="has-mr-6">2.3.2</span-->
-        <span>2.3.2 Relief Map</span>
+        <span>2.3.2 Steep Parallax Map</span>
         </a></li><li>
-        <a class="is-flex" href="#2-3-3-Vector-Displacement">
+        <a class="is-flex" href="#2-3-3-Parallax-Occlusion-Map">
         <!-- span class="has-mr-6">2.3.3</span-->
-        <span>2.3.3 Vector Displacement</span>
+        <span>2.3.3 Parallax Occlusion Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-4-Relief-Map">
+        <!-- span class="has-mr-6">2.3.4</span-->
+        <span>2.3.4 Relief Map</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-3-5Vector-Displacement">
+        <!-- span class="has-mr-6">2.3.5</span-->
+        <span>2.3.5Vector Displacement</span>
         </a></li></ul></li></ul></li><li>
         <a class="is-flex" href="#3-反射贴图">
         <!-- span class="has-mr-6">3</span-->
